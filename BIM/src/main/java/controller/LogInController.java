@@ -13,7 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -21,7 +21,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Users;
 import service.DBConnection;
-
 
 /**
  * FXML Controller class
@@ -32,8 +31,6 @@ public class LogInController implements Initializable {
 
     @FXML
     private TextField txtLogInUsername;
-    @FXML
-    private TextField txtLogInPassword;
     @FXML
     private Button btnSingIn;
     @FXML
@@ -73,89 +70,119 @@ public class LogInController implements Initializable {
     private RadioButton rbtRegisterInactive;
     @FXML
     private RadioButton rbtRegisterActive;
+    @FXML
+    private PasswordField pswLogInPassword;
+    @FXML
+    private TextField txtShowLoginPassword;
+    @FXML
+    private Button btnShowPassword;
+
+    int cont = 0;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-       // cbxRegisterStatus.getItems().addAll("Married", "Viuo", "na");
-     
-    }     
-    
+
+    }
+
     private void showAlert(String message) {
-     
+
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Información");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }  
-    
-    public void changePanes(boolean show){
-        
+    }
+
+    private void clear() {
+        txtRegisterName.setText("");
+        txtRegisterLastName.setText("");
+        txtRegisterId.setText("");
+        txtRegisterUsername.setText("");
+        txtRegisterEmail.setText("");
+        txtRegisterPassword.setText("");
+        rbtRegisterActive.setSelected(true);
+        rbtRegisterDesigner.setSelected(true);
+        txtLogInUsername.setText("");
+        pswLogInPassword.setText("");
+        txtShowLoginPassword.setText("");
+    }
+
+    public void changePanes(boolean show) {
+
         paneSingIn.setVisible(!show);
         paneSingIn.setDisable(show);
         paneSingUp.setVisible(show);
-        paneSingUp.setDisable(!show);    
+        paneSingUp.setDisable(!show);
         paneNewToBIM.setVisible(!show);
         paneNewToBIM.setDisable(show);
     }
-    
-    public String getStatus(){
-        
-        if(rbtRegisterActive.isSelected()){
+
+    public String getStatus() {
+
+        if (rbtRegisterActive.isSelected()) {
             return rbtRegisterActive.getText();
-        }else{
-             return rbtRegisterInactive.getText();
+        } else {
+            return rbtRegisterInactive.getText();
         }
     }
-    
-    public String getRole(){
-        
-        if(rbtRegisterEngineer.isSelected()){
+
+    public String getRole() {
+
+        if (rbtRegisterEngineer.isSelected()) {
             return rbtRegisterEngineer.getText();
-        }else if(rbtRegisterDesigner.isSelected()){
-             return rbtRegisterDesigner.getText();
-        }else if(rbtRegisterAdministrator.isSelected()){
-             return rbtRegisterAdministrator.getText();
+        } else if (rbtRegisterDesigner.isSelected()) {
+            return rbtRegisterDesigner.getText();
+        } else if (rbtRegisterAdministrator.isSelected()) {
+            return rbtRegisterAdministrator.getText();
         }
         return rbtRegisterDesigner.getText();
     }
 
+    public void showPassword(boolean show) {
+
+        pswLogInPassword.setDisable(show);//true
+        pswLogInPassword.setVisible(!show);
+
+        txtShowLoginPassword.setDisable(!show);
+        txtShowLoginPassword.setVisible(show);//true
+    }
+
     @FXML
     private void clickSigIn(ActionEvent event) throws IOException {
-        
+
         String usernameOrEmail = txtLogInUsername.getText();
-        String password = txtLogInPassword.getText();
-        
+        String password = pswLogInPassword.getText();
+
         String role = DBConnection.getInstance().logInUser(usernameOrEmail, password);
         System.out.println("Role:" + role);
-        
-        if("Designer".equals(role)){
+
+        if ("Designer".equals(role)) {
             App.setRoot("designer");
-        }else if("Engineer".equals(role)){
-             App.setRoot("engineer");
-        }else if("Administrator".equals(role)){
+        } else if ("Engineer".equals(role)) {
+            App.setRoot("engineer");
+        } else if ("Administrator".equals(role)) {
             App.setRoot("administrator");
-        }else if(role == null){
+        } else if (role == null) {
             showAlert("No sea mamador");
         }
     }
 
     @FXML
     private void clickCreateAccount(MouseEvent event) {
-        changePanes(true); 
+        clear();
+        changePanes(true);
     }
 
     @FXML
     private void clickSingUp(ActionEvent event) {
-        
-        if(txtRegisterUsername.getText().isEmpty() || txtRegisterEmail.getText().isEmpty() 
-        || txtRegisterPassword.getText().isEmpty()){
-            showAlert("Are you stupid? Txt is empty");         
-        }else{
+
+        if (txtRegisterUsername.getText().isEmpty() || txtRegisterEmail.getText().isEmpty()
+            || txtRegisterPassword.getText().isEmpty()) {
+            showAlert("Are you stupid? Txt is empty");
+        } else {
             int id = Integer.parseInt(txtRegisterId.getText());
             String name = txtRegisterName.getText();
             String lastName = txtRegisterLastName.getText();
@@ -164,8 +191,8 @@ public class LogInController implements Initializable {
             String password = txtRegisterPassword.getText();
             String email = txtRegisterEmail.getText();
             String role = getRole();
-            
-            Users user = new Users(id,name,lastName,status, username,password,email,role);
+
+            Users user = new Users(id, name, lastName, status, username, password, email, role);
             DBConnection.getInstance().registerUsers(user);
             changePanes(false);
         }
@@ -174,6 +201,23 @@ public class LogInController implements Initializable {
     @FXML
     private void clickBack(ActionEvent event) {
         changePanes(false);
+        clear();
     }
-    
+
+    @FXML
+    private void clcikShowPassword(ActionEvent event) {
+        System.out.println("cont:" + cont);
+
+        if (cont % 2 == 0) {
+            showPassword(true);
+            txtShowLoginPassword.setText(pswLogInPassword.getText());
+            btnShowPassword.toFront();
+        } else {
+            showPassword(false);
+            pswLogInPassword.setText(txtShowLoginPassword.getText());
+        }
+
+        cont++;
+    }
+
 }

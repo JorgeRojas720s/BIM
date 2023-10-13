@@ -1,11 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="controller.AdministratorController">
+<AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdministratorController">
    <children>
-      <Label layoutX="286.0" layoutY="148.0" text="Admonistrator" />
+      <AnchorPane id="paneMenu" fx:id="paneMenu" disable="true" layoutX="-42.0" prefHeight="768.0" prefWidth="370.0" stylesheets="@../../../css/administrator.css" visible="false">
+         <children>
+            <Label layoutX="85.0" layoutY="84.0" prefHeight="28.0" prefWidth="59.0" text="Proyects" textFill="WHITE" />
+            <Label layoutX="137.0" layoutY="139.0" onMouseClicked="#clcikShowAddProyect" text="Add Proyect" textFill="WHITE" />
+            <Label layoutX="138.0" layoutY="222.0" onMouseClicked="#clickShowModifyProyect" text="Modify Proyect" textFill="WHITE" />
+            <Label layoutX="139.0" layoutY="323.0" onMouseClicked="#clickShowDeleteProyect" text="Delete Proyect" textFill="WHITE" />
+            <Label layoutX="72.0" layoutY="403.0" text="Users" textFill="WHITE" />
+            <Label fx:id="lblAddUsers" layoutX="145.0" layoutY="466.0" onMouseClicked="#clickShowAddUser" text="Add User" textFill="WHITE" />
+            <Label fx:id="lblModifyUsers" layoutX="146.0" layoutY="547.0" onMouseClicked="#clcikShowModifyUser" text="Modify User" textFill="WHITE" />
+            <Label fx:id="lblDeleteUsers" layoutX="147.0" layoutY="632.0" onMouseClicked="#clickShowDeleteUser" text="Delete User" textFill="WHITE" />
+            <Button fx:id="btnExit" layoutX="62.0" layoutY="710.0" mnemonicParsing="false" onAction="#clickExit" prefHeight="34.0" prefWidth="47.0" text="Exit" />
+            <Button fx:id="clickBack" layoutX="68.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickBack" text="&lt;--" />
+            <Button fx:id="btnHome" layoutX="233.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickHome" text="Home" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="paneUsers" disable="true" layoutX="10.0" layoutY="31.0" prefHeight="728.0" prefWidth="1345.0" visible="false">
+         <children>
+            <Label layoutX="146.0" layoutY="157.0" text="Name" />
+            <Label layoutX="467.0" layoutY="159.0" text="Last Name" />
+            <Label layoutX="328.0" layoutY="328.0" text="Email" />
+            <Label layoutX="161.0" layoutY="453.0" text="Username" />
+            <Label layoutX="430.0" layoutY="454.0" text="Pasword" />
+            <Label layoutX="289.0" layoutY="566.0" text="Role" />
+            <Label layoutX="226.0" layoutY="5.0" text="Id no modifica porque no tine sentido que un usuario cambie de id" />
+            <TextField layoutX="234.0" layoutY="60.0" />
+            <Label layoutX="249.0" layoutY="39.0" prefHeight="17.0" prefWidth="129.0" text="Search User by Id" />
+            <TableView layoutX="796.0" layoutY="49.0" prefHeight="667.0" prefWidth="497.0">
+               <columns>
+                  <TableColumn prefWidth="131.33331298828125" text="Indentication" />
+                  <TableColumn prefWidth="108.0" text="Name" />
+                  <TableColumn prefWidth="116.333251953125" text="Last Name" />
+                  <TableColumn prefWidth="139.666748046875" text="Status" />
+               </columns>
+            </TableView>
+            <Label layoutX="325.0" layoutY="238.0" text="Status" />
+            <TextField layoutX="122.0" layoutY="182.0" />
+            <TextField layoutX="446.0" layoutY="180.0" />
+            <TextField layoutX="275.0" layoutY="360.0" />
+            <TextField layoutX="147.0" layoutY="475.0" />
+            <TextField layoutX="406.0" layoutY="475.0" />
+            <RadioButton layoutX="449.0" layoutY="278.0" mnemonicParsing="false" text="Inactive" />
+            <RadioButton layoutX="211.0" layoutY="279.0" mnemonicParsing="false" text="Active" />
+            <RadioButton layoutX="401.0" layoutY="619.0" mnemonicParsing="false" text="Administrator" />
+            <RadioButton layoutX="261.0" layoutY="620.0" mnemonicParsing="false" text="Designer" />
+            <RadioButton layoutX="113.0" layoutY="620.0" mnemonicParsing="false" text="Egineer" />
+            <Button fx:id="btnModifyUser" disable="true" layoutX="58.0" layoutY="680.0" mnemonicParsing="false" onAction="#clickBtnModifyUser" prefHeight="34.0" prefWidth="506.0" text="Modify" visible="false" />
+            <Button fx:id="btnAddUser" disable="true" layoutX="58.0" layoutY="680.0" mnemonicParsing="false" onAction="#clickBtnAddUser" prefHeight="34.0" prefWidth="506.0" text="Add" visible="false" />
+            <Button fx:id="btnDeleteUser" disable="true" layoutX="58.0" layoutY="680.0" mnemonicParsing="false" onAction="#clickBtnModifyUser" prefHeight="34.0" prefWidth="506.0" text="Delete" visible="false" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="paneProyects" disable="true" layoutX="15.0" layoutY="31.0" prefHeight="728.0" prefWidth="1345.0" visible="false">
+         <children>
+            <TextField layoutX="1066.0" layoutY="281.0" />
+            <TableView layoutX="53.0" layoutY="46.0" prefHeight="667.0" prefWidth="509.0">
+              <columns>
+                <TableColumn prefWidth="186.66668701171875" text="Proyect" />
+                <TableColumn prefWidth="116.3333740234375" text="Code" />
+                  <TableColumn prefWidth="197.6666259765625" text="Construction plan" />
+              </columns>
+            </TableView>
+            <Label layoutX="853.0" layoutY="40.0" prefHeight="17.0" prefWidth="143.0" text="Search Proyect By Code" />
+            <Label layoutX="727.0" layoutY="150.0" text="Name" />
+            <Label layoutX="1072.0" layoutY="150.0" text="Construction plan" />
+            <Label layoutX="704.0" layoutY="263.0" text="Engineer" />
+            <Label layoutX="1080.0" layoutY="255.0" text="Designer" />
+            <Label layoutX="717.0" layoutY="402.0" text="Start Date" />
+            <Label layoutX="1075.0" layoutY="393.0" text="Finish Date" />
+            <TextField layoutX="705.0" layoutY="180.0" />
+            <TextField layoutX="1071.0" layoutY="179.0" />
+            <TextField layoutX="833.0" layoutY="70.0" />
+            <DatePicker layoutX="696.0" layoutY="427.0" />
+            <DatePicker layoutX="1060.0" layoutY="424.0" />
+            <TextField layoutX="709.0" layoutY="284.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="paneHome" layoutX="19.0" layoutY="31.0" prefHeight="728.0" prefWidth="1332.0">
+         <children>
+            <Label layoutX="513.0" layoutY="282.0" text="Algo como bienvenido admin y el nombre se pone" />
+         </children>
+      </AnchorPane>
+      <Button fx:id="btnMenu" layoutX="56.0" layoutY="18.0" mnemonicParsing="false" onAction="#clcikMenu" text="Menu" />
    </children>
 </AnchorPane>

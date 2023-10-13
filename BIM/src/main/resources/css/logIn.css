@@ -9,10 +9,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 
 #paneLogIn {
-    -fx-background-color: #222831;
-    
+    -fx-background-color: #222831; 
 }
-
 
 #paneSingIn {
     -fx-background-color: #393E46;
@@ -24,12 +22,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-radius: 7px;
 }
 
-
 #labCreateAccount:hover {
     -fx-cursor: hand;
     -fx-underline: true;
 }
 
+/* Estilo para los RadioButtons */
+.radio-button .radio {
+    -fx-background-color: transparent;
+     -fx-mark-color: #0077E6; /* Color de la bolita interior (azul en este caso) */
+    -fx-border-color: #0077E6; /* Color del borde azul */
+    -fx-border-width: 2px;
+    -fx-border-radius: 50%; /* Hace que el radio button sea circular */
+}
+
+
+/* 
+.radio-button:hover {
+    -fx-background-color:#222831;
+    -fx-background-radius: 7px;
+}
+*/
 
 .button {
     -fx-background-color: #4CAF50; 
@@ -39,16 +52,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-font-weight: bold;
 }
 
-
 .button:hover {
     -fx-background-color: #45a049; 
 }
 
-
 .button:pressed {
     -fx-background-color: #388e3c; 
 }
-
 
 .text-field {
     -fx-background-color: #333333;  

@@ -19,6 +19,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("logIn"), 660, 550);
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
     }
 
