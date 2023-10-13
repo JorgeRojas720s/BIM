@@ -1,0 +1,71 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 11 oct 2023, 17:12:26
+    Author     : jitor
+*/
+
+
+#paneLogIn {
+    -fx-background-color: #222831;
+    
+}
+
+
+#paneSingIn {
+    -fx-background-color: #393E46;
+     -fx-background-radius: 7px;
+}
+
+#paneSingUp {
+    -fx-background-color: #393E46;
+    -fx-background-radius: 7px;
+}
+
+
+#labCreateAccount:hover {
+    -fx-cursor: hand;
+    -fx-underline: true;
+}
+
+
+.button {
+    -fx-background-color: #4CAF50; 
+    -fx-text-fill: white;
+    -fx-font-size: 14px; 
+    -fx-background-radius: 7px;
+    -fx-font-weight: bold;
+}
+
+
+.button:hover {
+    -fx-background-color: #45a049; 
+}
+
+
+.button:pressed {
+    -fx-background-color: #388e3c; 
+}
+
+
+.text-field {
+    -fx-background-color: #333333;  
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 5 10; 
+    -fx-background-radius: 8px; 
+    -fx-border-color: transparent; 
+}
+
+.text-field:focused {
+    -fx-background-color: #333333; 
+    -fx-border-radius: 6px;
+    -fx-border-color: #0000FF; 
+    -fx-border-width: 2px;
+}
+
+
+
+

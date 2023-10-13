@@ -6,42 +6,110 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="540.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LogInController">
+<AnchorPane id="paneLogIn" prefHeight="588.0" prefWidth="754.0" stylesheets="@../../../css/logIn.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LogInController">
    <children>
-      <AnchorPane fx:id="PaneSingIn" layoutX="187.0" layoutY="132.0" prefHeight="230.0" prefWidth="310.0">
+      <AnchorPane id="paneSingIn" fx:id="paneSingIn" layoutX="188.0" layoutY="179.0" prefHeight="230.0" prefWidth="310.0">
          <children>
-            <Label layoutX="43.0" layoutY="20.0" text="Username" />
+            <Label layoutX="43.0" layoutY="20.0" prefHeight="20.0" prefWidth="193.0" text="Username or email address" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
             <TextField fx:id="txtLogInUsername" layoutX="35.0" layoutY="43.0" prefHeight="25.0" prefWidth="238.0" />
-            <Label layoutX="45.0" layoutY="91.0" text="Password" />
+            <Label layoutX="45.0" layoutY="91.0" text="Password" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
             <TextField fx:id="txtLogInPassword" layoutX="36.0" layoutY="115.0" prefHeight="25.0" prefWidth="238.0" />
-            <Button fx:id="btnSingIn" layoutX="36.0" layoutY="174.0" mnemonicParsing="false" onAction="#clickSigIn" prefHeight="25.0" prefWidth="238.0" text="Sing in" />
+            <Button fx:id="btnSingIn" layoutX="36.0" layoutY="174.0" mnemonicParsing="false" onAction="#clickSigIn" prefHeight="25.0" prefWidth="238.0" text="Sing in" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Button>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="248.0" layoutY="407.0" prefHeight="70.0" prefWidth="186.0">
+      <AnchorPane fx:id="paneNewToBIM" layoutX="234.0" layoutY="409.0" prefHeight="66.0" prefWidth="217.0">
          <children>
-            <Label layoutX="80.0" layoutY="27.0" onMouseClicked="#clickCreateAccount" prefHeight="17.0" prefWidth="101.0" text="Create an account" />
-            <Label layoutX="6.0" layoutY="27.0" text="New to BIM?" />
+            <Label id="labCreateAccount" layoutX="94.0" layoutY="27.0" onMouseClicked="#clickCreateAccount" prefHeight="20.0" prefWidth="121.0" text="Create an account" textFill="#0084ff">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="6.0" layoutY="27.0" text="New to BIM?" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
          </children>
       </AnchorPane>
-      <Label layoutX="300.0" layoutY="98.0" prefHeight="22.0" prefWidth="81.0" text="Sing in to BIM" />
-      <AnchorPane fx:id="PaneSingUp" disable="true" layoutX="187.0" layoutY="132.0" prefHeight="255.0" prefWidth="310.0" visible="false">
+      <Label layoutX="278.0" layoutY="139.0" prefHeight="22.0" prefWidth="108.0" text="Sing in to BIM" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <AnchorPane id="paneSingUp" fx:id="paneSingUp" disable="true" layoutX="179.0" layoutY="50.0" prefHeight="473.0" prefWidth="328.0" visible="false">
          <children>
-            <Label layoutX="52.0" layoutY="21.0" text="Username" />
-            <Label layoutX="52.0" layoutY="69.0" text="Email" />
-            <Label layoutX="54.0" layoutY="124.0" text="Password" />
-            <RadioButton fx:id="rbtRegisterEngineer" layoutX="18.0" layoutY="179.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="73.0" text="Engineer">
+            <Label layoutX="53.0" layoutY="208.0" text="Username" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="53.0" layoutY="265.0" text="Email" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="53.0" layoutY="323.0" text="Password" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <RadioButton fx:id="rbtRegisterEngineer" layoutX="16.0" layoutY="391.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="80.0" text="Engineer" textFill="WHITE">
                <toggleGroup>
                   <ToggleGroup fx:id="GroupWorkers" />
                </toggleGroup>
+               <font>
+                  <Font size="13.0" />
+               </font>
             </RadioButton>
-            <RadioButton fx:id="rbtRegisterDesigner" layoutX="106.0" layoutY="179.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="73.0" selected="true" text="Designer" toggleGroup="$GroupWorkers" />
-            <RadioButton fx:id="rbtRegisterAdministrator" layoutX="195.0" layoutY="179.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="95.0" text="Administrator" toggleGroup="$GroupWorkers" />
-            <TextField fx:id="txtRegisterUsername" layoutX="35.0" layoutY="38.0" prefHeight="25.0" prefWidth="238.0" />
-            <TextField fx:id="txtRegisterEmail" layoutX="35.0" layoutY="86.0" prefHeight="25.0" prefWidth="238.0" />
-            <TextField fx:id="txtRegisterPassword" layoutX="35.0" layoutY="141.0" prefHeight="25.0" prefWidth="238.0" />
-            <Button fx:id="btnSingUp" layoutX="35.0" layoutY="209.0" mnemonicParsing="false" onAction="#clickSingUp" prefHeight="25.0" prefWidth="238.0" text="Sing up" />
-            <Button fx:id="btnRegisterBack" layoutY="2.0" mnemonicParsing="false" onAction="#clickBack" prefHeight="25.0" prefWidth="40.0" text="&lt;-" />
+            <RadioButton fx:id="rbtRegisterDesigner" layoutX="114.0" layoutY="391.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="80.0" selected="true" text="Designer" textFill="WHITE" toggleGroup="$GroupWorkers">
+               <font>
+                  <Font size="13.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="rbtRegisterAdministrator" layoutX="201.0" layoutY="391.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="108.0" text="Administrator" textFill="WHITE" toggleGroup="$GroupWorkers">
+               <font>
+                  <Font size="13.0" />
+               </font></RadioButton>
+            <TextField fx:id="txtRegisterUsername" layoutX="45.0" layoutY="228.0" prefHeight="25.0" prefWidth="238.0" />
+            <TextField fx:id="txtRegisterEmail" layoutX="42.0" layoutY="285.0" prefHeight="25.0" prefWidth="238.0" />
+            <TextField fx:id="txtRegisterPassword" layoutX="42.0" layoutY="343.0" prefHeight="25.0" prefWidth="238.0" />
+            <Button fx:id="btnSingUp" layoutX="42.0" layoutY="429.0" mnemonicParsing="false" onAction="#clickSingUp" prefHeight="25.0" prefWidth="238.0" text="Sing up" />
+            <Button fx:id="btnRegisterBack" layoutY="-1.0" mnemonicParsing="false" onAction="#clickBack" prefHeight="32.0" prefWidth="43.0" text="&lt;-" />
+            <TextField fx:id="txtRegisterName" layoutX="42.0" layoutY="58.0" prefHeight="32.0" prefWidth="114.0" />
+            <TextField fx:id="txtRegisterLastName" layoutX="175.0" layoutY="58.0" prefHeight="32.0" prefWidth="108.0" />
+            <TextField fx:id="txtRegisterId" layoutX="68.0" layoutY="122.0" prefHeight="32.0" prefWidth="187.0" />
+            <Label layoutX="50.0" layoutY="41.0" text="Name" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="181.0" layoutY="41.0" prefHeight="20.0" prefWidth="74.0" text="Last  name" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="80.0" layoutY="102.0" prefHeight="17.0" prefWidth="114.0" text="Identification" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="rbtRegisterActive" layoutX="63.0" layoutY="170.0" mnemonicParsing="false" selected="true" text="Active " textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="GroupStatus" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="rbtRegisterInactive" layoutX="175.0" layoutY="170.0" mnemonicParsing="false" text="Inactive" textFill="WHITE" toggleGroup="$GroupStatus">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </RadioButton>
          </children>
       </AnchorPane>
    </children>

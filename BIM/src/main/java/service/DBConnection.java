@@ -7,6 +7,7 @@ package service;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Users;
 
@@ -61,14 +62,17 @@ public class DBConnection {
        
         try { connect(dbName);
         
-        String sql = "INSERT INTO tbl_users (usr_username,usr_email, usr_password, usr_role) VALUES (?,?,?,?)";
-        
+        String sql = "INSERT INTO tbl_users (usr_id,usr_name,usr_lastName,usr_status,usr_username,usr_email, usr_password, usr_role) VALUES (?,?,?,?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(sql);
         
-        statement.setString(1, user.getUsername());
-        statement.setString(2, user.getEmail());
-        statement.setString(3, user.getPassword());
-        statement.setString(4, user.getRole());
+        statement.setInt(1, user.getId());
+        statement.setString(2, user.getName());
+        statement.setString(3, user.getLastName());
+        statement.setString(4, user.getStatus());
+        statement.setString(5, user.getUsername());
+        statement.setString(6, user.getEmail());
+        statement.setString(7, user.getPassword());
+        statement.setString(8, user.getRole());
 
         statement.executeUpdate();
         statement.close();
@@ -78,7 +82,36 @@ public class DBConnection {
             e.printStackTrace();
             System.out.println("No se guardo el user");
         }
+    } 
+    
+    
+    public String logInUser(String usernameOrEmail, String password) {
+        try {
+            connect(dbName);
+
+            String sql = "SELECT usr_role FROM tbl_users WHERE (usr_username = ? OR usr_email = ?) AND usr_password = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, usernameOrEmail);
+            statement.setString(2, usernameOrEmail);
+            statement.setString(3, password);
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                String role = result.getString("usr_role");
+                return role; 
+            }
+
+            statement.close();
+            disconnect();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error al buscar el user");
+        }
+
+        return null; 
     }
+
     
     
     

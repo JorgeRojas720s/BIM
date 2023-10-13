@@ -9,20 +9,60 @@ package model;
  * @author jitor
  */
 public class Users {
-    
-    String username;
-    String password;
-    String email;
-    String role;
 
-    public Users(String username, String password, String email, String role) {
+    private int id;
+    private String name;
+    private String lastName;
+    private String status;
+    private String username;
+    private String password;
+    private String email;
+    private String role;
+
+    public Users(int id, String name, String lastName, String status, String username, String password, String email, String role) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.status = status;
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
     }
-    
+
     public Users() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getUsername() {
@@ -57,11 +97,13 @@ public class Users {
         this.role = role;
     }
 
+    
+
     @Override
     public String toString() {
-        return "Users{" + "username=" + username + ", password=" + password + ", email=" + email + ", role=" + role + '}';
+        return "Users{" + "id=" + id + ", name=" + name + ", lastName=" + lastName + ", status=" + status + ", username=" + username + ", password=" + password + ", email=" + email + ", role=" + role + '}';
     }
-         
- 
-    
+
+  
+
 }
