@@ -7,14 +7,25 @@ package controller;
 import com.mycompany.bim.App;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.Property;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import model.User;
+import service.DBConnection;
 
 /**
  * FXML Controller class
@@ -51,15 +62,92 @@ public class AdministratorController implements Initializable {
     private Label lblModifyUsers;
     @FXML
     private Label lblDeleteUsers;
-
-    private int aux;
+    @FXML
+    private Label lblUserID;
+    @FXML
+    private Button btnAddProyect;
+    @FXML
+    private Button btnModifyProyect;
+    @FXML
+    private Button btnDeleteProyect;
+    @FXML
+    private Label lblAddProyects;
+    @FXML
+    private Label lblModifyProyects;
+    @FXML
+    private Label lblDeleteProyects;
+    @FXML
+    private Label lblProyectCode;
+    @FXML
+    private TableView<User> tbvUsers;
+    @FXML
+    private TableColumn<User, String> columnID;
+    @FXML
+    private TableColumn<User, String> columnName;
+    @FXML
+    private TableColumn<User, String> columnLastName;
+    @FXML
+    private TableColumn<User, String> columnStatus;
+    @FXML
+    private TableColumn<User, String> columnRole;
+    @FXML
+    private Button btnSearchUser;
+    @FXML
+    private TextField txtUserId;
+    @FXML
+    private TextField txtUserName;
+    @FXML
+    private TextField txtUserLastName;
+    @FXML
+    private TextField txtUserEmail;
+    @FXML
+    private TextField txtUserUsername;
+    @FXML
+    private TextField txtUserPassword;
+    @FXML
+    private RadioButton rbtUserInactive;
+    @FXML
+    private RadioButton rbtUserActive;
+    @FXML
+    private RadioButton rbtUserAdministrator;
+    @FXML
+    private RadioButton rbtUserDesigner;
+    @FXML
+    private RadioButton rbtUserEngineer;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        fillTableView();
+        updateTableViewUsers();
+    }
+
+    private void clearTxtUser() {
+        txtUserId.setText("");
+        txtUserName.setText("");
+        txtUserLastName.setText("");
+        txtUserEmail.setText("");
+        txtUserUsername.setText("");
+        txtUserPassword.setText("");
+    }
+
+    private void fillTableView() {
+
+        columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        columnRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+        columnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+    }
+
+    private void updateTableViewUsers() {
+
+        List<User> listaUsers = DBConnection.getInstance().getUsers();
+
+        ObservableList<User> userObservableList = FXCollections.observableArrayList(listaUsers);
+        tbvUsers.setItems(userObservableList);
     }
 
     private void showMenuPane(boolean show) {
@@ -79,101 +167,125 @@ public class AdministratorController implements Initializable {
         paneHome.setVisible(show);
     }
 
-    private void showUsers(boolean show, int aux) {
+    private void userOPtions(boolean show1, boolean show2, boolean show3) {
+
+        btnAddUser.setDisable(!show1);
+        btnAddUser.setVisible(show1);
+        btnSearchUser.setDisable(show1);
+        btnSearchUser.setVisible(!show1);
+
+        btnModifyUser.setDisable(!show2);
+        btnModifyUser.setVisible(show2);
+
+        btnDeleteUser.setDisable(!show3);
+        btnDeleteUser.setVisible(show3);
+
+        btnSearchUser.setDisable(show2 && show3);
+        btnSearchUser.setVisible(show2 || show3);
+    }
+
+    private void showUsers(boolean show) {
 
         showBtnMenu(show);
         showMenuPane(!show);
         paneUsers.setDisable(!show);
         paneUsers.setVisible(show);
-        System.out.println("AUX" +aux);
-        
-        if (aux == 1) {
-            System.out.println("Juepu");
-                     btnModifyUser.setDisable(show);
-            btnModifyUser.setVisible(!show);
-            
-                btnDeleteUser.setDisable(show);
-            btnDeleteUser.setVisible(!show);
-            
-            
-            btnAddUser.setDisable(!show);
-            btnAddUser.setVisible(show);
-            aux = 0;
-        } else if (aux == 2) {
-            System.out.println("Porque");
-            btnModifyUser.setDisable(!show);
-            btnModifyUser.setVisible(show);
-            
-            //acomodar este despiche mañana
-                   btnDeleteUser.setDisable(show);
-            btnDeleteUser.setVisible(!show);
-            
-            
-            btnAddUser.setDisable(show);
-            btnAddUser.setVisible(!show);
-            
-            aux = 0;
-        } else if (aux == 3) {
-            System.out.println("No sirve");
-            btnDeleteUser.setDisable(!show);
-            btnDeleteUser.setVisible(show);
-            
-                      btnModifyUser.setDisable(show);
-            btnModifyUser.setVisible(!show);
-            
-              
-            btnAddUser.setDisable(show);
-            btnAddUser.setVisible(!show);
-            
-            aux = 0;
+
+        if (lblAddUsers.isHover()) {
+            lblUserID.setText("Identification:");
+            userOPtions(true, false, false);
+            clearTxtUser();
+        } else if (lblModifyUsers.isHover()) {
+            lblUserID.setText("Search user by ID:"); //posible cambio a solo "identification"
+            userOPtions(false, true, false);
+            clearTxtUser();
+        } else if (lblDeleteUsers.isHover()) {
+            lblUserID.setText("Search user by ID:");
+            userOPtions(false, false, true);
+            clearTxtUser();
+        }
+
+    }
+
+    private void proyectOptions(boolean show1, boolean show2, boolean show3) {
+
+        btnAddProyect.setDisable(!show1);
+        btnAddProyect.setVisible(show1);
+
+        btnModifyProyect.setDisable(!show2);
+        btnModifyProyect.setVisible(show2);
+
+        btnDeleteProyect.setDisable(!show3);
+        btnDeleteProyect.setVisible(show3);
+    }
+
+    private void showProyects(boolean show) {
+        showBtnMenu(show);
+        showMenuPane(!show);
+        paneProyects.setDisable(!show);
+        paneProyects.setVisible(show);
+
+        if (lblAddProyects.isHover()) {
+            lblProyectCode.setText("Proyect code:");
+            proyectOptions(true, false, false);
+        } else if (lblModifyProyects.isHover()) {
+            lblProyectCode.setText("Search user by ID:");
+            proyectOptions(false, true, false);
+
+        } else if (lblDeleteProyects.isHover()) {
+            lblProyectCode.setText("Search proyect by code");
+            proyectOptions(false, false, true);
         }
 
     }
 
     @FXML
     private void clcikShowAddProyect(MouseEvent event) {
+        showHome(false);
+        showUsers(false);
+        showProyects(true);
     }
 
     @FXML
     private void clickShowModifyProyect(MouseEvent event) {
+        showHome(false);
+        showUsers(false);
+        showProyects(true);
     }
 
     @FXML
     private void clickShowDeleteProyect(MouseEvent event) {
+        showHome(false);
+        showUsers(false);
+        showProyects(true);
     }
 
     @FXML
     private void clickShowAddUser(MouseEvent event) {
-        aux = 1;
         showHome(false);
-        showUsers(true, aux);
+        showProyects(false);
+        showUsers(true);
     }
 
     @FXML
     private void clcikShowModifyUser(MouseEvent event) {
-        aux = 2;
+
         showHome(false);
-        showUsers(true, aux);
+        showProyects(false);
+        showUsers(true);
     }
 
     @FXML
     private void clickShowDeleteUser(MouseEvent event) {
-        aux = 3;
+
         showHome(false);
-        showUsers(true, aux);
+        showProyects(false);
+        showUsers(true);
     }
 
     @FXML
     private void clickExit(ActionEvent event) throws IOException {
         App.setRoot("logIn");
-    }
-
-    @FXML
-    private void clickBtnModifyUser(ActionEvent event) {
-    }
-
-    @FXML
-    private void clickBtnAddUser(ActionEvent event) {
     }
 
     @FXML
@@ -188,10 +300,58 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickHome(ActionEvent event) {
-        aux = 0;
+
         showHome(true);
-        showUsers(false, aux);
+        showUsers(false);
+        showProyects(false);
         showMenuPane(false);
+    }
+
+    @FXML
+    private void clickAddProyect(ActionEvent event) {
+    }
+
+    @FXML
+    private void clickModifyProyect(ActionEvent event) {
+    }
+
+    @FXML
+    private void clcikDeleteProyect(ActionEvent event) {
+    }
+
+    @FXML
+    private void clickModifyUser(ActionEvent event) {
+    }
+
+    @FXML
+    private void clickAddUser(ActionEvent event) {
+    }
+
+    @FXML
+    private void clickDeleteUser(ActionEvent event) {
+    }
+
+    @FXML
+    private void clickGetID(MouseEvent event) {
+
+        int index = tbvUsers.getSelectionModel().getFocusedIndex();
+
+        String id = String.valueOf(columnID.getCellData(index));
+
+        System.out.println("ID:" + id);
+
+        txtUserId.setText(id);
+
+//        User temp = tbvUsers.getItems().get(index);
+//        int id = tourDAO.getTourPorID(temp.getTurIdtour().toString()).getTourId();
+//
+//        txtIdTour.setText(String.valueOf(id));
+    }
+
+    @FXML
+    private void clickSearchUser(ActionEvent event) {
+
+        //hacer el search de la bd
     }
 
 }

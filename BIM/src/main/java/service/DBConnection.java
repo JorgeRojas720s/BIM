@@ -4,12 +4,17 @@
  */
 package service;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import model.Users;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import model.User;
 
 /**
  *
@@ -58,7 +63,7 @@ public class DBConnection {
     }
     
     
-    public void registerUsers(Users user){
+    public void registerUsers(User user){
        
         try { connect(dbName);
         
@@ -112,7 +117,38 @@ public class DBConnection {
         return null; 
     }
 
-    
+        public List<User> getUsers() {
+        List<User> listUsers = new ArrayList<>();
+        
+        try {
+            connect(dbName);
+            
+            String query = "SELECT * FROM tbl_users ORDER BY usr_id";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+               
+                Integer userId = resultSet.getInt("usr_id");
+                String userName = resultSet.getString("usr_name");
+                String userLastName = resultSet.getString("usr_lastName");
+                String userStatus = resultSet.getString("usr_status");
+                 String userRole = resultSet.getString("usr_role");
+   
+                
+                User users = new User(userId, userName,userLastName,userStatus,userRole);
+                listUsers.add(users);
+            }
+
+            resultSet.close();
+            statement.close();
+            disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return listUsers;
+    }
     
     
 }

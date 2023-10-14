@@ -7,9 +7,63 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Author     : jitor
 */
 
-#paneMenu {
+
+#paneAdministrator {
     
-    -fx-background-color: #393E46;
-     -fx-background-radius: 50px;
+    -fx-background-color: #61677A;
     
 }
+
+
+#paneUserHome {
+    
+    -fx-background-color: #1F4172;
+    -fx-background-radius: 45px;
+    
+}
+
+#paneUserMenu {
+    
+    -fx-background-color: #393E46;
+     -fx-background-radius: 45px;
+    
+}
+
+
+
+.table-cell {
+    -fx-text-fill: white; 
+    -fx-font-weight: bold;
+}
+
+.table-view .column-header {
+    -fx-background-color: white;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: #181818;
+    -fx-text-fill: white;
+    -fx-border-color: black;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: gray;
+    -fx-text-fill: black;
+}
+
+.table-view .table-cell {
+    -fx-padding: 5px;
+    -fx-alignment: center-left;
+}
+
+.table-view .text-cell {
+    -fx-alignment: center-left;
+}
+
+
+

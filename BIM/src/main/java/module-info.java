@@ -9,8 +9,8 @@ module com.mycompany.bim {
     opens controller to javafx.fxml;
     exports controller;
     
-//    opens model to javafx.fxml;
-//    exports model;
+    opens model to javafx.fxml;
+    exports model;
 //       
 //    opens utils to javafx.fxml;
 //    exports utils;

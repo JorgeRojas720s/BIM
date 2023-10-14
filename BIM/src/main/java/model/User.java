@@ -8,7 +8,7 @@ package model;
  *
  * @author jitor
  */
-public class Users {
+public class User {
 
     private int id;
     private String name;
@@ -19,7 +19,7 @@ public class Users {
     private String email;
     private String role;
 
-    public Users(int id, String name, String lastName, String status, String username, String password, String email, String role) {
+    public User(int id, String name, String lastName, String status, String username, String password, String email, String role) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -30,7 +30,16 @@ public class Users {
         this.role = role;
     }
 
-    public Users() {
+    public User(int id, String name, String lastName, String status,String role) {
+
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.status = status;
+        this.role = role;
+    }
+
+    public User() {
     }
 
     public int getId() {
@@ -97,13 +106,9 @@ public class Users {
         this.role = role;
     }
 
-    
-
     @Override
     public String toString() {
         return "Users{" + "id=" + id + ", name=" + name + ", lastName=" + lastName + ", status=" + status + ", username=" + username + ", password=" + password + ", email=" + email + ", role=" + role + '}';
     }
-
-  
 
 }

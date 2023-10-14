@@ -8,15 +8,16 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdministratorController">
+<AnchorPane id="paneAdministrator" prefHeight="768.0" prefWidth="1366.0" stylesheets="@../../../css/administrator.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdministratorController">
    <children>
-      <AnchorPane id="paneMenu" fx:id="paneMenu" disable="true" layoutX="-42.0" prefHeight="768.0" prefWidth="370.0" stylesheets="@../../../css/administrator.css" visible="false">
+      <AnchorPane id="paneUserMenu" fx:id="paneMenu" disable="true" layoutX="-42.0" prefHeight="768.0" prefWidth="370.0" stylesheets="@../../../css/administrator.css" visible="false">
          <children>
             <Label layoutX="85.0" layoutY="84.0" prefHeight="28.0" prefWidth="59.0" text="Proyects" textFill="WHITE" />
-            <Label layoutX="137.0" layoutY="139.0" onMouseClicked="#clcikShowAddProyect" text="Add Proyect" textFill="WHITE" />
-            <Label layoutX="138.0" layoutY="222.0" onMouseClicked="#clickShowModifyProyect" text="Modify Proyect" textFill="WHITE" />
-            <Label layoutX="139.0" layoutY="323.0" onMouseClicked="#clickShowDeleteProyect" text="Delete Proyect" textFill="WHITE" />
+            <Label fx:id="lblAddProyects" layoutX="137.0" layoutY="139.0" onMouseClicked="#clcikShowAddProyect" text="Add Proyect" textFill="WHITE" />
+            <Label fx:id="lblModifyProyects" layoutX="138.0" layoutY="222.0" onMouseClicked="#clickShowModifyProyect" text="Modify Proyect" textFill="WHITE" />
+            <Label fx:id="lblDeleteProyects" layoutX="139.0" layoutY="323.0" onMouseClicked="#clickShowDeleteProyect" text="Delete Proyect" textFill="WHITE" />
             <Label layoutX="72.0" layoutY="403.0" text="Users" textFill="WHITE" />
             <Label fx:id="lblAddUsers" layoutX="145.0" layoutY="466.0" onMouseClicked="#clickShowAddUser" text="Add User" textFill="WHITE" />
             <Label fx:id="lblModifyUsers" layoutX="146.0" layoutY="547.0" onMouseClicked="#clcikShowModifyUser" text="Modify User" textFill="WHITE" />
@@ -26,44 +27,77 @@
             <Button fx:id="btnHome" layoutX="233.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickHome" text="Home" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="paneUsers" disable="true" layoutX="10.0" layoutY="31.0" prefHeight="728.0" prefWidth="1345.0" visible="false">
+      <AnchorPane fx:id="paneUsers" disable="true" layoutX="10.0" layoutY="31.0" prefHeight="728.0" prefWidth="1345.0" stylesheets="@../../../css/administrator.css" visible="false">
          <children>
-            <Label layoutX="146.0" layoutY="157.0" text="Name" />
-            <Label layoutX="467.0" layoutY="159.0" text="Last Name" />
-            <Label layoutX="328.0" layoutY="328.0" text="Email" />
-            <Label layoutX="161.0" layoutY="453.0" text="Username" />
-            <Label layoutX="430.0" layoutY="454.0" text="Pasword" />
-            <Label layoutX="289.0" layoutY="566.0" text="Role" />
-            <Label layoutX="226.0" layoutY="5.0" text="Id no modifica porque no tine sentido que un usuario cambie de id" />
-            <TextField layoutX="234.0" layoutY="60.0" />
-            <Label layoutX="249.0" layoutY="39.0" prefHeight="17.0" prefWidth="129.0" text="Search User by Id" />
-            <TableView layoutX="796.0" layoutY="49.0" prefHeight="667.0" prefWidth="497.0">
+            <Label layoutX="142.0" layoutY="215.0" text="Name">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="502.0" layoutY="215.0" text="Last Name">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="314.0" layoutY="375.0" text="Email">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="153.0" layoutY="485.0" prefHeight="30.0" prefWidth="97.0" text="Username">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="493.0" layoutY="484.0" prefHeight="30.0" prefWidth="130.0" text="Pasword">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="247.0" layoutY="5.0" text="Id no modifica porque no tine sentido que un usuario cambie de id" />
+            <TextField fx:id="txtUserId" layoutX="307.0" layoutY="126.0" prefHeight="40.0" prefWidth="200.0" />
+            <Label fx:id="lblUserID" layoutX="314.0" layoutY="95.0" prefHeight="27.0" prefWidth="150.0" text="Search user by ID">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <TableView fx:id="tbvUsers" layoutX="789.0" layoutY="24.0" onMouseClicked="#clickGetID" prefHeight="692.0" prefWidth="525.0">
                <columns>
-                  <TableColumn prefWidth="131.33331298828125" text="Indentication" />
-                  <TableColumn prefWidth="108.0" text="Name" />
-                  <TableColumn prefWidth="116.333251953125" text="Last Name" />
-                  <TableColumn prefWidth="139.666748046875" text="Status" />
+                  <TableColumn fx:id="columnID" prefWidth="131.33331298828125" text="Indentication" />
+                  <TableColumn fx:id="columnName" prefWidth="103.0" text="Name" />
+                  <TableColumn fx:id="columnLastName" prefWidth="107.0" text="Last Name" />
+                  <TableColumn fx:id="columnRole" prefWidth="97.0" text="Role" />
+                  <TableColumn fx:id="columnStatus" prefWidth="85.0" text="Status" />
                </columns>
             </TableView>
-            <Label layoutX="325.0" layoutY="238.0" text="Status" />
-            <TextField layoutX="122.0" layoutY="182.0" />
-            <TextField layoutX="446.0" layoutY="180.0" />
-            <TextField layoutX="275.0" layoutY="360.0" />
-            <TextField layoutX="147.0" layoutY="475.0" />
-            <TextField layoutX="406.0" layoutY="475.0" />
-            <RadioButton layoutX="449.0" layoutY="278.0" mnemonicParsing="false" text="Inactive" />
-            <RadioButton layoutX="211.0" layoutY="279.0" mnemonicParsing="false" text="Active" />
-            <RadioButton layoutX="401.0" layoutY="619.0" mnemonicParsing="false" text="Administrator" />
-            <RadioButton layoutX="261.0" layoutY="620.0" mnemonicParsing="false" text="Designer" />
-            <RadioButton layoutX="113.0" layoutY="620.0" mnemonicParsing="false" text="Egineer" />
-            <Button fx:id="btnModifyUser" disable="true" layoutX="58.0" layoutY="680.0" mnemonicParsing="false" onAction="#clickBtnModifyUser" prefHeight="34.0" prefWidth="506.0" text="Modify" visible="false" />
-            <Button fx:id="btnAddUser" disable="true" layoutX="58.0" layoutY="680.0" mnemonicParsing="false" onAction="#clickBtnAddUser" prefHeight="34.0" prefWidth="506.0" text="Add" visible="false" />
-            <Button fx:id="btnDeleteUser" disable="true" layoutX="58.0" layoutY="680.0" mnemonicParsing="false" onAction="#clickBtnModifyUser" prefHeight="34.0" prefWidth="506.0" text="Delete" visible="false" />
+            <TextField fx:id="txtUserName" layoutX="123.0" layoutY="244.0" prefHeight="40.0" prefWidth="200.0" />
+            <TextField fx:id="txtUserLastName" layoutX="485.0" layoutY="244.0" prefHeight="40.0" prefWidth="200.0" />
+            <TextField fx:id="txtUserEmail" layoutX="303.0" layoutY="407.0" prefHeight="40.0" prefWidth="200.0" />
+            <TextField fx:id="txtUserUsername" layoutX="138.0" layoutY="519.0" prefHeight="40.0" prefWidth="200.0" />
+            <TextField fx:id="txtUserPassword" layoutX="486.0" layoutY="517.0" prefHeight="40.0" prefWidth="200.0" />
+            <RadioButton fx:id="rbtUserInactive" layoutX="526.0" layoutY="322.0" mnemonicParsing="false" text="Inactive">
+               <font>
+                  <Font size="18.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="rbtUserActive" layoutX="166.0" layoutY="322.0" mnemonicParsing="false" text="Active">
+               <font>
+                  <Font size="18.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="rbtUserAdministrator" layoutX="548.0" layoutY="620.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="151.0" text="Administrator">
+               <font>
+                  <Font size="18.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="rbtUserDesigner" layoutX="354.0" layoutY="625.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="113.0" text="Designer">
+               <font>
+                  <Font size="18.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="rbtUserEngineer" layoutX="130.0" layoutY="626.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="113.0" text="Egineer">
+               <font>
+                  <Font size="18.0" />
+               </font></RadioButton>
+            <Button fx:id="btnModifyUser" disable="true" layoutX="58.0" layoutY="680.0" mnemonicParsing="false" onAction="#clickModifyUser" prefHeight="40.0" prefWidth="700.0" text="Modify" visible="false" />
+            <Button fx:id="btnAddUser" disable="true" layoutX="58.0" layoutY="680.0" mnemonicParsing="false" onAction="#clickAddUser" prefHeight="40.0" prefWidth="700.0" text="Add" visible="false" />
+            <Button fx:id="btnDeleteUser" disable="true" layoutX="58.0" layoutY="680.0" mnemonicParsing="false" onAction="#clickDeleteUser" prefHeight="40.0" prefWidth="700.0" text="Delete" visible="false" />
+            <Button fx:id="btnSearchUser" layoutX="532.0" layoutY="126.0" mnemonicParsing="false" onAction="#clickSearchUser" prefHeight="40.0" prefWidth="70.0" text="Search" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="paneProyects" disable="true" layoutX="15.0" layoutY="31.0" prefHeight="728.0" prefWidth="1345.0" visible="false">
          <children>
-            <TextField layoutX="1066.0" layoutY="281.0" />
+            <TextField layoutX="1066.0" layoutY="382.0" prefHeight="40.0" prefWidth="200.0" />
             <TableView layoutX="53.0" layoutY="46.0" prefHeight="667.0" prefWidth="509.0">
               <columns>
                 <TableColumn prefWidth="186.66668701171875" text="Proyect" />
@@ -71,26 +105,53 @@
                   <TableColumn prefWidth="197.6666259765625" text="Construction plan" />
               </columns>
             </TableView>
-            <Label layoutX="853.0" layoutY="40.0" prefHeight="17.0" prefWidth="143.0" text="Search Proyect By Code" />
-            <Label layoutX="727.0" layoutY="150.0" text="Name" />
-            <Label layoutX="1072.0" layoutY="150.0" text="Construction plan" />
-            <Label layoutX="704.0" layoutY="263.0" text="Engineer" />
-            <Label layoutX="1080.0" layoutY="255.0" text="Designer" />
-            <Label layoutX="717.0" layoutY="402.0" text="Start Date" />
-            <Label layoutX="1075.0" layoutY="393.0" text="Finish Date" />
-            <TextField layoutX="705.0" layoutY="180.0" />
-            <TextField layoutX="1071.0" layoutY="179.0" />
-            <TextField layoutX="833.0" layoutY="70.0" />
-            <DatePicker layoutX="696.0" layoutY="427.0" />
-            <DatePicker layoutX="1060.0" layoutY="424.0" />
-            <TextField layoutX="709.0" layoutY="284.0" />
+            <Label fx:id="lblProyectCode" layoutX="858.0" layoutY="106.0" prefHeight="27.0" prefWidth="202.0" text="Search Proyect By Code">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="680.0" layoutY="223.0" text="Name">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="1077.0" layoutY="223.0" text="Construction plan">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="680.0" layoutY="350.0" text="Engineer">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="1077.0" layoutY="351.0" text="Designer">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="680.0" layoutY="488.0" text="Start Date">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="1077.0" layoutY="488.0" text="Finish Date">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <TextField layoutX="670.0" layoutY="248.0" prefHeight="40.0" prefWidth="200.0" />
+            <TextField layoutX="1066.0" layoutY="248.0" prefHeight="40.0" prefWidth="200.0" />
+            <TextField layoutX="852.0" layoutY="139.0" prefHeight="40.0" prefWidth="200.0" />
+            <DatePicker layoutX="670.0" layoutY="515.0" prefHeight="40.0" prefWidth="200.0" />
+            <DatePicker layoutX="1066.0" layoutY="515.0" prefHeight="40.0" prefWidth="200.0" />
+            <TextField layoutX="670.0" layoutY="382.0" prefHeight="40.0" prefWidth="200.0" />
+            <Button fx:id="btnAddProyect" disable="true" layoutX="678.0" layoutY="647.0" mnemonicParsing="false" onAction="#clickAddProyect" prefHeight="45.0" prefWidth="610.0" text="Add" visible="false" />
+            <Button fx:id="btnModifyProyect" disable="true" layoutX="678.0" layoutY="647.0" mnemonicParsing="false" onAction="#clickModifyProyect" prefHeight="45.0" prefWidth="610.0" text="Modify" visible="false" />
+            <Button fx:id="btnDeleteProyect" disable="true" layoutX="678.0" layoutY="647.0" mnemonicParsing="false" onAction="#clcikDeleteProyect" prefHeight="45.0" prefWidth="610.0" text="Delete" visible="false" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="paneHome" layoutX="19.0" layoutY="31.0" prefHeight="728.0" prefWidth="1332.0">
+      <AnchorPane id="paneUserHome" fx:id="paneHome" layoutX="19.0" layoutY="31.0" prefHeight="728.0" prefWidth="1332.0" stylesheets="@../../../css/administrator.css">
          <children>
-            <Label layoutX="513.0" layoutY="282.0" text="Algo como bienvenido admin y el nombre se pone" />
+            <Label layoutX="330.0" layoutY="288.0" text="Algo como bienvenido admin y se pone el nombre" textFill="WHITE">
+               <font>
+                  <Font size="38.0" />
+               </font></Label>
          </children>
       </AnchorPane>
-      <Button fx:id="btnMenu" layoutX="56.0" layoutY="18.0" mnemonicParsing="false" onAction="#clcikMenu" text="Menu" />
+      <Button fx:id="btnMenu" layoutX="33.0" layoutY="13.0" mnemonicParsing="false" onAction="#clcikMenu" prefHeight="30.0" prefWidth="73.0" text="Menu" />
    </children>
 </AnchorPane>

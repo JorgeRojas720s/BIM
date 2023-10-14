@@ -19,7 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import model.Users;
+import model.User;
 import service.DBConnection;
 
 /**
@@ -152,6 +152,8 @@ public class LogInController implements Initializable {
 
     @FXML
     private void clickSigIn(ActionEvent event) throws IOException {
+        
+         //Luego colocar que si un usuario esta inactivo, no le permita ingresar 
 
         String usernameOrEmail = txtLogInUsername.getText();
         String password = pswLogInPassword.getText();
@@ -178,6 +180,7 @@ public class LogInController implements Initializable {
 
     @FXML
     private void clickSingUp(ActionEvent event) {
+   
 
         if (txtRegisterUsername.getText().isEmpty() || txtRegisterEmail.getText().isEmpty()
             || txtRegisterPassword.getText().isEmpty()) {
@@ -192,7 +195,7 @@ public class LogInController implements Initializable {
             String email = txtRegisterEmail.getText();
             String role = getRole();
 
-            Users user = new Users(id, name, lastName, status, username, password, email, role);
+            User user = new User(id, name, lastName, status, username, password, email, role);
             DBConnection.getInstance().registerUsers(user);
             changePanes(false);
         }
