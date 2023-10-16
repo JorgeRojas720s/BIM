@@ -1,0 +1,156 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 15, 2023, 10:45:52 PM
+    Author     : fabia
+*/
+
+#panePrimary {
+    -fx-background-color: #0d1117; 
+}
+
+#paneSecondary {
+    -fx-background-color: #161b22;
+}
+
+#paneTertiary {
+    -fx-background-color: #161b22;
+     -fx-background-radius: 18px;
+}
+
+.buttonGreen {
+    -fx-background-color: #238636; 
+    -fx-text-fill: white;
+    -fx-font-size: 14px; 
+    -fx-background-radius: 7px;
+    -fx-font-weight: bold;
+}
+
+.buttonGreen:hover {
+    -fx-background-color: #2ea043; 
+}
+
+.buttonGreen:pressed {
+    -fx-background-color: #238636; 
+}
+
+.buttonBlue {
+    -fx-background-color: #2581f7; 
+    -fx-text-fill: white;
+    -fx-font-size: 14px; 
+    -fx-background-radius: 7px;
+    -fx-font-weight: bold;
+}
+
+.buttonBlue:hover {
+    -fx-background-color: #0F70EE; 
+}
+
+.buttonBlue:pressed {
+    -fx-background-color: #2581f7; 
+}
+
+.buttonPurple {
+    -fx-background-color: #A149F0; 
+    -fx-text-fill: white;
+    -fx-font-size: 16px; 
+    -fx-background-radius: 7px;
+    -fx-font-weight: bold;
+}
+
+.buttonPurple:hover {
+    -fx-background-color: #932BF0; 
+}
+
+.buttonPurple:pressed {
+    -fx-background-color: #A149F0; 
+}
+
+.buttonRed {
+    -fx-background-color: #D72626; 
+    -fx-text-fill: white;
+    -fx-font-size: 14px; 
+    -fx-background-radius: 7px;
+    -fx-font-weight: bold;
+}
+
+.buttonRed:hover {
+    -fx-background-color: #B61313; 
+}
+
+.buttonRed:pressed {
+    -fx-background-color: #D72626; 
+}
+
+.radio-button .radio {
+    -fx-background-color: transparent;
+     -fx-mark-color: #0077E6;
+    -fx-border-color: #0077E6;
+    -fx-border-width: 2px;
+    -fx-border-radius: 50%; 
+}
+
+.text-field {
+    -fx-background-color: #0d1117;  
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 5 10;
+    -fx-background-radius: 8px; 
+    -fx-border-color: transparent; 
+}
+
+.text-field:focused {
+    -fx-background-color: #0d1117; 
+    -fx-border-radius: 6px;
+    -fx-border-color: #2581f7; 
+    -fx-border-width: 2px;
+}
+
+.date-picker {
+    -fx-background-color: #0d1117;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+    -fx-border-color: transparent;
+}
+
+.date-picker:focused {
+    -fx-background-color: #0d1117;
+    -fx-border-radius: 6px;
+    -fx-border-color: #2581f7;
+    -fx-border-width: 2px;
+}
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to bottom right, #536ced, #2b377b);
+    -fx-border-radius: 8px;
+    -fx-padding: 0px;
+}
+
+.table-view .table-column{
+    -fx-alignment: CENTER;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to bottom right, #536ced, #2b377b);
+    -fx-background-inserts: 0 0 0 0;
+    -fx-background-radius: 8px 8px 0px 0px;
+}
+
+.table-view .column-header, .filter{
+    -fx-background-color: transparent;
+    -fx-size: 30px;
+}
+
+.table-view .column-header .label{
+    -fx-text-fill: #fff;
+    -fx-font-family: Arial;
+}
+
+.label {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}

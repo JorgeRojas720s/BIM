@@ -1,11 +1,269 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="controller.EngineerController">
+<AnchorPane id="panePrimary" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../../../css/engineer.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EngineerController">
    <children>
-      <Label layoutX="258.0" layoutY="156.0" text="Engineer" />
+      <AnchorPane id="paneSecondary" fx:id="paneEngineerOptions" prefHeight="750.0" prefWidth="300.0">
+         <children>
+            <Button fx:id="btnCreateProyect" layoutX="54.0" layoutY="122.0" mnemonicParsing="false" onAction="#clickCreateProyect" prefHeight="75.0" prefWidth="200.0" styleClass="buttonPurple" text="Create Proyect">
+               <graphic>
+                  <ImageView fitHeight="54.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/toolsWhite.png" />
+                     </image></ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnModifyMaterials" layoutX="73.0" layoutY="366.0" mnemonicParsing="false" onAction="#clickModifyMaterials" prefHeight="55.0" prefWidth="155.0" styleClass="buttonBlue" text="Materials">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/materialsWhite.png" />
+                     </image></ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnModifyProyect" layoutX="73.0" layoutY="299.0" mnemonicParsing="false" onAction="#clickModifyProyect" prefHeight="55.0" prefWidth="155.0" styleClass="buttonBlue" text="Proyect">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/proyectPaperWhite.png" />
+                     </image></ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnModifyObjects" layoutX="73.0" layoutY="434.0" mnemonicParsing="false" onAction="#clickModifyObjects" prefHeight="55.0" prefWidth="155.0" styleClass="buttonBlue" text="Objects">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/objectsWhite.png" />
+                     </image></ImageView>
+               </graphic>
+            </Button>
+            <Label layoutX="45.0" layoutY="34.0" prefHeight="55.0" prefWidth="175.0" text="Start a new ">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label layoutX="101.0" layoutY="72.0" text="project now!!">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="58.0" layoutY="244.0" text="Modify Proyects">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnGenerateReport" layoutX="73.0" layoutY="588.0" mnemonicParsing="false" onAction="#clickGenerateReport" prefHeight="55.0" prefWidth="155.0" styleClass="buttonBlue" text="Report">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/reportWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label layoutX="60.0" layoutY="538.0" text="Generate report">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="paneTertiary" fx:id="paneProyect" layoutX="318.0" layoutY="70.0" prefHeight="610.0" prefWidth="633.0" visible="false">
+         <children>
+            <TextField fx:id="txtProyectName" layoutX="229.0" layoutY="107.0" prefHeight="55.0" prefWidth="175.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <Label layoutX="14.0" layoutY="14.0" text="Proyect">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="dateStartProyect" layoutX="111.0" layoutY="376.0" prefHeight="55.0" prefWidth="175.0" />
+            <TextField fx:id="txtProyectEngineer" layoutX="111.0" layoutY="238.0" prefHeight="55.0" prefWidth="175.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtProyectDesigner" layoutX="348.0" layoutY="238.0" prefHeight="55.0" prefWidth="175.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <DatePicker fx:id="dateEndProyect" layoutX="348.0" layoutY="376.0" prefHeight="55.0" prefWidth="175.0" />
+            <Label layoutX="229.0" layoutY="76.0" text="Name:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="111.0" layoutY="207.0" prefHeight="30.0" prefWidth="102.0" text="Engineer:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="348.0" layoutY="207.0" prefHeight="30.0" prefWidth="102.0" text="Designer:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="111.0" layoutY="345.0" prefHeight="30.0" prefWidth="102.0" text="Start date:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="348.0" layoutY="345.0" prefHeight="30.0" prefWidth="102.0" text="End date:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnNextToMaterials" layoutX="544.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickNextToMaterials" prefHeight="44.0" prefWidth="76.0" styleClass="buttonGreen" text="Next" />
+            <Button fx:id="btnDoNotCreate1" layoutX="424.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickDoNotCreate" prefHeight="44.0" prefWidth="112.0" styleClass="buttonRed" text="Don't create" />
+         </children>
+      </AnchorPane>
+      <AnchorPane id="paneTertiary" fx:id="paneMaterial" layoutX="318.0" layoutY="70.0" prefHeight="610.0" prefWidth="633.0" visible="false">
+         <children>
+            <TextField fx:id="txtMaterialUnit" layoutX="110.0" layoutY="432.0" prefHeight="55.0" prefWidth="175.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <Label layoutX="14.0" layoutY="14.0" text="Material">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtMaterialName" layoutX="110.0" layoutY="336.0" prefHeight="55.0" prefWidth="175.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtMaterialId" layoutX="347.0" layoutY="336.0" prefHeight="55.0" prefWidth="175.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <Label layoutX="110.0" layoutY="305.0" prefHeight="30.0" prefWidth="102.0" text="Name:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="347.0" layoutY="305.0" prefHeight="30.0" prefWidth="102.0" text="Id:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="110.0" layoutY="402.0" prefHeight="30.0" prefWidth="155.0" text="Measure unit:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="347.0" layoutY="402.0" prefHeight="30.0" prefWidth="102.0" text="Price?">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnNextToObjects" layoutX="544.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickNextToObjects" prefHeight="44.0" prefWidth="76.0" styleClass="buttonGreen" text="Next" />
+            <TextField fx:id="txtMaterialPrice" layoutX="347.0" layoutY="432.0" prefHeight="55.0" prefWidth="175.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <ScrollPane fx:id="scrMaterials" layoutX="76.0" layoutY="85.0" prefHeight="200.0" prefWidth="481.0">
+              <content>
+                <AnchorPane id="panePrimary" minHeight="0.0" minWidth="0.0" prefHeight="213.0" prefWidth="462.0" />
+              </content>
+            </ScrollPane>
+            <Button fx:id="btnAddMaterial" layoutX="265.0" layoutY="501.0" mnemonicParsing="false" onAction="#clickAddMaterial" prefHeight="44.0" prefWidth="102.0" styleClass="buttonBlue" text="Add" />
+            <Button fx:id="btnDoNotCreate2" layoutX="424.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickDoNotCreate" prefHeight="44.0" prefWidth="112.0" styleClass="buttonRed" text="Don't create" />
+         </children>
+      </AnchorPane>
+      <AnchorPane id="paneTertiary" fx:id="paneObject" layoutX="318.0" layoutY="70.0" prefHeight="610.0" prefWidth="633.0" visible="false">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Object">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtObjectCode" layoutX="247.0" layoutY="64.0" prefHeight="35.0" prefWidth="122.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <Label layoutX="76.0" layoutY="66.0" prefHeight="30.0" prefWidth="171.0" text="Before add, code:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnEndProcess" layoutX="544.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickEndProcess" prefHeight="44.0" prefWidth="76.0" styleClass="buttonGreen" text="Create" />
+            <ScrollPane fx:id="scrObjects" layoutX="76.0" layoutY="112.0" prefHeight="245.0" prefWidth="482.0">
+               <content>
+                  <AnchorPane id="panePrimary" minHeight="0.0" minWidth="0.0" prefHeight="340.0" prefWidth="462.0">
+                     <children>
+                        <Label layoutX="61.0" layoutY="45.0" text="image" />
+                        <Button layoutX="59.0" layoutY="70.0" mnemonicParsing="false" text="add" />
+                        <Label layoutX="61.0" layoutY="151.0" text="image" />
+                        <Button layoutX="59.0" layoutY="176.0" mnemonicParsing="false" text="add" />
+                        <Label layoutX="61.0" layoutY="241.0" text="image" />
+                        <Button layoutX="59.0" layoutY="266.0" mnemonicParsing="false" text="add" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+            <ListView layoutX="76.0" layoutY="394.0" prefHeight="192.0" prefWidth="200.0" />
+            <Label layoutX="76.0" layoutY="366.0" text="List">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnDoNotCreate3" layoutX="424.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickDoNotCreate" prefHeight="44.0" prefWidth="112.0" styleClass="buttonRed" text="Don't create" />
+         </children>
+      </AnchorPane>
+      <Label fx:id="lblMessage" layoutX="423.0" layoutY="224.0" text="Wellcome back">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblEngineerName" alignment="CENTER" layoutX="373.0" layoutY="298.0" prefHeight="74.0" prefWidth="434.0" text="...">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnExit" layoutX="1252.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickExit" prefHeight="44.0" prefWidth="76.0" styleClass="buttonRed" text="Exit" />
+      <AnchorPane fx:id="paneProyectList" layoutX="970.0" layoutY="66.0" prefHeight="618.0" prefWidth="372.0">
+         <children>
+            <TableView fx:id="tbvProyectList" layoutX="10.0" layoutY="43.0" prefHeight="549.0" prefWidth="352.0">
+              <columns>
+                <TableColumn fx:id="columnProyectName" prefWidth="111.20001220703125" text="Name" />
+                  <TableColumn fx:id="columnProyectEngineer" prefWidth="74.4000244140625" text="Engineer" />
+                  <TableColumn fx:id="columnProyectDesigner" prefWidth="70.4000244140625" text="Designer" />
+                <TableColumn fx:id="columnProyectEndDate" prefWidth="92.800048828125" text="End date" />
+              </columns>
+            </TableView>
+            <Label layoutX="120.0" layoutY="7.0" text="Proyect List">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="paneTertiary" fx:id="paneReport" layoutX="318.0" layoutY="85.0" prefHeight="635.0" prefWidth="1015.0" visible="false">
+         <children>
+            <Canvas height="610.0" layoutX="11.0" layoutY="13.0" width="994.0" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

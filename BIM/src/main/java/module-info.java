@@ -11,7 +11,7 @@ module com.mycompany.bim {
     
     opens model to javafx.fxml;
     exports model;
-//       
+    
 //    opens utils to javafx.fxml;
 //    exports utils;
 

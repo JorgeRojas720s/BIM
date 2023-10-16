@@ -17,6 +17,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.User;
@@ -27,8 +29,11 @@ import service.DBConnection;
  *
  * @author jitor
  */
-public class LogInController implements Initializable {
-
+public class LogInController implements Initializable {   
+    Image showPasswordImage;
+    boolean showPasswordFlag = false;
+    
+    //FXML...
     @FXML
     private TextField txtLogInUsername;
     @FXML
@@ -77,7 +82,8 @@ public class LogInController implements Initializable {
     @FXML
     private Button btnShowPassword;
 
-    int cont = 0;
+    @FXML
+    private ImageView imgShowPassword;
 
     /**
      * Initializes the controller class.
@@ -88,7 +94,6 @@ public class LogInController implements Initializable {
     }
 
     private void showAlert(String message) {
-
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Información");
         alert.setHeaderText(null);
@@ -156,7 +161,11 @@ public class LogInController implements Initializable {
          //Luego colocar que si un usuario esta inactivo, no le permita ingresar 
 
         String usernameOrEmail = txtLogInUsername.getText();
-        String password = pswLogInPassword.getText();
+        String password = null;
+        if(pswLogInPassword.isVisible())
+            password = pswLogInPassword.getText();
+        else if(txtShowLoginPassword.isVisible())
+            password = txtShowLoginPassword.getText();
 
         String role = DBConnection.getInstance().logInUser(usernameOrEmail, password);
         System.out.println("Role:" + role);
@@ -209,18 +218,23 @@ public class LogInController implements Initializable {
 
     @FXML
     private void clcikShowPassword(ActionEvent event) {
-        System.out.println("cont:" + cont);
-
-        if (cont % 2 == 0) {
+        String imagePath = "/images/";
+        if (!showPasswordFlag) {
             showPassword(true);
             txtShowLoginPassword.setText(pswLogInPassword.getText());
             btnShowPassword.toFront();
+            imagePath += "eyeCloseWhite.png";
+            showPasswordImage = new Image(getClass().getResource(imagePath).toExternalForm());
+            imgShowPassword.setImage(showPasswordImage);
+            showPasswordFlag = true;
         } else {
             showPassword(false);
             pswLogInPassword.setText(txtShowLoginPassword.getText());
+            imagePath += "eyeOpenWhite.png";
+            showPasswordImage = new Image(getClass().getResource(imagePath).toExternalForm());
+            imgShowPassword.setImage(showPasswordImage);
+            showPasswordFlag = false;
         }
-
-        cont++;
     }
 
 }

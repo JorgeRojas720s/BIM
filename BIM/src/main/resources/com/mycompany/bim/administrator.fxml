@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -7,24 +8,112 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="paneAdministrator" prefHeight="768.0" prefWidth="1366.0" stylesheets="@../../../css/administrator.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdministratorController">
+<AnchorPane id="panePrimary" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdministratorController">
    <children>
-      <AnchorPane id="paneUserMenu" fx:id="paneMenu" disable="true" layoutX="-42.0" prefHeight="768.0" prefWidth="370.0" stylesheets="@../../../css/administrator.css" visible="false">
+      <AnchorPane id="paneSecondary" fx:id="paneMenu" layoutX="-42.0" prefHeight="768.0" prefWidth="370.0" stylesheets="@../../../css/administrator.css">
          <children>
-            <Label layoutX="85.0" layoutY="84.0" prefHeight="28.0" prefWidth="59.0" text="Proyects" textFill="WHITE" />
-            <Label fx:id="lblAddProyects" layoutX="137.0" layoutY="139.0" onMouseClicked="#clcikShowAddProyect" text="Add Proyect" textFill="WHITE" />
-            <Label fx:id="lblModifyProyects" layoutX="138.0" layoutY="222.0" onMouseClicked="#clickShowModifyProyect" text="Modify Proyect" textFill="WHITE" />
-            <Label fx:id="lblDeleteProyects" layoutX="139.0" layoutY="323.0" onMouseClicked="#clickShowDeleteProyect" text="Delete Proyect" textFill="WHITE" />
-            <Label layoutX="72.0" layoutY="403.0" text="Users" textFill="WHITE" />
-            <Label fx:id="lblAddUsers" layoutX="145.0" layoutY="466.0" onMouseClicked="#clickShowAddUser" text="Add User" textFill="WHITE" />
-            <Label fx:id="lblModifyUsers" layoutX="146.0" layoutY="547.0" onMouseClicked="#clcikShowModifyUser" text="Modify User" textFill="WHITE" />
-            <Label fx:id="lblDeleteUsers" layoutX="147.0" layoutY="632.0" onMouseClicked="#clickShowDeleteUser" text="Delete User" textFill="WHITE" />
-            <Button fx:id="btnExit" layoutX="62.0" layoutY="710.0" mnemonicParsing="false" onAction="#clickExit" prefHeight="34.0" prefWidth="47.0" text="Exit" />
-            <Button fx:id="clickBack" layoutX="68.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickBack" text="&lt;--" />
-            <Button fx:id="btnHome" layoutX="233.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickHome" text="Home" />
+            <Label fx:id="lblAddProyects" layoutX="79.0" layoutY="146.0" onMouseClicked="#clcikShowAddProyect" text="Add Proyect" textFill="WHITE" />
+            <Label fx:id="lblModifyProyects" layoutX="85.0" layoutY="216.0" onMouseClicked="#clickShowModifyProyect" text="Modify Proyect" textFill="WHITE" />
+            <Label fx:id="lblDeleteProyects" layoutX="87.0" layoutY="312.0" onMouseClicked="#clickShowDeleteProyect" text="Delete Proyect" textFill="WHITE" />
+            <Label fx:id="lblAddUsers" layoutX="88.0" layoutY="471.0" onMouseClicked="#clickShowAddUser" text="Add User" textFill="WHITE" />
+            <Label fx:id="lblModifyUsers" layoutX="68.0" layoutY="537.0" onMouseClicked="#clcikShowModifyUser" text="Modify User" textFill="WHITE" />
+            <Label fx:id="lblDeleteUsers" layoutX="74.0" layoutY="619.0" onMouseClicked="#clickShowDeleteUser" text="Delete User" textFill="WHITE" />
+            <Button fx:id="btnExit" layoutX="62.0" layoutY="710.0" mnemonicParsing="false" onAction="#clickExit" prefHeight="34.0" prefWidth="66.0" styleClass="buttonRed" text="Exit" />
+            <Button fx:id="clickBack" layoutX="57.0" layoutY="13.0" mnemonicParsing="false" onAction="#clickBack" prefHeight="26.0" prefWidth="46.0" styleClass="buttonGreen">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/arrowBackWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="btnHome" layoutX="309.0" layoutY="13.0" mnemonicParsing="false" onAction="#clickHome" prefHeight="32.0" prefWidth="46.0" styleClass="buttonGreen">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/homeWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Label layoutX="57.0" layoutY="80.0" text="Manage Proyects -">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnAddProyect" layoutX="185.0" layoutY="133.0" mnemonicParsing="false" onAction="#clcikShowAddProyect" prefHeight="44.0" prefWidth="114.0" styleClass="buttonBlue" text="Add">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/addProyectWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label layoutX="58.0" layoutY="400.0" text="Manage Users -">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnModifyProyect" layoutX="200.0" layoutY="203.0" mnemonicParsing="false" onAction="#clickShowModifyProyect" prefHeight="44.0" prefWidth="114.0" styleClass="buttonBlue" text="Modify">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/modifyProyectWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnDeleteProyect" layoutX="200.0" layoutY="299.0" mnemonicParsing="false" onAction="#clickShowDeleteProyect" prefHeight="44.0" prefWidth="114.0" styleClass="buttonBlue" text="Delete">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/deleteProyectWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnAddUser" layoutX="172.0" layoutY="458.0" mnemonicParsing="false" onAction="#clickShowAddUser" prefHeight="44.0" prefWidth="114.0" styleClass="buttonBlue" text="Add">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/addUserWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnModifyUser" layoutX="172.0" layoutY="524.0" mnemonicParsing="false" onAction="#clcikShowModifyUser" prefHeight="44.0" prefWidth="114.0" styleClass="buttonBlue" text="Modify">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/modifyUserWhiite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnDeleteUser" layoutX="164.0" layoutY="606.0" mnemonicParsing="false" onAction="#clickShowDeleteUser" prefHeight="44.0" prefWidth="114.0" styleClass="buttonBlue" text="Delete">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/deleteUserWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="274.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/proyectPaperWhite.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="242.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/usersWhite.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="paneUsers" disable="true" layoutX="10.0" layoutY="31.0" prefHeight="728.0" prefWidth="1345.0" stylesheets="@../../../css/administrator.css" visible="false">
@@ -144,7 +233,7 @@
             <Button fx:id="btnDeleteProyect" disable="true" layoutX="678.0" layoutY="647.0" mnemonicParsing="false" onAction="#clcikDeleteProyect" prefHeight="45.0" prefWidth="610.0" text="Delete" visible="false" />
          </children>
       </AnchorPane>
-      <AnchorPane id="paneUserHome" fx:id="paneHome" layoutX="19.0" layoutY="31.0" prefHeight="728.0" prefWidth="1332.0" stylesheets="@../../../css/administrator.css">
+      <AnchorPane id="paneUserHome" fx:id="paneHome" disable="true" layoutX="19.0" layoutY="31.0" prefHeight="728.0" prefWidth="1332.0" stylesheets="@../../../css/administrator.css" visible="false">
          <children>
             <Label layoutX="330.0" layoutY="288.0" text="Algo como bienvenido admin y se pone el nombre" textFill="WHITE">
                <font>
@@ -152,6 +241,10 @@
                </font></Label>
          </children>
       </AnchorPane>
-      <Button fx:id="btnMenu" layoutX="33.0" layoutY="13.0" mnemonicParsing="false" onAction="#clcikMenu" prefHeight="30.0" prefWidth="73.0" text="Menu" />
+      <Button fx:id="btnMenu" layoutX="33.0" layoutY="13.0" mnemonicParsing="false" onAction="#clcikMenu" prefHeight="30.0" prefWidth="73.0" text="Menu" visible="false" />
    </children>
+   <stylesheets>
+      <URL value="@../../../css/administrator.css" />
+      <URL value="@../../../css/engineer.css" />
+   </stylesheets>
 </AnchorPane>

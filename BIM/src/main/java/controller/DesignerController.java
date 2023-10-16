@@ -13,6 +13,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+
 /**
  * FXML Controller class
  *
@@ -20,20 +24,54 @@ import javafx.scene.control.Button;
  */
 public class DesignerController implements Initializable {
 
+    private boolean hiddenProyectList = false;
 
     @FXML
-    private Button btnBack;
-    /**
-     * Initializes the controller class.
-     */
+    private Button btnExit;
+    @FXML
+    private TableView<?> tbvProyectList;
+    @FXML
+    private TableColumn<?, ?> columnProyectName;
+    @FXML
+    private TableColumn<?, ?> columnProyectEngineer;
+    @FXML
+    private TableColumn<?, ?> columnProyectDesigner;
+    @FXML
+    private TableColumn<?, ?> columnProyectEndDate;
+    @FXML
+    private Button btnSelectObject;
+    @FXML
+    private AnchorPane paneProyectList;
+    @FXML
+    private Button btnShowList;
+    @FXML
+    private Button btnCloseList;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+
+    }
+
     @FXML
-    private void clickBack(ActionEvent event) throws IOException {
+    private void clickExit(ActionEvent event) throws IOException {
         App.setRoot("logIn");
     }
+
+    @FXML
+    private void clickHideList(ActionEvent event) {
+        if (hiddenProyectList == false) {
+            paneProyectList.setVisible(true);
+            hiddenProyectList = true;
+        } else if (hiddenProyectList == true) {
+            paneProyectList.setVisible(false);
+            hiddenProyectList = false;
+        }
+    }
+
+    @FXML
+    private void clickSelectObject(ActionEvent event) {
+        
+    }
+
 
 }

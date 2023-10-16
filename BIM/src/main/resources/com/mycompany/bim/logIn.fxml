@@ -6,12 +6,14 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="paneLogIn" prefHeight="768.0" prefWidth="1366.0" stylesheets="@../../../css/logIn.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LogInController">
+<AnchorPane id="paneLogIn" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../../../css/logIn.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LogInController">
    <children>
-      <AnchorPane id="paneSingIn" fx:id="paneSingIn" layoutX="529.0" layoutY="277.0" prefHeight="230.0" prefWidth="310.0">
+      <AnchorPane id="paneSingIn" fx:id="paneSingIn" layoutX="524.0" layoutY="251.0" prefHeight="230.0" prefWidth="310.0">
          <children>
             <Label layoutX="43.0" layoutY="20.0" prefHeight="20.0" prefWidth="193.0" text="Username or email address" textFill="WHITE">
                <font>
@@ -26,12 +28,18 @@
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Button>
-            <PasswordField fx:id="pswLogInPassword" layoutX="36.0" layoutY="115.0" prefHeight="25.0" prefWidth="238.0" />
-            <Button fx:id="btnShowPassword" layoutX="230.0" layoutY="116.0" mnemonicParsing="false" onAction="#clcikShowPassword" prefHeight="23.0" prefWidth="43.0" text="o" />
-            <TextField fx:id="txtShowLoginPassword" layoutX="36.0" layoutY="115.0" prefHeight="25.0" prefWidth="238.0" visible="false" />
+            <PasswordField fx:id="pswLogInPassword" layoutX="36.0" layoutY="115.0" prefHeight="33.0" prefWidth="194.0" />
+            <Button fx:id="btnShowPassword" layoutX="237.0" layoutY="116.0" mnemonicParsing="false" onAction="#clcikShowPassword" prefHeight="30.0" prefWidth="38.0">
+               <graphic>
+                  <ImageView fx:id="imgShowPassword" fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/eyeOpenWhite.png" />
+                     </image></ImageView>
+               </graphic></Button>
+            <TextField fx:id="txtShowLoginPassword" layoutX="36.0" layoutY="115.0" prefHeight="33.0" prefWidth="194.0" visible="false" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="paneNewToBIM" layoutX="575.0" layoutY="507.0" prefHeight="66.0" prefWidth="217.0">
+      <AnchorPane fx:id="paneNewToBIM" layoutX="570.0" layoutY="481.0" prefHeight="66.0" prefWidth="217.0">
          <children>
             <Label id="labCreateAccount" layoutX="94.0" layoutY="27.0" onMouseClicked="#clickCreateAccount" prefHeight="20.0" prefWidth="121.0" text="Create an account" textFill="#0084ff">
                <font>
@@ -43,11 +51,11 @@
                </font></Label>
          </children>
       </AnchorPane>
-      <Label layoutX="629.0" layoutY="229.0" prefHeight="22.0" prefWidth="108.0" text="Sing in to BIM" textFill="WHITE">
+      <Label layoutX="624.0" layoutY="203.0" prefHeight="22.0" prefWidth="108.0" text="Sing in to BIM" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <AnchorPane id="paneSingUp" fx:id="paneSingUp" disable="true" layoutX="515.0" layoutY="117.0" prefHeight="473.0" prefWidth="328.0" visible="false">
+      <AnchorPane id="paneSingUp" fx:id="paneSingUp" disable="true" layoutX="515.0" layoutY="138.0" prefHeight="473.0" prefWidth="328.0" visible="false">
          <children>
             <Label layoutX="53.0" layoutY="208.0" text="Username" textFill="WHITE">
                <font>
@@ -81,7 +89,14 @@
             <TextField fx:id="txtRegisterEmail" layoutX="42.0" layoutY="285.0" prefHeight="25.0" prefWidth="238.0" />
             <TextField fx:id="txtRegisterPassword" layoutX="42.0" layoutY="343.0" prefHeight="25.0" prefWidth="238.0" />
             <Button fx:id="btnSingUp" layoutX="42.0" layoutY="429.0" mnemonicParsing="false" onAction="#clickSingUp" prefHeight="25.0" prefWidth="238.0" text="Sing up" />
-            <Button fx:id="btnRegisterBack" layoutY="-1.0" mnemonicParsing="false" onAction="#clickBack" prefHeight="32.0" prefWidth="43.0" text="&lt;-" />
+            <Button fx:id="btnRegisterBack" layoutY="-1.0" mnemonicParsing="false" onAction="#clickBack" prefHeight="34.0" prefWidth="46.0">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/arrowBackWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             <TextField fx:id="txtRegisterName" layoutX="42.0" layoutY="58.0" prefHeight="32.0" prefWidth="114.0" />
             <TextField fx:id="txtRegisterLastName" layoutX="175.0" layoutY="58.0" prefHeight="32.0" prefWidth="108.0" />
             <TextField fx:id="txtRegisterId" layoutX="68.0" layoutY="122.0" prefHeight="32.0" prefWidth="187.0" />

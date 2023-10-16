@@ -9,16 +9,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 
 #paneLogIn {
-    -fx-background-color: #222831; 
+    -fx-background-color: #0d1117; 
 }
 
 #paneSingIn {
-    -fx-background-color: #393E46;
+    -fx-background-color: #161b22;
      -fx-background-radius: 7px;
 }
 
 #paneSingUp {
-    -fx-background-color: #393E46;
+    -fx-background-color: #161b22;
     -fx-background-radius: 7px;
 }
 
@@ -27,7 +27,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-underline: true;
 }
 
-/* Estilo para los RadioButtons */
 .radio-button .radio {
     -fx-background-color: transparent;
      -fx-mark-color: #0077E6; /* Color de la bolita interior (azul en este caso) */
@@ -36,16 +35,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-border-radius: 50%; /* Hace que el radio button sea circular */
 }
 
-
-/* 
-.radio-button:hover {
-    -fx-background-color:#222831;
-    -fx-background-radius: 7px;
-}
-*/
-
 .button {
-    -fx-background-color: #4CAF50; 
+    -fx-background-color: #238636; 
     -fx-text-fill: white;
     -fx-font-size: 14px; 
     -fx-background-radius: 7px;
@@ -53,15 +44,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .button:hover {
-    -fx-background-color: #45a049; 
+    -fx-background-color: #2ea043; 
 }
 
 .button:pressed {
-    -fx-background-color: #388e3c; 
+    -fx-background-color: #238636; 
 }
 
 .text-field {
-    -fx-background-color: #333333;  
+    -fx-background-color: #0d1117;  
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 5 10; 
@@ -70,11 +61,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .text-field:focused {
-    -fx-background-color: #333333; 
+    -fx-background-color: #0d1117; 
     -fx-border-radius: 6px;
-    -fx-border-color: #0000FF; 
+    -fx-border-color: #2581f7; 
     -fx-border-width: 2px;
 }
+
+
 
 
 
