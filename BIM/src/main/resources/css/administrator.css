@@ -9,59 +9,192 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 
 #paneAdministrator {
-    
+
     -fx-background-color: #61677A;
-    
+
 }
 
 
 #paneUserHome {
-    
+
     -fx-background-color: #1F4172;
     -fx-background-radius: 45px;
-    
+
 }
 
 #paneUserMenu {
-    
+
     -fx-background-color: #393E46;
-     -fx-background-radius: 45px;
+    -fx-background-radius: 50px;
+
+}
+
+#panePrimary {
+    -fx-background-color: #0d1117;
+}
+
+#paneSecondary{
+     -fx-background-color: #161b22;
+    -fx-background-radius: 50px;
+}
+
+#paneTertiary{
+    -fx-background-color: #161b22;
+    -fx-background-radius: 18px;
+}
+
+#paneUsers {
+     -fx-background-color: #161b22;
+    -fx-background-radius: 18px;
+
+}
+
+
+.menuTitle {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 24px; 
     
 }
 
+.buttonGreen {
+    -fx-background-color: #238636; 
+    -fx-text-fill: white;
+    -fx-font-size: 14px; 
+    -fx-background-radius: 7px;
+    -fx-font-weight: bold;
+}
+
+.buttonGreen:hover {
+    -fx-background-color: #2ea043; 
+}
+
+.buttonGreen:pressed {
+    -fx-background-color: #238636; 
+}
+
+.buttonBlue {
+    -fx-background-color: #2581f7; 
+    -fx-text-fill: white;
+    -fx-font-size: 14px; 
+    -fx-background-radius: 7px;
+    -fx-font-weight: bold;
+}
+
+.buttonBlue:hover {
+    -fx-background-color: #0F70EE; 
+}
+
+.buttonBlue:pressed {
+    -fx-background-color: #2581f7; 
+}
+
+.buttonPurple {
+    -fx-background-color: #A149F0; 
+    -fx-text-fill: white;
+    -fx-font-size: 16px; 
+    -fx-background-radius: 7px;
+    -fx-font-weight: bold;
+}
+
+.buttonPurple:hover {
+    -fx-background-color: #932BF0; 
+}
+
+.buttonPurple:pressed {
+    -fx-background-color: #A149F0; 
+}
+
+.buttonRed {
+    -fx-background-color: #D72626; 
+    -fx-text-fill: white;
+    -fx-font-size: 14px; 
+    -fx-background-radius: 7px;
+    -fx-font-weight: bold;
+}
+
+.buttonRed:hover {
+    -fx-background-color: #B61313; 
+}
+
+.buttonRed:pressed {
+    -fx-background-color: #D72626; 
+}
 .table-cell {
-    -fx-text-fill: white; 
+    -fx-text-fill: white;
     -fx-font-weight: bold;
 }
-
-.table-view .column-header {
-    -fx-background-color: white;
+.text-field {
+    -fx-background-color: #0d1117;
     -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-alignment: center-left;
+    -fx-font-size: 14px;
+    -fx-padding: 5 10;
+    -fx-background-radius: 8px;
+    -fx-border-color: transparent;
 }
 
-.table-view .table-row-cell {
-    -fx-background-color: #181818;
+.text-field:focused {
+    -fx-background-color: #0d1117;
+    -fx-border-radius: 6px;
+    -fx-border-color: #2581f7;
+    -fx-border-width: 2px;
+}
+.date-picker {
+    -fx-background-color: #0d1117;
     -fx-text-fill: white;
-    -fx-border-color: black;
-    -fx-border-width: 0 0 1 0;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+    -fx-border-color: transparent;
 }
 
-.table-view .table-row-cell:selected {
-    -fx-background-color: gray;
-    -fx-text-fill: black;
+.radio-button .radio {
+    -fx-background-color: transparent;
+     -fx-mark-color: #0077E6; /* Color de la bolita interior (azul en este caso) */
+    -fx-border-color: #0077E6; /* Color del borde azul */
+    -fx-border-width: 2px;
+    -fx-border-radius: 50%; /* Hace que el radio button sea circular */
+}
+
+.date-picker:focused {
+    -fx-background-color: #0d1117;
+    -fx-border-radius: 6px;
+    -fx-border-color: #2581f7;
+    -fx-border-width: 2px;
+}
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to bottom right, #536ced, #2b377b);
+    -fx-border-radius: 8px;
+    -fx-padding: 0px;
+}
+
+.table-view .table-column{
+    -fx-alignment: CENTER;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to bottom right, #536ced, #2b377b);
+    -fx-background-inserts: 0 0 0 0;
+    -fx-background-radius: 8px 8px 0px 0px;
+}
+
+.table-view .column-header, .filter{
+    -fx-background-color: transparent;
+    -fx-size: 30px;
+}
+
+.table-view .column-header .label{
+    -fx-text-fill: #fff;
+    -fx-font-family: Arial;
 }
 
 .table-view .table-cell {
-    -fx-padding: 5px;
-    -fx-alignment: center-left;
+    -fx-text-fill: black; 
 }
 
-.table-view .text-cell {
-    -fx-alignment: center-left;
+.label {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
-
-
 

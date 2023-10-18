@@ -21,6 +21,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -56,12 +57,7 @@ public class AdministratorController implements Initializable {
     private AnchorPane paneHome;
     @FXML
     private Button btnHome;
-    @FXML
-    private Label lblAddUsers;
-    @FXML
-    private Label lblModifyUsers;
-    @FXML
-    private Label lblDeleteUsers;
+ 
     @FXML
     private Label lblUserID;
     @FXML
@@ -70,11 +66,8 @@ public class AdministratorController implements Initializable {
     private Button btnModifyProyect;
     @FXML
     private Button btnDeleteProyect;
-    @FXML
     private Label lblAddProyects;
-    @FXML
     private Label lblModifyProyects;
-    @FXML
     private Label lblDeleteProyects;
     @FXML
     private Label lblProyectCode;
@@ -114,6 +107,10 @@ public class AdministratorController implements Initializable {
     private RadioButton rbtUserDesigner;
     @FXML
     private RadioButton rbtUserEngineer;
+    @FXML
+    private ToggleGroup statusGroup;
+    @FXML
+    private ToggleGroup roleGroup;
 
     /**
      * Initializes the controller class.
@@ -191,19 +188,19 @@ public class AdministratorController implements Initializable {
         paneUsers.setDisable(!show);
         paneUsers.setVisible(show);
 
-        if (lblAddUsers.isHover()) {
-            lblUserID.setText("Identification:");
-            userOPtions(true, false, false);
-            clearTxtUser();
-        } else if (lblModifyUsers.isHover()) {
-            lblUserID.setText("Search user by ID:"); //posible cambio a solo "identification"
-            userOPtions(false, true, false);
-            clearTxtUser();
-        } else if (lblDeleteUsers.isHover()) {
-            lblUserID.setText("Search user by ID:");
-            userOPtions(false, false, true);
-            clearTxtUser();
-        }
+//        if (lblAddUsers.isHover()) {
+//            lblUserID.setText("Identification:");
+//            userOPtions(true, false, false);
+//            clearTxtUser();
+//        } else if (lblModifyUsers.isHover()) {
+//            lblUserID.setText("Search user by ID:"); //posible cambio a solo "identification"
+//            userOPtions(false, true, false);
+//            clearTxtUser();
+//        } else if (lblDeleteUsers.isHover()) {
+//            lblUserID.setText("Search user by ID:");
+//            userOPtions(false, false, true);
+//            clearTxtUser();
+//        }
 
     }
 
@@ -220,68 +217,27 @@ public class AdministratorController implements Initializable {
     }
 
     private void showProyects(boolean show) {
+        
         showBtnMenu(show);
         showMenuPane(!show);
         paneProyects.setDisable(!show);
         paneProyects.setVisible(show);
 
-        if (lblAddProyects.isHover()) {
-            lblProyectCode.setText("Proyect code:");
-            proyectOptions(true, false, false);
-        } else if (lblModifyProyects.isHover()) {
-            lblProyectCode.setText("Search user by ID:");
-            proyectOptions(false, true, false);
-
-        } else if (lblDeleteProyects.isHover()) {
-            lblProyectCode.setText("Search proyect by code");
-            proyectOptions(false, false, true);
-        }
-
     }
-
-    @FXML
-    private void clcikShowAddProyect(MouseEvent event) {
-        showHome(false);
-        showUsers(false);
-        showProyects(true);
+    
+    public void changePaneUsers(String labelText, boolean show1,boolean show2,boolean show3){
+ 
+        lblUserID.setText(labelText);
+        userOPtions(show1, show2, show3);
+        clearTxtUser();
     }
-
-    @FXML
-    private void clickShowModifyProyect(MouseEvent event) {
-        showHome(false);
-        showUsers(false);
-        showProyects(true);
+    
+    public void changePaneProyect(String labelText, boolean show1,boolean show2,boolean show3){
+        
+        lblProyectCode.setText(labelText);
+        proyectOptions(show1, show2, show3); 
     }
-
-    @FXML
-    private void clickShowDeleteProyect(MouseEvent event) {
-        showHome(false);
-        showUsers(false);
-        showProyects(true);
-    }
-
-    @FXML
-    private void clickShowAddUser(MouseEvent event) {
-        showHome(false);
-        showProyects(false);
-        showUsers(true);
-    }
-
-    @FXML
-    private void clcikShowModifyUser(MouseEvent event) {
-
-        showHome(false);
-        showProyects(false);
-        showUsers(true);
-    }
-
-    @FXML
-    private void clickShowDeleteUser(MouseEvent event) {
-
-        showHome(false);
-        showProyects(false);
-        showUsers(true);
-    }
+    
 
     @FXML
     private void clickExit(ActionEvent event) throws IOException {
@@ -342,16 +298,63 @@ public class AdministratorController implements Initializable {
 
         txtUserId.setText(id);
 
-//        User temp = tbvUsers.getItems().get(index);
-//        int id = tourDAO.getTourPorID(temp.getTurIdtour().toString()).getTourId();
-//
-//        txtIdTour.setText(String.valueOf(id));
+
     }
 
     @FXML
     private void clickSearchUser(ActionEvent event) {
 
         //hacer el search de la bd
+    }
+
+    @FXML
+    private void clcikShowAddProyect(ActionEvent event) {
+        showHome(false);
+        showUsers(false);
+        showProyects(true);
+        changePaneProyect("Proyect code:",true, false, false);
+    }
+
+    @FXML
+    private void clickShowModifyProyect(ActionEvent event) {
+        showHome(false);
+        showUsers(false);
+        showProyects(true);
+        changePaneProyect("Search user by ID:",false, true, false);
+    }
+
+    @FXML
+    private void clickShowDeleteProyect(ActionEvent event) {
+        showHome(false);
+        showUsers(false);
+        showProyects(true);
+        changePaneProyect("Search user by ID:",false, false, true);
+    }
+
+    @FXML
+    private void clickShowAddUser(ActionEvent event) {
+        showHome(false);
+        showProyects(false);
+        showUsers(true);
+        changePaneUsers("Identification", true, false, false);
+    }
+
+    @FXML
+    private void clcikShowModifyUser(ActionEvent event) {
+
+        showHome(false);
+        showProyects(false);
+        showUsers(true);
+        changePaneUsers("Search user by ID:", false, true, false);
+    }
+
+    @FXML
+    private void clickShowDeleteUser(ActionEvent event) {
+
+        showHome(false);
+        showProyects(false);
+        showUsers(true);
+        changePaneUsers("Search user by ID:", false, false, true);
     }
 
 }
