@@ -23,16 +23,24 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.User;
 import service.DBConnection;
+import utils.ChildThread;
+import utils.RemoteConnection;
 
 /**
  * FXML Controller class
  *
  * @author jitor
  */
-public class LogInController implements Initializable {   
+public class LogInController implements Initializable {
+
     Image showPasswordImage;
     boolean showPasswordFlag = false;
-    
+
+//    String respuesta;
+//    Thread thread;
+     
+     ChildThread thread;
+
     //FXML...
     @FXML
     private TextField txtLogInUsername;
@@ -92,6 +100,31 @@ public class LogInController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
     }
+    
+//    public void threadToServeer(String data) {
+//        thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                String param = String.valueOf(data);
+//                respuesta = RemoteConnection.connectToServer("POST", param);
+//                System.out.println("Respuesta del servidor: " + respuesta);
+//            }
+//        });
+//        thread.start();
+//        waitThreadEnd();
+//    }
+//    
+//    public String obtenerRespuesta() {
+//        return respuesta;
+//    }
+//    
+//    public void waitThreadEnd(){
+//        try {
+//            thread.join();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -157,28 +190,30 @@ public class LogInController implements Initializable {
 
     @FXML
     private void clickSigIn(ActionEvent event) throws IOException {
-        
-         //Luego colocar que si un usuario esta inactivo, no le permita ingresar 
 
+        //Luego colocar que si un usuario esta inactivo, no le permita ingresar 
         String usernameOrEmail = txtLogInUsername.getText();
         String password = null;
-        if(pswLogInPassword.isVisible())
+        if (pswLogInPassword.isVisible()) {
             password = pswLogInPassword.getText();
-        else if(txtShowLoginPassword.isVisible())
+        } else if (txtShowLoginPassword.isVisible()) {
             password = txtShowLoginPassword.getText();
-
-        String role = DBConnection.getInstance().logInUser(usernameOrEmail, password);
-        System.out.println("Role:" + role);
-
-        if ("Designer".equals(role)) {
-            App.setRoot("designer");
-        } else if ("Engineer".equals(role)) {
-            App.setRoot("engineer");
-        } else if ("Administrator".equals(role)) {
-            App.setRoot("administrator");
-        } else if (role == null) {
-            showAlert("No sea mamador");
         }
+
+        thread = new ChildThread(usernameOrEmail + "|" + password);
+
+        System.out.println("Role:" + thread.obtenerRespuesta());
+
+        if ("Designer".equals(thread.obtenerRespuesta())) {
+            App.setRoot("designer");
+        } else if ("Engineer".equals(thread.obtenerRespuesta())) {
+            App.setRoot("engineer");
+        } else if ("Administrator".equals(thread.obtenerRespuesta())) {
+            App.setRoot("administrator");
+        } else if (thread.obtenerRespuesta() == null) {
+            showAlert("Datos invalidos");
+        }
+
     }
 
     @FXML
@@ -189,10 +224,9 @@ public class LogInController implements Initializable {
 
     @FXML
     private void clickSingUp(ActionEvent event) {
-   
 
         if (txtRegisterUsername.getText().isEmpty() || txtRegisterEmail.getText().isEmpty()
-            || txtRegisterPassword.getText().isEmpty()) {
+                || txtRegisterPassword.getText().isEmpty()) {
             showAlert("Are you stupid? Txt is empty");
         } else {
             int id = Integer.parseInt(txtRegisterId.getText());

@@ -35,7 +35,7 @@ public class RemoteConnection {
         HttpURLConnection urlConnection = null;
         
         try {
-            URL url = new URL("https://192.168.1.40:8000");
+            URL url = new URL("http://192.168.1.40:8000");
             System.out.println("URL: " + url);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(metodo);
@@ -53,7 +53,7 @@ public class RemoteConnection {
             }
             
             int responseCode = urlConnection.getResponseCode();
-            System.out.println("Response Code :: " + responseCode);
+            System.out.println("Response Code : " + responseCode);
             if (responseCode == HttpURLConnection.HTTP_OK) {
             response = readStream(urlConnection.getInputStream());
             }
@@ -92,6 +92,7 @@ public class RemoteConnection {
         // mensaje retornado por el webservice y convertirlo en un String
         // Recibe como parámetros la conexión y retorna el String con los datos
         private static String readStream(InputStream in) {
+            System.out.println("ReadStrem" + in);
             
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             StringBuilder sb = new StringBuilder();
@@ -111,7 +112,4 @@ public class RemoteConnection {
             }
         return sb.toString();
         }
-
-    
-    
 }
