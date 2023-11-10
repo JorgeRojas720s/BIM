@@ -19,7 +19,8 @@ public class User {
     private String email;
     private String role;
 
-    public User(int id, String name, String lastName, String status, String username, String password, String email, String role) {
+    public User(int id, String name, String lastName, String status, String username,
+            String email, String password, String role) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -108,7 +109,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "Users{" + "id=" + id + ", name=" + name + ", lastName=" + lastName + ", status=" + status + ", username=" + username + ", password=" + password + ", email=" + email + ", role=" + role + '}';
+        return  id + "|" + name + "|" + lastName + "|" + status + "|" + username 
+        + "|" + email + "|" + password + "|" + role;
     }
 
 }

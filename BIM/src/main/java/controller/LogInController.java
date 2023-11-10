@@ -190,7 +190,7 @@ public class LogInController implements Initializable {
 
     @FXML
     private void clickSigIn(ActionEvent event) throws IOException {
-
+        
         //Luego colocar que si un usuario esta inactivo, no le permita ingresar 
         String usernameOrEmail = txtLogInUsername.getText();
         String password = null;
@@ -200,7 +200,8 @@ public class LogInController implements Initializable {
             password = txtShowLoginPassword.getText();
         }
 
-        thread = new ChildThread(usernameOrEmail + "|" + password);
+        thread = new ChildThread("consulta|",usernameOrEmail + "|" + password);
+        thread.waitThreadEnd();
 
         System.out.println("Role:" + thread.obtenerRespuesta());
 
@@ -224,10 +225,10 @@ public class LogInController implements Initializable {
 
     @FXML
     private void clickSingUp(ActionEvent event) {
-
+       
         if (txtRegisterUsername.getText().isEmpty() || txtRegisterEmail.getText().isEmpty()
-                || txtRegisterPassword.getText().isEmpty()) {
-            showAlert("Are you stupid? Txt is empty");
+            || txtRegisterPassword.getText().isEmpty()) {
+            showAlert("Txt is empty");
         } else {
             int id = Integer.parseInt(txtRegisterId.getText());
             String name = txtRegisterName.getText();
@@ -238,8 +239,11 @@ public class LogInController implements Initializable {
             String email = txtRegisterEmail.getText();
             String role = getRole();
 
-            User user = new User(id, name, lastName, status, username, password, email, role);
-            DBConnection.getInstance().registerUsers(user);
+            User user = new User(id, name, lastName, status, username, email, password, role);
+            
+            thread = new ChildThread("newUser|",user.toString());
+            
+//            DBConnection.getInstance().registerUsers(user);
             changePanes(false);
         }
     }
@@ -270,5 +274,4 @@ public class LogInController implements Initializable {
             showPasswordFlag = false;
         }
     }
-
 }
