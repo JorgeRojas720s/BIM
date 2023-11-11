@@ -153,7 +153,7 @@ public class AdministratorController implements Initializable {
         thread = new ChildThread("getAllUsers|", " ");
         thread.waitThreadEnd();
 
-        List<User> listaUsers = Parsing.parsingUsers(thread.getResponse());
+        List<User> listaUsers = Parsing.parsingAllUsers(thread.getResponse());
 
         ObservableList<User> userObservableList = FXCollections.observableArrayList(listaUsers);
         tbvUsers.setItems(userObservableList);
@@ -247,24 +247,66 @@ public class AdministratorController implements Initializable {
 
     }
 
-    public void changePaneUsers(String labelText, boolean show1, boolean show2, boolean show3) {
+    private void changePaneUsers(String labelText, boolean show1, boolean show2, boolean show3) {
 
         lblUserID.setText(labelText);
         userOPtions(show1, show2, show3);
         clearTxtUser();
     }
 
-    public void changePaneProyect(String labelText, boolean show1, boolean show2, boolean show3) {
+    private void changePaneProyect(String labelText, boolean show1, boolean show2, boolean show3) {
 
         lblProyectCode.setText(labelText);
         proyectOptions(show1, show2, show3);
+    }
+
+    private String getRole() {
+
+        //En scene bulder colocar uno fijo, para no tener problems
+        if (rbtUserAdministrator.isSelected()) {
+            return rbtUserAdministrator.getText();
+        } else if (rbtUserDesigner.isSelected()) {
+            return rbtUserDesigner.getText();
+        } else if (rbtUserEngineer.isSelected()) {
+            return rbtUserEngineer.getText();
+        } else {
+            return "No se obtuvo ningun role";
+        }
+    }
+
+    private void setRole(String user[]) {
+
+        if ("Engineer".equals(user[6])) {
+            rbtUserEngineer.setSelected(true);
+        } else if ("Administrator".equals(user[6])) {
+            rbtUserAdministrator.setSelected(true);
+        } else {
+            rbtUserDesigner.setSelected(true);
+        }
+    }
+
+    private String getStatus() {
+
+        if (rbtUserActive.isSelected()) {
+            return rbtUserActive.getText();
+        } else {
+            return rbtUserInactive.getText();
+        }
+    }
+
+    private void setStatus(String user[]) {
+
+        if ("Inactive".equals(user[2])) {
+            rbtUserInactive.setSelected(true);
+        } else {
+            rbtUserActive.setSelected(true);
+        }
     }
 
     @FXML
     private void clickExit(ActionEvent event) throws IOException {
         App.setRoot("logIn");
     }
-
 
     @FXML
     private void clcikMenu(ActionEvent event) {
@@ -305,6 +347,19 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickAddUser(ActionEvent event) {
+
+        String id = txtUserId.getText();
+        String name = txtUserName.getText();
+        String lastName = txtUserLastName.getText();
+        String username = txtUserUsername.getText();
+        String password = txtUserPassword.getText();
+        String email = txtUserEmail.getText();
+        String role = getRole();
+        String status = getStatus();
+
+        User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
+        thread = new ChildThread("newUser|", user.toString());
+
     }
 
     @FXML
@@ -326,7 +381,21 @@ public class AdministratorController implements Initializable {
     @FXML
     private void clickSearchUser(ActionEvent event) {
 
-        //hacer el search de la bd
+        String id = txtUserId.getText();
+
+        thread = new ChildThread("queryUser|", id + "|");
+        thread.waitThreadEnd();
+
+        String[] user = Parsing.parsingUser(thread.getResponse());
+
+        txtUserName.setText(user[0]);
+        txtUserLastName.setText(user[1]);
+        setStatus(user);
+        txtUserUsername.setText(user[3]);
+        txtUserEmail.setText(user[4]);
+        txtUserPassword.setText(user[5]);    
+        setRole(user);
+
     }
 
     @FXML

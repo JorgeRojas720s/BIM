@@ -152,7 +152,7 @@
             <TextField fx:id="txtUserEmail" layoutX="303.0" layoutY="407.0" prefHeight="40.0" prefWidth="200.0" />
             <TextField fx:id="txtUserUsername" layoutX="138.0" layoutY="519.0" prefHeight="40.0" prefWidth="200.0" />
             <TextField fx:id="txtUserPassword" layoutX="486.0" layoutY="517.0" prefHeight="40.0" prefWidth="200.0" />
-            <RadioButton fx:id="rbtUserInactive" layoutX="526.0" layoutY="322.0" mnemonicParsing="false" text="Inactive" textFill="WHITE">
+            <RadioButton fx:id="rbtUserInactive" layoutX="526.0" layoutY="322.0" mnemonicParsing="false" selected="true" text="Inactive" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -174,7 +174,7 @@
                <font>
                   <Font size="18.0" />
                </font></RadioButton>
-            <RadioButton fx:id="rbtUserEngineer" layoutX="130.0" layoutY="626.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="113.0" text="Engineer" textFill="WHITE" toggleGroup="$roleGroup">
+            <RadioButton fx:id="rbtUserEngineer" layoutX="130.0" layoutY="626.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="113.0" selected="true" text="Engineer" textFill="WHITE" toggleGroup="$roleGroup">
                <font>
                   <Font size="18.0" />
                </font></RadioButton>
