@@ -203,15 +203,15 @@ public class LogInController implements Initializable {
         thread = new ChildThread("consulta|",usernameOrEmail + "|" + password);
         thread.waitThreadEnd();
 
-        System.out.println("Role:" + thread.obtenerRespuesta());
+        System.out.println("Role:" + thread.getResponse());
 
-        if ("Designer".equals(thread.obtenerRespuesta())) {
+        if ("Designer".equals(thread.getResponse())) {
             App.setRoot("designer");
-        } else if ("Engineer".equals(thread.obtenerRespuesta())) {
+        } else if ("Engineer".equals(thread.getResponse())) {
             App.setRoot("engineer");
-        } else if ("Administrator".equals(thread.obtenerRespuesta())) {
+        } else if ("Administrator".equals(thread.getResponse())) {
             App.setRoot("administrator");
-        } else if (thread.obtenerRespuesta() == null) {
+        } else if (thread.getResponse() == null) {
             showAlert("Datos invalidos");
         }
 

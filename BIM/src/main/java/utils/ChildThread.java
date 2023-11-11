@@ -27,10 +27,10 @@ public class ChildThread {
             }
         });
         thread.start();
-//        waitThreadEnd();
+//          waitThreadEnd();
     }
 
-    public String obtenerRespuesta() {
+    public String getResponse() {
         return respuesta;
     }
 

@@ -15,7 +15,7 @@
 
 <AnchorPane id="panePrimary" prefHeight="768.0" prefWidth="1366.0" stylesheets="@../../../css/administrator.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdministratorController">
    <children>
-      <AnchorPane id="paneSecondary" fx:id="paneMenu" disable="true" layoutX="-42.0" layoutY="15.0" prefHeight="727.0" prefWidth="342.0" stylesheets="@../../../css/administrator.css" visible="false">
+      <AnchorPane id="paneSecondary" fx:id="paneMenu" disable="true" layoutX="-355.0" layoutY="15.0" prefHeight="727.0" prefWidth="342.0" stylesheets="@../../../css/administrator.css" visible="false">
          <children>
             <Button fx:id="btnExit" layoutX="72.0" layoutY="675.0" mnemonicParsing="false" onAction="#clickExit" prefHeight="34.0" prefWidth="66.0" styleClass="buttonRed" text="Exit" />
             <Button fx:id="clickBack" layoutX="66.0" layoutY="38.0" mnemonicParsing="false" onAction="#clickBack" prefHeight="26.0" prefWidth="46.0" styleClass="buttonGreen">

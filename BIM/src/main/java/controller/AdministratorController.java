@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,8 +29,11 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import model.User;
 import service.DBConnection;
+import utils.ChildThread;
+import utils.Parsing;
 
 /**
  * FXML Controller class
@@ -34,6 +41,8 @@ import service.DBConnection;
  * @author jitor
  */
 public class AdministratorController implements Initializable {
+
+    ChildThread thread;
 
     @FXML
     private Button btnExit;
@@ -57,7 +66,7 @@ public class AdministratorController implements Initializable {
     private AnchorPane paneHome;
     @FXML
     private Button btnHome;
- 
+
     @FXML
     private Label lblUserID;
     @FXML
@@ -141,10 +150,24 @@ public class AdministratorController implements Initializable {
 
     private void updateTableViewUsers() {
 
-        List<User> listaUsers = DBConnection.getInstance().getUsers();
+        thread = new ChildThread("getAllUsers|", " ");
+        thread.waitThreadEnd();
+
+        List<User> listaUsers = Parsing.parsingUsers(thread.getResponse());
 
         ObservableList<User> userObservableList = FXCollections.observableArrayList(listaUsers);
         tbvUsers.setItems(userObservableList);
+    }
+
+    private void animationPaneMenu(int pos) {
+        double targetWidth = pos;
+        Duration duration = Duration.seconds(1);
+
+        paneMenu.setTranslateX(0);
+
+        TranslateTransition transition = new TranslateTransition(duration, paneMenu);
+        transition.setToX(targetWidth);
+        transition.play();
     }
 
     private void showMenuPane(boolean show) {
@@ -201,7 +224,6 @@ public class AdministratorController implements Initializable {
 //            userOPtions(false, false, true);
 //            clearTxtUser();
 //        }
-
     }
 
     private void proyectOptions(boolean show1, boolean show2, boolean show3) {
@@ -217,41 +239,43 @@ public class AdministratorController implements Initializable {
     }
 
     private void showProyects(boolean show) {
-        
+
         showBtnMenu(show);
         showMenuPane(!show);
         paneProyects.setDisable(!show);
         paneProyects.setVisible(show);
 
     }
-    
-    public void changePaneUsers(String labelText, boolean show1,boolean show2,boolean show3){
- 
+
+    public void changePaneUsers(String labelText, boolean show1, boolean show2, boolean show3) {
+
         lblUserID.setText(labelText);
         userOPtions(show1, show2, show3);
         clearTxtUser();
     }
-    
-    public void changePaneProyect(String labelText, boolean show1,boolean show2,boolean show3){
-        
+
+    public void changePaneProyect(String labelText, boolean show1, boolean show2, boolean show3) {
+
         lblProyectCode.setText(labelText);
-        proyectOptions(show1, show2, show3); 
+        proyectOptions(show1, show2, show3);
     }
-    
 
     @FXML
     private void clickExit(ActionEvent event) throws IOException {
         App.setRoot("logIn");
     }
 
+
     @FXML
     private void clcikMenu(ActionEvent event) {
         showMenuPane(true);
+        animationPaneMenu(335);
     }
 
     @FXML
     private void clickBack(ActionEvent event) {
         showMenuPane(false);
+
     }
 
     @FXML
@@ -297,8 +321,6 @@ public class AdministratorController implements Initializable {
         System.out.println("ID:" + id);
 
         txtUserId.setText(id);
-
-
     }
 
     @FXML
@@ -312,7 +334,7 @@ public class AdministratorController implements Initializable {
         showHome(false);
         showUsers(false);
         showProyects(true);
-        changePaneProyect("Proyect code:",true, false, false);
+        changePaneProyect("Proyect code:", true, false, false);
     }
 
     @FXML
@@ -320,7 +342,7 @@ public class AdministratorController implements Initializable {
         showHome(false);
         showUsers(false);
         showProyects(true);
-        changePaneProyect("Search user by ID:",false, true, false);
+        changePaneProyect("Search user by ID:", false, true, false);
     }
 
     @FXML
@@ -328,7 +350,7 @@ public class AdministratorController implements Initializable {
         showHome(false);
         showUsers(false);
         showProyects(true);
-        changePaneProyect("Search user by ID:",false, false, true);
+        changePaneProyect("Search user by ID:", false, false, true);
     }
 
     @FXML
