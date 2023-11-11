@@ -43,6 +43,8 @@ import utils.Parsing;
 public class AdministratorController implements Initializable {
 
     ChildThread thread;
+    
+    String data = "";
 
     @FXML
     private Button btnExit;
@@ -126,8 +128,16 @@ public class AdministratorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+ 
         fillTableView();
-        updateTableViewUsers();
+       
+        
+        thread = new ChildThread("getAllUsers|", " ");
+        thread.waitThreadEnd();
+        data = thread.getResponse();
+        
+         updateTableViewUsers();
+        
     }
 
     private void clearTxtUser() {
@@ -150,10 +160,7 @@ public class AdministratorController implements Initializable {
 
     private void updateTableViewUsers() {
 
-        thread = new ChildThread("getAllUsers|", " ");
-        thread.waitThreadEnd();
-
-        List<User> listaUsers = Parsing.parsingAllUsers(thread.getResponse());
+        List<User> listaUsers = Parsing.parsingAllUsers(data);
 
         ObservableList<User> userObservableList = FXCollections.observableArrayList(listaUsers);
         tbvUsers.setItems(userObservableList);
@@ -317,7 +324,6 @@ public class AdministratorController implements Initializable {
     @FXML
     private void clickBack(ActionEvent event) {
         showMenuPane(false);
-
     }
 
     @FXML
@@ -359,11 +365,20 @@ public class AdministratorController implements Initializable {
 
         User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
         thread = new ChildThread("newUser|", user.toString());
-
+        
+        updateTableViewUsers();
     }
 
     @FXML
     private void clickDeleteUser(ActionEvent event) {
+        
+        String id = txtUserId.getText();
+
+        thread = new ChildThread("deleteUser|", id + "|");
+        thread.waitThreadEnd();
+        
+        updateTableViewUsers();
+        
     }
 
     @FXML
