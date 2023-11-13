@@ -6,11 +6,9 @@ package model;
 
 /**
  *
- * @author jitor
+ * @author fabia
  */
-public class ConstructionObject {
-    private int posX, posY, width, height;
-    private String objectType;
-//    private lista de quantity
+public class ConstructionPaper {
+
     
 }

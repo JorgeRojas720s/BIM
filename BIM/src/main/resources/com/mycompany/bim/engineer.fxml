@@ -130,7 +130,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="btnNextToMaterials" layoutX="544.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickNextToMaterials" prefHeight="44.0" prefWidth="76.0" styleClass="buttonGreen" text="Next" />
+            <Button fx:id="btnProyectProcess" layoutX="544.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickProyectProcess" prefHeight="44.0" prefWidth="76.0" styleClass="buttonGreen" text="Next" />
             <Button fx:id="btnDoNotCreate1" layoutX="424.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickDoNotCreate" prefHeight="44.0" prefWidth="112.0" styleClass="buttonRed" text="Don't create" />
          </children>
       </AnchorPane>
@@ -176,7 +176,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="btnNextToObjects" layoutX="544.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickNextToObjects" prefHeight="44.0" prefWidth="76.0" styleClass="buttonGreen" text="Next" />
+            <Button fx:id="btnMaterialProcess" layoutX="544.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickMaterialProcess" prefHeight="44.0" prefWidth="76.0" styleClass="buttonGreen" text="Next" />
             <TextField fx:id="txtMaterialPrice" layoutX="347.0" layoutY="432.0" prefHeight="55.0" prefWidth="175.0">
                <font>
                   <Font size="24.0" />
@@ -188,7 +188,6 @@
               </content>
             </ScrollPane>
             <Button fx:id="btnAddMaterial" layoutX="265.0" layoutY="501.0" mnemonicParsing="false" onAction="#clickAddMaterial" prefHeight="44.0" prefWidth="102.0" styleClass="buttonBlue" text="Add" />
-            <Button fx:id="btnDoNotCreate2" layoutX="424.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickDoNotCreate" prefHeight="44.0" prefWidth="112.0" styleClass="buttonRed" text="Don't create" />
          </children>
       </AnchorPane>
       <AnchorPane id="paneTertiary" fx:id="paneObject" layoutX="318.0" layoutY="70.0" prefHeight="610.0" prefWidth="633.0" visible="false">
@@ -208,7 +207,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="btnEndProcess" layoutX="544.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickEndProcess" prefHeight="44.0" prefWidth="76.0" styleClass="buttonGreen" text="Create" />
+            <Button fx:id="btnObjectProcess" layoutX="544.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickObjectProcess" prefHeight="44.0" prefWidth="76.0" styleClass="buttonGreen" text="Create" />
             <ScrollPane fx:id="scrObjects" layoutX="76.0" layoutY="112.0" prefHeight="245.0" prefWidth="482.0">
                <content>
                   <AnchorPane id="panePrimary" minHeight="0.0" minWidth="0.0" prefHeight="340.0" prefWidth="462.0">
@@ -229,7 +228,6 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Button fx:id="btnDoNotCreate3" layoutX="424.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickDoNotCreate" prefHeight="44.0" prefWidth="112.0" styleClass="buttonRed" text="Don't create" />
          </children>
       </AnchorPane>
       <Label fx:id="lblMessage" layoutX="423.0" layoutY="224.0" text="Wellcome back">
