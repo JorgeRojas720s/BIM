@@ -42,7 +42,6 @@ import utils.Parsing;
  */
 public class AdministratorController implements Initializable {
 
-    ChildThread thread;
 
     String data = "";
     
@@ -79,9 +78,6 @@ public class AdministratorController implements Initializable {
     private Button btnModifyProyect;
     @FXML
     private Button btnDeleteProyect;
-    private Label lblAddProyects;
-    private Label lblModifyProyects;
-    private Label lblDeleteProyects;
     @FXML
     private Label lblProyectCode;
     @FXML
@@ -132,10 +128,8 @@ public class AdministratorController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         fillTableView();
-        
 
         updateTableViewUsers();
-
     }
 
     private void clearTxtUser() {
@@ -158,7 +152,7 @@ public class AdministratorController implements Initializable {
 
     private void updateTableViewUsers() {
         
-        thread = new ChildThread("getAllUsers|", " ");
+        ChildThread thread = new ChildThread("getAllUsers|", " ");
         thread.waitThreadEnd();
         data = thread.getResponse();
 
@@ -348,10 +342,10 @@ public class AdministratorController implements Initializable {
         String status = getStatus();
         
         User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
-        thread = new ChildThread("updateUser|", user.toString());
+        ChildThread thread = new ChildThread("updateUser|", user.toString());
+        thread.waitThreadEnd();
         
-        System.out.println("modify user" + thread.getResponse());
-
+        updateTableViewUsers(); 
     }
 
     @FXML
@@ -367,9 +361,10 @@ public class AdministratorController implements Initializable {
         String status = getStatus();
 
         User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
-        thread = new ChildThread("newUser|", user.toString());
-
-        //updateTableViewUsers(); da error
+        ChildThread thread = new ChildThread("newUser|", user.toString());
+        thread.waitThreadEnd();
+        
+        updateTableViewUsers(); 
     }
 
     @FXML
@@ -377,7 +372,7 @@ public class AdministratorController implements Initializable {
 
         String id = txtUserId.getText();
 
-        thread = new ChildThread("deleteUser|", id + "|");
+        ChildThread thread = new ChildThread("deleteUser|", id + "|");
         thread.waitThreadEnd();
 
         updateTableViewUsers(); // en este no da error
@@ -402,7 +397,7 @@ public class AdministratorController implements Initializable {
 
         String id = txtUserId.getText();
 
-        thread = new ChildThread("queryUser|", id + "|");
+        ChildThread thread = new ChildThread("queryUser|", id + "|");
         thread.waitThreadEnd();
 
         String[] user = Parsing.parsingUser(thread.getResponse());
@@ -414,7 +409,6 @@ public class AdministratorController implements Initializable {
         txtUserEmail.setText(user[4]);
         txtUserPassword.setText(user[5]);
         setRole(user);
-
     }
 
     @FXML

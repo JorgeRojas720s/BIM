@@ -39,7 +39,6 @@ public class LogInController implements Initializable {
 //    String respuesta;
 //    Thread thread;
      
-     ChildThread thread;
 
     //FXML...
     @FXML
@@ -100,31 +99,6 @@ public class LogInController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
     }
-    
-//    public void threadToServeer(String data) {
-//        thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                String param = String.valueOf(data);
-//                respuesta = RemoteConnection.connectToServer("POST", param);
-//                System.out.println("Respuesta del servidor: " + respuesta);
-//            }
-//        });
-//        thread.start();
-//        waitThreadEnd();
-//    }
-//    
-//    public String obtenerRespuesta() {
-//        return respuesta;
-//    }
-//    
-//    public void waitThreadEnd(){
-//        try {
-//            thread.join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -200,7 +174,7 @@ public class LogInController implements Initializable {
             password = txtShowLoginPassword.getText();
         }
 
-        thread = new ChildThread("consulta|",usernameOrEmail + "|" + password);
+         ChildThread thread = new ChildThread("consulta|",usernameOrEmail + "|" + password);
         thread.waitThreadEnd();
 
         System.out.println("Role:" + thread.getResponse());
@@ -241,7 +215,7 @@ public class LogInController implements Initializable {
 
             User user = new User(id, name, lastName, status, username, email, password, role);
             
-            thread = new ChildThread("newUser|",user.toString());
+            ChildThread thread = new ChildThread("newUser|",user.toString());
             
 //            DBConnection.getInstance().registerUsers(user);
             changePanes(false);
