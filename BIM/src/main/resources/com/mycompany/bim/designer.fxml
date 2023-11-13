@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="panePrimary" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../../../css/engineer.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DesignerController">
+<AnchorPane id="panePrimary" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#clickDragObject" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../../../css/engineer.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DesignerController">
    <children>
       <Button fx:id="btnExit" layoutX="1256.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickExit" prefHeight="43.0" prefWidth="78.0" styleClass="buttonRed" text="Exit">
          <font>
@@ -21,10 +21,52 @@
       </Button>
       <ScrollPane layoutX="1045.0" layoutY="101.0" prefHeight="547.0" prefWidth="290.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="636.0" prefWidth="270.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1545.0" prefWidth="270.0">
+               <children>
+                  <ImageView fx:id="imvDoor" fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="54.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/door.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imvWall" fitHeight="60.0" fitWidth="225.0" layoutX="23.0" layoutY="262.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/wall.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imvWindow" fitHeight="60.0" fitWidth="225.0" layoutX="23.0" layoutY="377.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/window.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="501.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/colType1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="713.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/colType2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="913.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/colType3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="1119.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/colType4.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="1313.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/crownBeam.png" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
         </content>
       </ScrollPane>
-      <Canvas height="631.0" layoutX="106.0" layoutY="60.0" width="909.0" />
+      <Canvas fx:id="cnvWorkSpace" height="631.0" layoutX="107.0" layoutY="60.0" width="909.0" />
       <Line endX="812.199951171875" layoutX="216.0" layoutY="57.0" startX="-121.59999084472656" startY="7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
       <Line endX="807.0" layoutX="221.0" layoutY="691.0" startX="-125.00001525878906" stroke="WHITE" strokeWidth="3.0" />
       <Line endX="-100.00001525878906" endY="-132.60000610351562" layoutX="206.0" layoutY="179.0" startX="-100.00001525878906" startY="525.0" stroke="WHITE" strokeWidth="3.0" />
