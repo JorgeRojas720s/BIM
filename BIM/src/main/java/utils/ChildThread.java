@@ -13,15 +13,15 @@ public class ChildThread {
     String respuesta;
     Thread thread;
 
-    public ChildThread(String queryType,String data) {
-        threadToServeer(queryType,data);
+    public ChildThread(String table, String queryType,String data) {
+        threadToServeer(table,queryType,data);
     }
 
-    public void threadToServeer(String queryType,String data) {
+    public void threadToServeer(String table, String queryType,String data) {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String param = queryType + data;
+                String param = table + "|" + queryType + "|" + data;
                 respuesta = RemoteConnection.connectToServer("POST", param);
                 System.out.println("Respuesta del servidor: " + respuesta);
             }

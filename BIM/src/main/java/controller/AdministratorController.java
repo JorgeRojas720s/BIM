@@ -7,6 +7,9 @@ package controller;
 import com.mycompany.bim.App;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -20,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -30,7 +34,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import model.Proyect;
 import model.User;
+import model.UserXProyect;
 import service.DBConnection;
 import utils.ChildThread;
 import utils.Parsing;
@@ -42,9 +48,8 @@ import utils.Parsing;
  */
 public class AdministratorController implements Initializable {
 
-
     String data = "";
-    
+
     boolean setIdFromTblv;
 
     @FXML
@@ -120,16 +125,35 @@ public class AdministratorController implements Initializable {
     private ToggleGroup statusGroup;
     @FXML
     private ToggleGroup roleGroup;
+    @FXML
+    private TableView<?> tblvProyects;
+    @FXML
+    private TableColumn<?, ?> columProyect;
+    @FXML
+    private TableColumn<?, ?> columCode;
+    @FXML
+    private TableView<?> tblvProUsers;
+    @FXML
+    private TextField txtDesignerID;
+    @FXML
+    private TextField txtProyectName;
+    @FXML
+    private TextField txtProyectId;
+    @FXML
+    private DatePicker dtpStartDate;
+    @FXML
+    private DatePicker dtpFinishDate;
+    @FXML
+    private TextField txtEngineerID;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         fillTableView();
 
-        updateTableViewUsers();
     }
 
     private void clearTxtUser() {
@@ -150,9 +174,9 @@ public class AdministratorController implements Initializable {
         columnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
 
-    private void updateTableViewUsers() {
-        
-        ChildThread thread = new ChildThread("getAllUsers|", " ");
+    private void updateTableViewUsers(String query) {
+
+        ChildThread thread = new ChildThread("user",query, " ");
         thread.waitThreadEnd();
         data = thread.getResponse();
 
@@ -319,6 +343,34 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickAddProyect(ActionEvent event) {
+        
+        String code = txtProyectId.getText();
+        String name = txtProyectName.getText();
+        String engineer = txtEngineerID.getText();
+        String designer = txtDesignerID.getText();
+        
+        LocalDate startDate = dtpStartDate.getValue();
+        String dateStart = startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        
+        LocalDate finishDate = dtpFinishDate.getValue();
+        String dateFinish = finishDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        
+        System.out.println("dateStart"+ dateStart);
+        System.out.println("dateFinish"+ dateFinish);
+        
+        Proyect proyect = new Proyect(code,name,dateStart,dateFinish);
+        ChildThread thread1 = new ChildThread("proyect","newProyect", proyect.toString());
+        thread1.waitThreadEnd();
+        
+        UserXProyect userXproyect1 = new UserXProyect(engineer, code);
+        ChildThread thread2 = new ChildThread("userXproyect","fillTable", userXproyect1.toString());
+        thread2.waitThreadEnd();
+        
+        UserXProyect userXproyect2 = new UserXProyect(designer, code);
+        ChildThread thread3 = new ChildThread("userXproyect","fillTable", userXproyect2.toString());
+        thread3.waitThreadEnd();
+        
+        
     }
 
     @FXML
@@ -340,12 +392,12 @@ public class AdministratorController implements Initializable {
         String email = txtUserEmail.getText();
         String role = getRole();
         String status = getStatus();
-        
+
         User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
-        ChildThread thread = new ChildThread("updateUser|", user.toString());
+        ChildThread thread = new ChildThread("user","updateUser", user.toString());
         thread.waitThreadEnd();
-        
-        updateTableViewUsers(); 
+
+        updateTableViewUsers("getAllUsers");
     }
 
     @FXML
@@ -361,10 +413,10 @@ public class AdministratorController implements Initializable {
         String status = getStatus();
 
         User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
-        ChildThread thread = new ChildThread("newUser|", user.toString());
+        ChildThread thread = new ChildThread("user","newUser", user.toString());
         thread.waitThreadEnd();
-        
-        updateTableViewUsers(); 
+
+        updateTableViewUsers("getAllUsers");
     }
 
     @FXML
@@ -372,10 +424,10 @@ public class AdministratorController implements Initializable {
 
         String id = txtUserId.getText();
 
-        ChildThread thread = new ChildThread("deleteUser|", id + "|");
+        ChildThread thread = new ChildThread("user","deleteUser", id + "|");
         thread.waitThreadEnd();
 
-        updateTableViewUsers(); // en este no da error
+        updateTableViewUsers("getAllUsers"); // en este no da error
 
     }
 
@@ -385,11 +437,18 @@ public class AdministratorController implements Initializable {
         int index = tbvUsers.getSelectionModel().getFocusedIndex();
 
         String id = String.valueOf(columnID.getCellData(index));
+        String role = columnRole.getCellData(index);
 
         System.out.println("ID:" + id);
-        if(setIdFromTblv){
+        if (setIdFromTblv) {
             txtUserId.setText(id);
         }
+        if("Designer".equals(role)){
+           txtDesignerID.setText(id); 
+        }else if("Engineer".equals(role)){
+            txtEngineerID.setText(id);
+        }
+        
     }
 
     @FXML
@@ -397,7 +456,7 @@ public class AdministratorController implements Initializable {
 
         String id = txtUserId.getText();
 
-        ChildThread thread = new ChildThread("queryUser|", id + "|");
+        ChildThread thread = new ChildThread("user","queryUser", id + "|");
         thread.waitThreadEnd();
 
         String[] user = Parsing.parsingUser(thread.getResponse());
@@ -413,6 +472,8 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clcikShowAddProyect(ActionEvent event) {
+        moveTblvUsers(paneProyects);
+        updateTableViewUsers("getEngAndDesig");
         showHome(false);
         showUsers(false);
         showProyects(true);
@@ -421,22 +482,36 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickShowModifyProyect(ActionEvent event) {
+        moveTblvUsers(paneProyects);
+        updateTableViewUsers("getEngAndDesig");
         showHome(false);
         showUsers(false);
         showProyects(true);
-        changePaneProyect("Search user by ID:", false, true, false);
+        changePaneProyect("Search Proyect by ID:", false, true, false);
     }
 
     @FXML
     private void clickShowDeleteProyect(ActionEvent event) {
+        moveTblvUsers(paneProyects);
+        updateTableViewUsers("getEngAndDesig");
         showHome(false);
         showUsers(false);
         showProyects(true);
-        changePaneProyect("Search user by ID:", false, false, true);
+        changePaneProyect("Search Proyect by ID:", false, false, true);
+    }
+
+    private void moveTblvUsers(AnchorPane pane) {
+
+        if (!pane.getChildren().contains(tbvUsers)) {
+            pane.getChildren().add(tbvUsers);
+        }
+
     }
 
     @FXML
     private void clickShowAddUser(ActionEvent event) {
+        updateTableViewUsers("getAllUsers");
+        moveTblvUsers(paneUsers);
         setIdFromTblv = false;
         txtUserId.setEditable(true);
         showHome(false);
@@ -447,6 +522,8 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clcikShowModifyUser(ActionEvent event) {
+        updateTableViewUsers("getAllUsers");
+        moveTblvUsers(paneUsers);
         setIdFromTblv = true;
         txtUserId.setEditable(false);
         showHome(false);
@@ -457,8 +534,10 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickShowDeleteUser(ActionEvent event) {
+        updateTableViewUsers("getAllUsers");
+        moveTblvUsers(paneUsers);
         setIdFromTblv = true;
-         txtUserId.setEditable(true);
+        txtUserId.setEditable(true);
         showHome(false);
         showProyects(false);
         showUsers(true);

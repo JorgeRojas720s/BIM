@@ -184,61 +184,70 @@
             <Button fx:id="btnSearchUser" layoutX="532.0" layoutY="126.0" mnemonicParsing="false" onAction="#clickSearchUser" prefHeight="40.0" prefWidth="70.0" styleClass="buttonBlue" text="Search" />
          </children>
       </AnchorPane>
-      <AnchorPane id="paneTertiary" fx:id="paneProyects" disable="true" layoutX="42.0" layoutY="31.0" prefHeight="711.0" prefWidth="1295.0" stylesheets="@../../../css/administrator.css" visible="false">
+      <AnchorPane id="paneTertiary" fx:id="paneProyects" layoutX="42.0" layoutY="31.0" prefHeight="711.0" prefWidth="1295.0" stylesheets="@../../../css/administrator.css">
          <children>
-            <TextField layoutX="1066.0" layoutY="382.0" prefHeight="40.0" prefWidth="200.0" />
-            <TableView layoutX="53.0" layoutY="46.0" prefHeight="640.0" prefWidth="509.0">
-              <columns>
-                <TableColumn prefWidth="186.66668701171875" text="Proyect" />
-                <TableColumn prefWidth="116.3333740234375" text="Code" />
-                  <TableColumn prefWidth="197.6666259765625" text="Construction plan" />
-              </columns>
+            <TextField fx:id="txtDesignerID" layoutX="432.0" layoutY="413.0" prefHeight="40.0" prefWidth="200.0" />
+            <Label fx:id="lblProyectCode" layoutX="244.0" layoutY="152.0" prefHeight="27.0" prefWidth="202.0" text="Search Proyect By Code" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="262.0" layoutY="272.0" text="Name" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="135.0" layoutY="380.0" text="Engineer(ID)" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="439.0" layoutY="380.0" text="Designer(ID)" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="147.0" layoutY="518.0" text="Start Date" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="449.0" layoutY="517.0" text="Finish Date" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <TextField fx:id="txtProyectName" layoutX="241.0" layoutY="303.0" prefHeight="40.0" prefWidth="200.0" />
+            <TextField fx:id="txtProyectId" layoutX="236.0" layoutY="186.0" prefHeight="40.0" prefWidth="200.0" />
+            <DatePicker fx:id="dtpStartDate" layoutX="126.0" layoutY="547.0" prefHeight="40.0" prefWidth="200.0" />
+            <DatePicker fx:id="dtpFinishDate" layoutX="433.0" layoutY="546.0" prefHeight="40.0" prefWidth="200.0" />
+            <TextField fx:id="txtEngineerID" layoutX="127.0" layoutY="413.0" prefHeight="40.0" prefWidth="200.0" />
+            <Button fx:id="btnAddProyect" disable="true" layoutX="150.0" layoutY="635.0" mnemonicParsing="false" onAction="#clickAddProyect" prefHeight="45.0" prefWidth="410.0" styleClass="buttonBlue" text="Add" visible="false" />
+            <Button fx:id="btnModifyProyect" disable="true" layoutX="150.0" layoutY="635.0" mnemonicParsing="false" onAction="#clickModifyProyect" prefHeight="45.0" prefWidth="410.0" styleClass="buttonBlue" text="Modify" visible="false" />
+            <Button fx:id="btnDeleteProyect" disable="true" layoutX="150.0" layoutY="635.0" mnemonicParsing="false" onAction="#clcikDeleteProyect" prefHeight="45.0" prefWidth="410.0" styleClass="buttonBlue" text="Delete" visible="false" />
+            <TableView fx:id="tblvProUsers" disable="true" layoutX="904.0" layoutY="55.0" prefHeight="640.0" prefWidth="374.0" visible="false">
+               <columns>
+                  <TableColumn prefWidth="112.0" text="Identification" />
+                  <TableColumn minWidth="0.0" prefWidth="83.0" text="Name" />
+                  <TableColumn prefWidth="106.0" text="Role" />
+                  <TableColumn prefWidth="72.0" text="Status" />
+               </columns>
             </TableView>
-            <Label fx:id="lblProyectCode" layoutX="858.0" layoutY="106.0" prefHeight="27.0" prefWidth="202.0" text="Search Proyect By Code" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-            <Label layoutX="870.0" layoutY="242.0" text="Name" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-            <Label layoutX="680.0" layoutY="350.0" text="Engineer" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-            <Label layoutX="1077.0" layoutY="351.0" text="Designer" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-            <Label layoutX="680.0" layoutY="488.0" text="Start Date" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-            <Label layoutX="1077.0" layoutY="488.0" text="Finish Date" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-            <TextField layoutX="852.0" layoutY="269.0" prefHeight="40.0" prefWidth="200.0" />
-            <TextField layoutX="852.0" layoutY="139.0" prefHeight="40.0" prefWidth="200.0" />
-            <DatePicker layoutX="670.0" layoutY="515.0" prefHeight="40.0" prefWidth="200.0" />
-            <DatePicker layoutX="1066.0" layoutY="515.0" prefHeight="40.0" prefWidth="200.0" />
-            <TextField layoutX="670.0" layoutY="382.0" prefHeight="40.0" prefWidth="200.0" />
-            <Button fx:id="btnAddProyect" disable="true" layoutX="671.0" layoutY="635.0" mnemonicParsing="false" onAction="#clickAddProyect" prefHeight="45.0" prefWidth="577.0" styleClass="buttonBlue" text="Add" visible="false" />
-            <Button fx:id="btnModifyProyect" disable="true" layoutX="671.0" layoutY="635.0" mnemonicParsing="false" onAction="#clickModifyProyect" prefHeight="45.0" prefWidth="577.0" styleClass="buttonBlue" text="Modify" visible="false" />
-            <Button fx:id="btnDeleteProyect" disable="true" layoutX="671.0" layoutY="635.0" mnemonicParsing="false" onAction="#clcikDeleteProyect" prefHeight="45.0" prefWidth="610.0" styleClass="buttonBlue" text="Delete" visible="false" />
          </children>
       </AnchorPane>
-      <AnchorPane id="paneUserHome" fx:id="paneHome" layoutX="22.0" layoutY="31.0" prefHeight="708.0" prefWidth="1314.0" stylesheets="@../../../css/administrator.css">
+      <AnchorPane id="paneUserHome" fx:id="paneHome" disable="true" layoutX="22.0" layoutY="31.0" prefHeight="708.0" prefWidth="1314.0" stylesheets="@../../../css/administrator.css" visible="false">
          <children>
-            <Label layoutX="330.0" layoutY="288.0" prefHeight="80.0" prefWidth="923.0" text="Algo como bienvenido admin y se pone el nombre" textFill="WHITE">
+            <Label layoutX="113.0" layoutY="228.0" prefHeight="80.0" prefWidth="1035.0" text="Algo como bienvenido admin " textFill="WHITE">
                <font>
                   <Font size="38.0" />
                </font></Label>
-            <Label layoutX="320.0" layoutY="368.0" prefHeight="80.0" prefWidth="923.0" text="O una imagen, algo ponemos" textFill="WHITE">
+            <Label layoutX="36.0" layoutY="384.0" prefHeight="80.0" prefWidth="923.0" text="y se pone el nombre O una imagen, algo" textFill="WHITE">
                <font>
                   <Font size="38.0" />
                </font>
             </Label>
+            <TableView fx:id="tblvProyects" layoutX="816.0" layoutY="26.0" prefHeight="640.0" prefWidth="455.0">
+              <columns>
+                <TableColumn fx:id="columProyect" prefWidth="108.0" text="Proyect" />
+                <TableColumn fx:id="columCode" minWidth="0.0" prefWidth="91.0" text="Code" />
+                  <TableColumn prefWidth="114.0" text="Engineer" />
+                  <TableColumn prefWidth="141.0" text="Designer" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
       <Button id="btnMenu" fx:id="btnMenu" layoutX="56.0" layoutY="16.0" mnemonicParsing="false" onAction="#clcikMenu" prefHeight="30.0" prefWidth="73.0" styleClass="buttonGreen" stylesheets="@../../../css/administrator.css" text="Menu" />

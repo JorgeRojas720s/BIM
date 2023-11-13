@@ -174,7 +174,7 @@ public class LogInController implements Initializable {
             password = txtShowLoginPassword.getText();
         }
 
-         ChildThread thread = new ChildThread("consulta|",usernameOrEmail + "|" + password);
+         ChildThread thread = new ChildThread("user","consulta",usernameOrEmail + "|" + password);
         thread.waitThreadEnd();
 
         System.out.println("Role:" + thread.getResponse());
@@ -215,7 +215,7 @@ public class LogInController implements Initializable {
 
             User user = new User(id, name, lastName, status, username, email, password, role);
             
-            ChildThread thread = new ChildThread("newUser|",user.toString());
+            ChildThread thread = new ChildThread("user", "newUser",user.toString());
             
 //            DBConnection.getInstance().registerUsers(user);
             changePanes(false);
