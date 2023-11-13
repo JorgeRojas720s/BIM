@@ -15,23 +15,22 @@ import model.User;
 public class Parsing {
 
 //    public static List<User> usersList = new ArrayList<>();
-
     public Parsing() {
     }
 
     public static ArrayList<User> parsingAllUsers(String aux) {
-        
+
         ArrayList<User> usersList = new ArrayList<>();
-        
+
         System.out.println("Users:  " + aux);
 
         String[] users = aux.split(";");
-        
+
         for (String user : users) {
-            
+
             String[] userData = user.split("\\|");
             if (userData.length == 5) {
-                
+
                 String id = userData[0].substring(1);
                 String name = userData[1];
                 String lastName = userData[2];
@@ -51,20 +50,20 @@ public class Parsing {
 
         System.out.println("\nLista de usuarios:\n");
         for (User user : usersList) {
-            System.out.println("User: " + user.getName()+ " - Pass: " + user.getLastName());
+            System.out.println("User: " + user.getName() + " - Pass: " + user.getLastName());
         }
-        
+
         return usersList;
     }
-    
+
     public static String[] parsingUser(String aux) {
-        
-         String[] user = aux.split("\\|");
-         
-           for (String i : user) {
+
+        String[] user = aux.split("\\|");
+
+        for (String i : user) {
             System.out.println(i);
         }
- 
+
         return user;
     }
 

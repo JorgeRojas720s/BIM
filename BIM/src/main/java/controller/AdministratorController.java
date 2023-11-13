@@ -43,8 +43,10 @@ import utils.Parsing;
 public class AdministratorController implements Initializable {
 
     ChildThread thread;
-    
+
     String data = "";
+    
+    boolean setIdFromTblv;
 
     @FXML
     private Button btnExit;
@@ -128,16 +130,12 @@ public class AdministratorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
- 
+        
         fillTableView();
-       
         
-        thread = new ChildThread("getAllUsers|", " ");
-        thread.waitThreadEnd();
-        data = thread.getResponse();
-        
-         updateTableViewUsers();
-        
+
+        updateTableViewUsers();
+
     }
 
     private void clearTxtUser() {
@@ -159,6 +157,10 @@ public class AdministratorController implements Initializable {
     }
 
     private void updateTableViewUsers() {
+        
+        thread = new ChildThread("getAllUsers|", " ");
+        thread.waitThreadEnd();
+        data = thread.getResponse();
 
         List<User> listaUsers = Parsing.parsingAllUsers(data);
 
@@ -218,19 +220,6 @@ public class AdministratorController implements Initializable {
         paneUsers.setDisable(!show);
         paneUsers.setVisible(show);
 
-//        if (lblAddUsers.isHover()) {
-//            lblUserID.setText("Identification:");
-//            userOPtions(true, false, false);
-//            clearTxtUser();
-//        } else if (lblModifyUsers.isHover()) {
-//            lblUserID.setText("Search user by ID:"); //posible cambio a solo "identification"
-//            userOPtions(false, true, false);
-//            clearTxtUser();
-//        } else if (lblDeleteUsers.isHover()) {
-//            lblUserID.setText("Search user by ID:");
-//            userOPtions(false, false, true);
-//            clearTxtUser();
-//        }
     }
 
     private void proyectOptions(boolean show1, boolean show2, boolean show3) {
@@ -269,7 +258,6 @@ public class AdministratorController implements Initializable {
 
     private String getRole() {
 
-        //En scene bulder colocar uno fijo, para no tener problems
         if (rbtUserAdministrator.isSelected()) {
             return rbtUserAdministrator.getText();
         } else if (rbtUserDesigner.isSelected()) {
@@ -349,6 +337,21 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickModifyUser(ActionEvent event) {
+
+        String id = txtUserId.getText();
+        String name = txtUserName.getText();
+        String lastName = txtUserLastName.getText();
+        String username = txtUserUsername.getText();
+        String password = txtUserPassword.getText();
+        String email = txtUserEmail.getText();
+        String role = getRole();
+        String status = getStatus();
+        
+        User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
+        thread = new ChildThread("updateUser|", user.toString());
+        
+        System.out.println("modify user" + thread.getResponse());
+
     }
 
     @FXML
@@ -365,20 +368,20 @@ public class AdministratorController implements Initializable {
 
         User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
         thread = new ChildThread("newUser|", user.toString());
-        
-        updateTableViewUsers();
+
+        //updateTableViewUsers(); da error
     }
 
     @FXML
     private void clickDeleteUser(ActionEvent event) {
-        
+
         String id = txtUserId.getText();
 
         thread = new ChildThread("deleteUser|", id + "|");
         thread.waitThreadEnd();
-        
-        updateTableViewUsers();
-        
+
+        updateTableViewUsers(); // en este no da error
+
     }
 
     @FXML
@@ -389,8 +392,9 @@ public class AdministratorController implements Initializable {
         String id = String.valueOf(columnID.getCellData(index));
 
         System.out.println("ID:" + id);
-
-        txtUserId.setText(id);
+        if(setIdFromTblv){
+            txtUserId.setText(id);
+        }
     }
 
     @FXML
@@ -408,7 +412,7 @@ public class AdministratorController implements Initializable {
         setStatus(user);
         txtUserUsername.setText(user[3]);
         txtUserEmail.setText(user[4]);
-        txtUserPassword.setText(user[5]);    
+        txtUserPassword.setText(user[5]);
         setRole(user);
 
     }
@@ -439,6 +443,8 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickShowAddUser(ActionEvent event) {
+        setIdFromTblv = false;
+        txtUserId.setEditable(true);
         showHome(false);
         showProyects(false);
         showUsers(true);
@@ -447,7 +453,8 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clcikShowModifyUser(ActionEvent event) {
-
+        setIdFromTblv = true;
+        txtUserId.setEditable(false);
         showHome(false);
         showProyects(false);
         showUsers(true);
@@ -456,7 +463,8 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickShowDeleteUser(ActionEvent event) {
-
+        setIdFromTblv = true;
+         txtUserId.setEditable(true);
         showHome(false);
         showProyects(false);
         showUsers(true);

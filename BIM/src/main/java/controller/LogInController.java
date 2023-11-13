@@ -211,7 +211,7 @@ public class LogInController implements Initializable {
             App.setRoot("engineer");
         } else if ("Administrator".equals(thread.getResponse())) {
             App.setRoot("administrator");
-        } else if (thread.getResponse() == null) {
+        } else if (thread.getResponse() == null || "None".equals(thread.getResponse())) {
             showAlert("Datos invalidos");
         }
 
