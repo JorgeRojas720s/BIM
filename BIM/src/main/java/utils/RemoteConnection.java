@@ -33,7 +33,7 @@ public class RemoteConnection {
         HttpURLConnection urlConnection = null;
 
         try {
-            URL url = new URL("http://192.168.1.40:8000");
+            URL url = new URL("http://172.17.47.151:8000");
             System.out.println("URL: " + url);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(metodo);

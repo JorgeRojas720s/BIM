@@ -174,7 +174,7 @@ public class LogInController implements Initializable {
             password = txtShowLoginPassword.getText();
         }
 
-         ChildThread thread = new ChildThread("user","consulta",usernameOrEmail + "|" + password);
+        ChildThread thread = new ChildThread("user","consulta",usernameOrEmail + "|" + password);
         thread.waitThreadEnd();
 
         System.out.println("Role:" + thread.getResponse());

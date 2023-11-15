@@ -14,10 +14,10 @@ public class ChildThread {
     Thread thread;
 
     public ChildThread(String table, String queryType,String data) {
-        threadToServeer(table,queryType,data);
+        threadToServer(table,queryType,data);
     }
 
-    public void threadToServeer(String table, String queryType,String data) {
+    public void threadToServer(String table, String queryType,String data) {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {

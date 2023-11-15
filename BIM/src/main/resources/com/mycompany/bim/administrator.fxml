@@ -184,7 +184,7 @@
             <Button fx:id="btnSearchUser" layoutX="532.0" layoutY="126.0" mnemonicParsing="false" onAction="#clickSearchUser" prefHeight="40.0" prefWidth="70.0" styleClass="buttonBlue" text="Search" />
          </children>
       </AnchorPane>
-      <AnchorPane id="paneTertiary" fx:id="paneProyects" layoutX="42.0" layoutY="31.0" prefHeight="711.0" prefWidth="1295.0" stylesheets="@../../../css/administrator.css">
+      <AnchorPane id="paneTertiary" fx:id="paneProyects" disable="true" layoutX="42.0" layoutY="31.0" prefHeight="711.0" prefWidth="1295.0" stylesheets="@../../../css/administrator.css" visible="false">
          <children>
             <TextField fx:id="txtDesignerID" layoutX="432.0" layoutY="413.0" prefHeight="40.0" prefWidth="200.0" />
             <Label fx:id="lblProyectCode" layoutX="244.0" layoutY="152.0" prefHeight="27.0" prefWidth="202.0" text="Search Proyect By Code" textFill="WHITE">
@@ -227,9 +227,10 @@
                   <TableColumn prefWidth="72.0" text="Status" />
                </columns>
             </TableView>
+            <Button layoutX="1178.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnSwitchTblv" text="-&gt;" />
          </children>
       </AnchorPane>
-      <AnchorPane id="paneUserHome" fx:id="paneHome" disable="true" layoutX="22.0" layoutY="31.0" prefHeight="708.0" prefWidth="1314.0" stylesheets="@../../../css/administrator.css" visible="false">
+      <AnchorPane id="paneUserHome" fx:id="paneHome" layoutX="22.0" layoutY="31.0" prefHeight="708.0" prefWidth="1314.0" stylesheets="@../../../css/administrator.css">
          <children>
             <Label layoutX="113.0" layoutY="228.0" prefHeight="80.0" prefWidth="1035.0" text="Algo como bienvenido admin " textFill="WHITE">
                <font>

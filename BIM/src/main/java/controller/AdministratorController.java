@@ -544,4 +544,8 @@ public class AdministratorController implements Initializable {
         changePaneUsers("Search user by ID:", false, false, true);
     }
 
+    @FXML
+    private void btnSwitchTblv(ActionEvent event) {
+    }
+
 }
