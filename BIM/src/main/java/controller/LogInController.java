@@ -97,7 +97,7 @@ public class LogInController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+     
     }
 
     private void showAlert(String message) {
@@ -217,7 +217,6 @@ public class LogInController implements Initializable {
             
             ChildThread thread = new ChildThread("user", "newUser",user.toString());
             
-//            DBConnection.getInstance().registerUsers(user);
             changePanes(false);
         }
     }
