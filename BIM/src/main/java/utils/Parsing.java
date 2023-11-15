@@ -6,6 +6,7 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.Proyect;
 import model.User;
 
 /**
@@ -65,6 +66,44 @@ public class Parsing {
         }
 
         return user;
+    }
+    
+    
+      public static ArrayList<Proyect> parsingAllProyects(String aux) {
+
+        ArrayList<Proyect> proyectList = new ArrayList<>();
+
+        System.out.println("Proyects:  " + aux);
+
+        String[] users = aux.split(";");
+
+        for (String user : users) {
+
+            String[] userData = user.split("\\|");
+            if (userData.length == 4) {
+
+                String name = userData[0].substring(1);
+                String code = userData[1];
+                String startDate = userData[2];
+                String finishDate = userData[3].substring(0, userData[3].length());
+           
+
+                System.out.println("name: " + name);
+                System.out.println("code: " + code);
+                System.out.println("startDate: " + startDate);
+                System.out.println("finishDate: " + finishDate);
+     
+                Proyect proyectObj = new Proyect(name, code, startDate, finishDate);
+                proyectList.add(proyectObj);
+            }
+        }
+
+        System.out.println("\nLista de Proyectos:\n");
+        for (Proyect proyect : proyectList) {
+            System.out.println("name: " + proyect.getName() + " - code: " + proyect.getCode());
+        }
+
+        return proyectList;
     }
 
 }
