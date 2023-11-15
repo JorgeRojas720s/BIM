@@ -20,11 +20,6 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("logIn"));
         stage.setScene(scene);
-<<<<<<< HEAD
-       // stage.setFullScreen(true);
-=======
-        //stage.setFullScreen(true);
->>>>>>> reds
         stage.show();
     }
 
@@ -40,6 +35,7 @@ public class App extends Application {
     public static void main(String[] args) {
         //Es porque la primer llamda al servidor no sirve :(
         ChildThread thread = new ChildThread("", "", "");
+        thread.waitThreadEnd();
         launch();
        
     }

@@ -152,6 +152,8 @@ public class AdministratorController implements Initializable {
     private Button btnSwitchTables;
     @FXML
     private TableView<User> tblvUsers;
+    @FXML
+    private TableView<?> tblvProUsers;
 
     /**
      * Initializes the controller class.
@@ -591,10 +593,8 @@ public class AdministratorController implements Initializable {
     }
 
     @FXML
-<<<<<<< HEAD
+
     private void btnSwitchTblv(ActionEvent event) {
-=======
-    private void clickSwitchTables(ActionEvent event) {
 
         if (switchTblv) {
             tblvProyects.setVisible(true);
@@ -610,7 +610,10 @@ public class AdministratorController implements Initializable {
             switchTblv = true;
         }
 
->>>>>>> reds
+    }
+
+    @FXML
+    private void clickSwitchTables(ActionEvent event) {
     }
 
 }

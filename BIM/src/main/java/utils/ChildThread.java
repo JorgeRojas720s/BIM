@@ -10,24 +10,24 @@ import javafx.scene.control.Alert;
  *
  * @author jitor
  */
-public class ChildThread {
+public final class ChildThread {
 
     String respuesta;
     Thread thread;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
     public ChildThread(String table, String queryType,String data) {
         threadToServer(table,queryType,data);
     }
 
     public void threadToServer(String table, String queryType,String data) {
-=======
-    public ChildThread(String table, String queryType, String data) {
-        threadToServeer(table, queryType, data);
-    }
-
-    public void threadToServeer(String table, String queryType, String data) {
->>>>>>> reds
+//=======
+//    public ChildThread(String table, String queryType, String data) {
+//        threadToServeer(table, queryType, data);
+//    }
+//
+//    public void threadToServeer(String table, String queryType, String data) {
+//>>>>>>> reds
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
