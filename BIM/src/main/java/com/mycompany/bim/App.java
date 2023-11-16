@@ -17,17 +17,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("designer"));
+        scene = new Scene(loadFXML("logIn"));
         stage.setScene(scene);
-<<<<<<< HEAD
-<<<<<<< HEAD
-       // stage.setFullScreen(true);
-=======
-        //stage.setFullScreen(true);
->>>>>>> reds
-=======
         stage.setFullScreen(true);
->>>>>>> parent of b639ecb (Switch table views)
         stage.show();
     }
 

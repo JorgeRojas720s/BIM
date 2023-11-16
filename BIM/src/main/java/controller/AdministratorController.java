@@ -560,7 +560,7 @@ public class AdministratorController implements Initializable {
 //            tblvProyects.setDisable(true);
 //            switchTblv = true;
 //        }
-//
+
 
     }
 
