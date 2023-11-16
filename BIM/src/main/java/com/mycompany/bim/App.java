@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import utils.ChildThread;
 
 /**
  * JavaFX App
@@ -18,13 +17,17 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("logIn"));
+        scene = new Scene(loadFXML("designer"));
         stage.setScene(scene);
+<<<<<<< HEAD
 <<<<<<< HEAD
        // stage.setFullScreen(true);
 =======
         //stage.setFullScreen(true);
 >>>>>>> reds
+=======
+        stage.setFullScreen(true);
+>>>>>>> parent of b639ecb (Switch table views)
         stage.show();
     }
 
@@ -38,10 +41,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        //Es porque la primer llamda al servidor no sirve :(
-        ChildThread thread = new ChildThread("", "", "");
         launch();
-       
     }
 
 }
