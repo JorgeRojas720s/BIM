@@ -608,5 +608,11 @@ public class AdministratorController implements Initializable {
         }
 
     }
+    
+    public void borrar(){
+        
+        
+        System.out.println("Problemitas con git");
+    }
 
 }
