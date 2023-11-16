@@ -97,7 +97,7 @@ public class LogInController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+     
     }
 
     private void showAlert(String message) {
@@ -174,7 +174,7 @@ public class LogInController implements Initializable {
             password = txtShowLoginPassword.getText();
         }
 
-         ChildThread thread = new ChildThread("user","consulta",usernameOrEmail + "|" + password);
+        ChildThread thread = new ChildThread("user","consulta",usernameOrEmail + "|" + password);
         thread.waitThreadEnd();
 
         System.out.println("Role:" + thread.getResponse());
@@ -217,7 +217,6 @@ public class LogInController implements Initializable {
             
             ChildThread thread = new ChildThread("user", "newUser",user.toString());
             
-//            DBConnection.getInstance().registerUsers(user);
             changePanes(false);
         }
     }
