@@ -9,8 +9,9 @@ package model;
  * @author jitor
  */
 public class ConstructionObject {
-    private int posX, posY, width, height;
+    private int posX, posY, size;
     private String objectType;
 //    private lista de quantity
+    
     
 }

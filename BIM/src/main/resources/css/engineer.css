@@ -154,8 +154,36 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-text-fill: black; 
 }
 
+.choice-box {
+    -fx-background-color: #2581f7;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 7px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 0;
+}
+
+.choice-box:hover {
+    -fx-background-color: #0F70EE;
+}
+
+.choice-box:pressed {
+    -fx-background-color: #2581f7;
+}
+
+.choice-box .label {
+    -fx-text-fill: black;
+}
 
 .label {
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
+
+.labelBlack {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+

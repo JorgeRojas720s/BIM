@@ -2,14 +2,18 @@
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="panePrimary" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#clickDragObject" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../../../css/engineer.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DesignerController">
@@ -23,32 +27,32 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1545.0" prefWidth="270.0">
                <children>
-                  <ImageView fx:id="imvDoor" fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="54.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imvDoor" fitHeight="120.0" fitWidth="113.0" layoutX="79.0" layoutY="76.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/door.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imvWall" fitHeight="60.0" fitWidth="225.0" layoutX="23.0" layoutY="262.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imvWall" fitHeight="60.0" fitWidth="225.0" layoutX="23.0" layoutY="279.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/wall.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imvWindow" fitHeight="60.0" fitWidth="225.0" layoutX="23.0" layoutY="377.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imvWindow" fitHeight="60.0" fitWidth="225.0" layoutX="23.0" layoutY="398.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/window.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="501.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="571.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/colType1.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="713.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="783.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/colType2.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="913.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="983.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/colType3.png" />
                      </image>
@@ -63,15 +67,78 @@
                         <Image url="@../../../images/crownBeam.png" />
                      </image>
                   </ImageView>
+                  <Label layoutX="23.0" layoutY="45.0" prefHeight="30.0" prefWidth="92.0" styleClass="labelBlack" text="Door:">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="264.0" prefHeight="30.0" prefWidth="92.0" styleClass="labelBlack" text="Wall:">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="383.0" prefHeight="30.0" prefWidth="92.0" styleClass="labelBlack" text="Window:">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnFlipDoor" layoutX="138.0" layoutY="196.0" mnemonicParsing="false" onAction="#clickFlipDoor" prefHeight="43.0" prefWidth="43.0" styleClass="buttonBlue">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/dobleArrowWhite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnRotateDoor" layoutX="194.0" layoutY="196.0" mnemonicParsing="false" onAction="#clickRotateDoor" prefHeight="43.0" prefWidth="43.0" styleClass="buttonBlue">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/arrowReloadWhite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <RadioButton fx:id="rbtWallHorizontal" layoutX="23.0" layoutY="329.0" mnemonicParsing="false" selected="true" text="Horizontal">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="wallGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="rbtWallVertical" layoutX="122.0" layoutY="329.0" mnemonicParsing="false" text="Vertical" toggleGroup="$wallGroup" />
+                  <RadioButton fx:id="rbtWindowHorizontal" layoutX="24.0" layoutY="448.0" mnemonicParsing="false" selected="true" text="Horizontal">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="windowGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="rbtWindowVertical" layoutX="123.0" layoutY="448.0" mnemonicParsing="false" text="Vertical" toggleGroup="$windowGroup" />
+                  <Label alignment="CENTER" layoutX="50.0" layoutY="8.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelBlack" text="ARCHITECTURAL" underline="true">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="50.0" layoutY="513.0" prefHeight="30.0" prefWidth="170.0" styleClass="labelBlack" text="STRUCTURAL" underline="true">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cboxDoorSize" layoutX="25.0" layoutY="196.0" prefHeight="43.0" prefWidth="78.0" />
                </children></AnchorPane>
         </content>
       </ScrollPane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="631.0" layoutX="107.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="909.0" />
       <Canvas fx:id="cnvWorkSpace" height="631.0" layoutX="107.0" layoutY="60.0" width="909.0" />
-      <Line endX="812.199951171875" layoutX="216.0" layoutY="57.0" startX="-121.59999084472656" startY="7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
-      <Line endX="807.0" layoutX="221.0" layoutY="691.0" startX="-125.00001525878906" stroke="WHITE" strokeWidth="3.0" />
-      <Line endX="-100.00001525878906" endY="-132.60000610351562" layoutX="206.0" layoutY="179.0" startX="-100.00001525878906" startY="525.0" stroke="WHITE" strokeWidth="3.0" />
-      <Line endX="-100.0" endY="-134.1999969482422" layoutX="1115.0" layoutY="179.0" startX="-100.0" startY="525.7999877929688" stroke="WHITE" strokeWidth="3.0" />
-      <Label layoutX="1151.0" layoutY="69.0" text="Objects">
+      <Line endX="812.199951171875" layoutX="216.0" layoutY="58.0" startX="-121.59999084472656" startY="7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
+      <Line endX="807.0" layoutX="221.0" layoutY="693.0" startX="-125.00001525878906" stroke="WHITE" strokeWidth="3.0" />
+      <Line endX="-100.00001525878906" endY="-132.60000610351562" layoutX="205.0" layoutY="179.0" startX="-100.00001525878906" startY="525.0" stroke="WHITE" strokeWidth="3.0" />
+      <Line endX="-100.0" endY="-134.1999969482422" layoutX="1118.0" layoutY="179.0" startX="-100.0" startY="525.7999877929688" stroke="WHITE" strokeWidth="3.0" />
+      <Label layoutX="1045.0" layoutY="69.0" prefHeight="32.0" prefWidth="224.0" text="Drag your Objects">
          <font>
             <Font size="22.0" />
          </font>
@@ -88,6 +155,23 @@
             </ImageView>
          </graphic>
       </Button>
+      <Button fx:id="btnSwitchPlant" layoutX="114.0" layoutY="699.0" mnemonicParsing="false" onAction="#clickSwitchPlant" prefHeight="43.0" prefWidth="155.0" styleClass="buttonGreen" text="Switch plant">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/twoArrowsWhite.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="lblPlantType" layoutX="280.0" layoutY="705.0" prefHeight="32.0" prefWidth="224.0" text="...">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
       <AnchorPane id="paneSecondary" fx:id="paneProyectList" prefHeight="750.0" prefWidth="414.0" visible="false">
          <children>
             <TableView fx:id="tbvProyectList" layoutX="31.0" layoutY="116.0" prefHeight="549.0" prefWidth="352.0">
@@ -122,5 +206,15 @@
             </Button>
          </children>
       </AnchorPane>
+      <Button fx:id="btnSave" layoutX="925.0" layoutY="699.0" mnemonicParsing="false" onAction="#clickSave" prefHeight="43.0" prefWidth="78.0" styleClass="buttonGreen" text="Save">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnClean" layoutX="837.0" layoutY="699.0" mnemonicParsing="false" onAction="#clickClean" prefHeight="43.0" prefWidth="78.0" styleClass="buttonGreen" text="Clean">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
