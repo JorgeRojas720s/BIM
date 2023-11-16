@@ -37,7 +37,7 @@ public class App extends Application {
         //Es porque la primer llamda al servidor no sirve :(
         ChildThread thread = new ChildThread("", "", "");
         launch();
-       
+        System.out.println("Holaaaaaa");
     }
 
 }
