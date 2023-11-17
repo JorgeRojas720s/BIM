@@ -9,17 +9,21 @@ package model;
  * @author jitor
  */
 public class Proyect {
-    
+
     private String code;
     private String name;
     private String startDate;
     private String finishDate;
+    private String engineer;
+    private String designer;
 
-    public Proyect(String code, String name, String startDate, String finishDate) {
+    public Proyect(String code, String name, String startDate, String finishDate, String engineer, String designer) {
         this.code = code;
         this.name = name;
         this.startDate = startDate;
         this.finishDate = finishDate;
+        this.engineer = engineer;
+        this.designer = designer;
     }
 
     public String getCode() {
@@ -38,6 +42,21 @@ public class Proyect {
         this.name = name;
     }
 
+    public String getEngineer() {
+        return engineer;
+    }
+
+    public void setEngineer(String engineer) {
+        this.engineer = engineer;
+    }
+
+    public String getDesigner() {
+        return designer;
+    }
+
+    public void setDesigner(String designer) {
+        this.designer = designer;
+    }
 
     public String getStartDate() {
         return startDate;
@@ -57,12 +76,7 @@ public class Proyect {
 
     @Override
     public String toString() {
-        return  code + "|" + name +  "|" + startDate + "|" + finishDate;
+        return code + "|" + name + "|" + startDate + "|" + finishDate + "|" + engineer + "|" + designer;
     }
-    
-    
-    
-    
-    
-    
+
 }
