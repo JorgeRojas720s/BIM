@@ -67,9 +67,8 @@ public class Parsing {
 
         return user;
     }
-    
-    
-      public static ArrayList<Proyect> parsingAllProyects(String aux) {
+
+    public static ArrayList<Proyect> parsingAllProyects(String aux) {
 
         ArrayList<Proyect> proyectList = new ArrayList<>();
 
@@ -80,20 +79,23 @@ public class Parsing {
         for (String user : users) {
 
             String[] userData = user.split("\\|");
-            if (userData.length == 4) {
+            if (userData.length == 6) {
 
                 String name = userData[0].substring(1);
                 String code = userData[1];
                 String startDate = userData[2];
-                String finishDate = userData[3].substring(0, userData[3].length());
-           
+                String finishDate = userData[3];
+                String engineer = userData[4];
+                String designer = userData[5].substring(0, userData[5].length());
 
                 System.out.println("name: " + name);
                 System.out.println("code: " + code);
                 System.out.println("startDate: " + startDate);
                 System.out.println("finishDate: " + finishDate);
-     
-                Proyect proyectObj = new Proyect(name, code, startDate, finishDate);
+                System.out.println("engineer: " + engineer);
+                System.out.println("designer: " + designer);
+
+                Proyect proyectObj = new Proyect(code, name, startDate, finishDate,engineer,designer);
                 proyectList.add(proyectObj);
             }
         }
