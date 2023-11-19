@@ -220,6 +220,7 @@
             <Button fx:id="btnModifyProyect" disable="true" layoutX="150.0" layoutY="635.0" mnemonicParsing="false" onAction="#clickModifyProyect" prefHeight="45.0" prefWidth="410.0" styleClass="buttonBlue" text="Modify" visible="false" />
             <Button fx:id="btnDeleteProyect" disable="true" layoutX="150.0" layoutY="635.0" mnemonicParsing="false" onAction="#clcikDeleteProyect" prefHeight="45.0" prefWidth="410.0" styleClass="buttonBlue" text="Delete" visible="false" />
             <Button fx:id="btnSwitchTables" layoutX="1199.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickSwitchTables" text="-&gt;" />
+            <Button fx:id="btnSearchProyect" layoutX="458.0" layoutY="194.0" mnemonicParsing="false" onAction="#clickSearchProyect" text="Search" />
          </children>
       </AnchorPane>
       <AnchorPane id="paneUserHome" fx:id="paneHome" layoutX="22.0" layoutY="31.0" prefHeight="708.0" prefWidth="1314.0" stylesheets="@../../../css/administrator.css">
@@ -233,7 +234,7 @@
                   <Font size="38.0" />
                </font>
             </Label>
-            <TableView fx:id="tblvProyects" layoutX="757.0" layoutY="50.0" prefHeight="645.0" prefWidth="525.0">
+            <TableView fx:id="tblvProyects" layoutX="757.0" layoutY="50.0" onMouseClicked="#clickGetProyectCode" prefHeight="645.0" prefWidth="525.0">
               <columns>
                 <TableColumn fx:id="columProyect" prefWidth="143.0" text="Proyect" />
                 <TableColumn fx:id="columCode" minWidth="0.0" prefWidth="126.0" text="Code" />
