@@ -18,7 +18,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("logIn"));
+        scene = new Scene(loadFXML("designer"));
         stage.setScene(scene);
         //stage.setFullScreen(true);
         stage.show();
@@ -37,7 +37,6 @@ public class App extends Application {
         //Es porque la primer llamda al servidor no sirve :(
         ChildThread thread = new ChildThread("", "", "");
         launch();
-        System.out.println("Holaaaaaa");
     }
 
 }

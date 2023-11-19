@@ -16,16 +16,16 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="panePrimary" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#clickDragObject" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../../../css/engineer.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DesignerController">
+<AnchorPane id="panePrimary" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#clickDragObject" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../../../css/engineer.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DesignerController">
    <children>
-      <Button fx:id="btnExit" layoutX="1256.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickExit" prefHeight="43.0" prefWidth="78.0" styleClass="buttonRed" text="Exit">
+      <Button fx:id="btnExit" focusTraversable="false" layoutX="1256.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickExit" prefHeight="43.0" prefWidth="78.0" styleClass="buttonRed" text="Exit">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <ScrollPane layoutX="1045.0" layoutY="101.0" prefHeight="547.0" prefWidth="290.0">
+      <ScrollPane focusTraversable="false" layoutX="1045.0" layoutY="101.0" prefHeight="547.0" prefWidth="290.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1545.0" prefWidth="270.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1635.0" prefWidth="270.0">
                <children>
                   <ImageView fx:id="imvDoor" fitHeight="120.0" fitWidth="113.0" layoutX="79.0" layoutY="76.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -42,27 +42,27 @@
                         <Image url="@../../../images/window.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="571.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imvColOne" fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="594.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/colType1.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="783.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imvColTwo" fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="806.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/colType2.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="983.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imvColThree" fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="1020.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/colType3.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="1119.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imvColFour" fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="1240.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/colType4.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="1313.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imvCrownBeam" fitHeight="125.0" fitWidth="125.0" layoutX="73.0" layoutY="1456.0" onMousePressed="#clickSaveImageViewPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/crownBeam.png" />
                      </image>
@@ -94,7 +94,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnRotateDoor" layoutX="194.0" layoutY="196.0" mnemonicParsing="false" onAction="#clickRotateDoor" prefHeight="43.0" prefWidth="43.0" styleClass="buttonBlue">
+                  <Button fx:id="btnRotateDoor" layoutX="194.0" layoutY="196.0" mnemonicParsing="false" onAction="#clickRotateObject" prefHeight="43.0" prefWidth="43.0" styleClass="buttonBlue">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -129,11 +129,97 @@
                      </font>
                   </Label>
                   <ChoiceBox fx:id="cboxDoorSize" layoutX="25.0" layoutY="196.0" prefHeight="43.0" prefWidth="78.0" />
+                  <Label layoutX="63.0" layoutY="563.0" prefHeight="30.0" prefWidth="149.0" styleClass="labelBlack" text="Column type 1:">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="63.0" layoutY="775.0" prefHeight="30.0" prefWidth="149.0" styleClass="labelBlack" text="Column type 2:">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnRotateColOne" layoutX="114.0" layoutY="719.0" mnemonicParsing="false" onAction="#clickRotateObject" prefHeight="43.0" prefWidth="43.0" styleClass="buttonBlue">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/arrowReloadWhite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnRotateColTwo" layoutX="116.0" layoutY="931.0" mnemonicParsing="false" onAction="#clickRotateObject" prefHeight="43.0" prefWidth="43.0" styleClass="buttonBlue">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/arrowReloadWhite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label layoutX="63.0" layoutY="990.0" prefHeight="30.0" prefWidth="149.0" styleClass="labelBlack" text="Column type 3:">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnRotateColThree" layoutX="113.0" layoutY="1145.0" mnemonicParsing="false" onAction="#clickRotateObject" prefHeight="43.0" prefWidth="43.0" styleClass="buttonBlue">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/arrowReloadWhite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label layoutX="63.0" layoutY="1210.0" prefHeight="30.0" prefWidth="149.0" styleClass="labelBlack" text="Column type 3:">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnRotateColFour" layoutX="116.0" layoutY="1358.0" mnemonicParsing="false" onAction="#clickRotateObject" prefHeight="43.0" prefWidth="43.0" styleClass="buttonBlue">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/arrowReloadWhite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label layoutX="70.0" layoutY="1426.0" prefHeight="30.0" prefWidth="130.0" styleClass="labelBlack" text="Crown beam:">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnRotateCrownBeam" layoutX="116.0" layoutY="1581.0" mnemonicParsing="false" onAction="#clickRotateObject" prefHeight="43.0" prefWidth="43.0" styleClass="buttonBlue">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/arrowReloadWhite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children></AnchorPane>
         </content>
       </ScrollPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="631.0" layoutX="107.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="909.0" />
-      <Canvas fx:id="cnvWorkSpace" height="631.0" layoutX="107.0" layoutY="60.0" width="909.0" />
+      <ImageView fx:id="imvTempWorkImg" fitHeight="631.0" fitWidth="909.0" layoutX="107.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" />
+      <Canvas fx:id="cnvWorkSpace" focusTraversable="true" height="631.0" layoutX="107.0" layoutY="60.0" width="909.0" />
       <Line endX="812.199951171875" layoutX="216.0" layoutY="58.0" startX="-121.59999084472656" startY="7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
       <Line endX="807.0" layoutX="221.0" layoutY="693.0" startX="-125.00001525878906" stroke="WHITE" strokeWidth="3.0" />
       <Line endX="-100.00001525878906" endY="-132.60000610351562" layoutX="205.0" layoutY="179.0" startX="-100.00001525878906" startY="525.0" stroke="WHITE" strokeWidth="3.0" />
@@ -143,7 +229,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Button fx:id="btnShowList" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickHideList" prefHeight="43.0" prefWidth="43.0" styleClass="buttonGreen">
+      <Button fx:id="btnShowList" focusTraversable="false" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickHideList" prefHeight="43.0" prefWidth="43.0" styleClass="buttonGreen">
          <font>
             <Font size="14.0" />
          </font>
@@ -155,7 +241,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnSwitchPlant" layoutX="114.0" layoutY="699.0" mnemonicParsing="false" onAction="#clickSwitchPlant" prefHeight="43.0" prefWidth="155.0" styleClass="buttonGreen" text="Switch plant">
+      <Button fx:id="btnSwitchPlant" focusTraversable="false" layoutX="114.0" layoutY="699.0" mnemonicParsing="false" onAction="#clickSwitchPlant" prefHeight="43.0" prefWidth="155.0" styleClass="buttonGreen" text="Switch plant">
          <font>
             <Font size="14.0" />
          </font>
@@ -174,7 +260,7 @@
       </Label>
       <AnchorPane id="paneSecondary" fx:id="paneProyectList" prefHeight="750.0" prefWidth="414.0" visible="false">
          <children>
-            <TableView fx:id="tbvProyectList" layoutX="31.0" layoutY="116.0" prefHeight="549.0" prefWidth="352.0">
+            <TableView fx:id="tbvProyectList" focusTraversable="false" layoutX="31.0" layoutY="116.0" prefHeight="549.0" prefWidth="352.0">
                <columns>
                   <TableColumn fx:id="columnProyectName" prefWidth="111.20001220703125" text="Name" />
                   <TableColumn fx:id="columnProyectEngineer" prefWidth="74.4000244140625" text="Engineer" />
@@ -182,7 +268,7 @@
                   <TableColumn fx:id="columnProyectEndDate" prefWidth="92.800048828125" text="End date" />
                </columns>
             </TableView>
-            <Button fx:id="btnSelectObject" layoutX="31.0" layoutY="675.0" mnemonicParsing="false" onAction="#clickSelectObject" prefHeight="43.0" prefWidth="78.0" styleClass="buttonBlue" text="Select">
+            <Button fx:id="btnSelectObject" focusTraversable="false" layoutX="31.0" layoutY="675.0" mnemonicParsing="false" onAction="#clickSelectObject" prefHeight="43.0" prefWidth="78.0" styleClass="buttonBlue" text="Select">
                <font>
                   <Font size="14.0" />
                </font>
@@ -192,7 +278,7 @@
                   <Font size="31.0" />
                </font>
             </Label>
-            <Button fx:id="btnCloseList" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickHideList" prefHeight="43.0" prefWidth="43.0" styleClass="buttonGreen">
+            <Button fx:id="btnCloseList" focusTraversable="false" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickHideList" prefHeight="43.0" prefWidth="43.0" styleClass="buttonGreen">
                <font>
                   <Font size="14.0" />
                </font>
@@ -206,12 +292,12 @@
             </Button>
          </children>
       </AnchorPane>
-      <Button fx:id="btnSave" layoutX="925.0" layoutY="699.0" mnemonicParsing="false" onAction="#clickSave" prefHeight="43.0" prefWidth="78.0" styleClass="buttonGreen" text="Save">
+      <Button fx:id="btnSave" focusTraversable="false" layoutX="925.0" layoutY="699.0" mnemonicParsing="false" onAction="#clickSave" prefHeight="43.0" prefWidth="78.0" styleClass="buttonGreen" text="Save">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnClean" layoutX="837.0" layoutY="699.0" mnemonicParsing="false" onAction="#clickClean" prefHeight="43.0" prefWidth="78.0" styleClass="buttonGreen" text="Clean">
+      <Button fx:id="btnClean" focusTraversable="false" layoutX="797.0" layoutY="699.0" mnemonicParsing="false" onAction="#clickClean" prefHeight="43.0" prefWidth="118.0" styleClass="buttonGreen" text="Delete Object">
          <font>
             <Font size="14.0" />
          </font>
