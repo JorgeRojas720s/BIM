@@ -785,7 +785,6 @@ public class DesignerController implements Initializable {
     private void clickSave(ActionEvent event) {
         
     }
-
     
     //ERROR CON LOS INDICES
     @FXML
