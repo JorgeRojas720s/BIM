@@ -132,7 +132,6 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Label layoutX="247.0" layoutY="5.0" text="Id no modifica porque no tine sentido que un usuario cambie de id" />
             <TextField fx:id="txtUserId" layoutX="307.0" layoutY="126.0" prefHeight="40.0" prefWidth="200.0" />
             <Label fx:id="lblUserID" layoutX="314.0" layoutY="95.0" prefHeight="27.0" prefWidth="150.0" text="Search user by ID">
                <font>
@@ -163,24 +162,24 @@
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></RadioButton>
-            <RadioButton fx:id="rbtUserAdministrator" layoutX="548.0" layoutY="620.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="151.0" text="Administrator" textFill="WHITE">
+            <RadioButton fx:id="rbtUserAdministrator" layoutX="538.0" layoutY="586.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="151.0" text="Administrator" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
                <toggleGroup>
                   <ToggleGroup fx:id="roleGroup" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="rbtUserDesigner" layoutX="354.0" layoutY="625.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="113.0" text="Designer" textFill="#f5f5f5" toggleGroup="$roleGroup">
+            <RadioButton fx:id="rbtUserDesigner" layoutX="344.0" layoutY="591.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="113.0" text="Designer" textFill="#f5f5f5" toggleGroup="$roleGroup">
                <font>
                   <Font size="18.0" />
                </font></RadioButton>
-            <RadioButton fx:id="rbtUserEngineer" layoutX="130.0" layoutY="626.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="113.0" selected="true" text="Engineer" textFill="WHITE" toggleGroup="$roleGroup">
+            <RadioButton fx:id="rbtUserEngineer" layoutX="120.0" layoutY="592.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="113.0" selected="true" text="Engineer" textFill="WHITE" toggleGroup="$roleGroup">
                <font>
                   <Font size="18.0" />
                </font></RadioButton>
-            <Button fx:id="btnModifyUser" disable="true" layoutX="126.0" layoutY="670.0" mnemonicParsing="false" onAction="#clickModifyUser" prefHeight="40.0" prefWidth="583.0" text="Modify" visible="false" />
-            <Button fx:id="btnAddUser" disable="true" layoutX="126.0" layoutY="670.0" mnemonicParsing="false" onAction="#clickAddUser" prefHeight="40.0" prefWidth="583.0" styleClass="buttonBlue" text="Add" visible="false" />
-            <Button fx:id="btnDeleteUser" disable="true" layoutX="126.0" layoutY="670.0" mnemonicParsing="false" onAction="#clickDeleteUser" prefHeight="40.0" prefWidth="583.0" styleClass="buttonBlue" text="Delete" visible="false" />
+            <Button fx:id="btnModifyUser" disable="true" layoutX="116.0" layoutY="636.0" mnemonicParsing="false" onAction="#clickModifyUser" prefHeight="40.0" prefWidth="583.0" styleClass="buttonBlue" text="Modify" visible="false" />
+            <Button fx:id="btnAddUser" disable="true" layoutX="116.0" layoutY="636.0" mnemonicParsing="false" onAction="#clickAddUser" prefHeight="40.0" prefWidth="583.0" styleClass="buttonBlue" text="Add" visible="false" />
+            <Button fx:id="btnDeleteUser" disable="true" layoutX="116.0" layoutY="636.0" mnemonicParsing="false" onAction="#clickDeleteUser" prefHeight="40.0" prefWidth="583.0" styleClass="buttonBlue" text="Delete" visible="false" />
             <Button fx:id="btnSearchUser" layoutX="532.0" layoutY="126.0" mnemonicParsing="false" onAction="#clickSearchUser" prefHeight="40.0" prefWidth="70.0" styleClass="buttonBlue" text="Search" />
          </children>
       </AnchorPane>

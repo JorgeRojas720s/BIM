@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -52,7 +53,7 @@ public class AdministratorController implements Initializable {
 
     boolean setIdFromTblv;
     boolean switchTblv = false;
-    
+
     ChildThread thread;
 
     @FXML
@@ -170,7 +171,7 @@ public class AdministratorController implements Initializable {
 
     }
 
-    private void clearTxtUser() {
+    private void clearUser() {
         txtUserId.setText("");
         txtUserName.setText("");
         txtUserLastName.setText("");
@@ -220,6 +221,14 @@ public class AdministratorController implements Initializable {
 
         ObservableList<Proyect> proyectObservableList = FXCollections.observableArrayList(listaProyects);
         tblvProyects.setItems(proyectObservableList);
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Información");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private void animationPaneMenu(int pos) {
@@ -300,7 +309,7 @@ public class AdministratorController implements Initializable {
 
         lblUserID.setText(labelText);
         userOPtions(show1, show2, show3);
-        clearTxtUser();
+        clearUser();
     }
 
     private void changePaneProyect(String labelText, boolean show1, boolean show2, boolean show3) {
@@ -380,32 +389,50 @@ public class AdministratorController implements Initializable {
     @FXML
     private void clickAddProyect(ActionEvent event) {
 
+        handleExpetionsProyects("Please fill out all fields");
+
         String code = txtProyectId.getText();
         String name = txtProyectName.getText();
         String engineer = txtEngineerID.getText();
         String designer = txtDesignerID.getText();
 
         LocalDate startDate = dtpStartDate.getValue();
-        String dateStart = startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String dateStart = (startDate != null) ? startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : null;
 
         LocalDate finishDate = dtpFinishDate.getValue();
-        String dateFinish = finishDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String dateFinish = (finishDate != null) ? finishDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : null;
 
-        System.out.println("dateStart" + dateStart);
-        System.out.println("dateFinish" + dateFinish);
+        if (dateStart == null || dateFinish == null) {
+            return;
+        }
 
-        Proyect proyect = new Proyect(code, name, dateStart, dateFinish,engineer,designer);
-        thread = new ChildThread("proyect", "newProyect", proyect.toString());
-        thread.waitThreadEnd();
+        System.out.println("dateStart: " + dateStart);
+        System.out.println("dateFinish: " + dateFinish);
 
+        if (!"".equals(name)) {
+            Proyect proyect = new Proyect(code, name, dateStart, dateFinish, engineer, designer);
+            thread = new ChildThread("proyect", "newProyect", proyect.toString());
+            thread.waitThreadEnd();
+
+            if ("The project already exists".equals(thread.getResponse())) {
+                showAlert("The project already exists");
+            }
+
+            if ("Project created!".equals(thread.getResponse())) {
+                showAlert("Project created!");
+            }
+        }
 
         updateTableViewProyects();
 
+        clearProyects();
     }
 
     @FXML
     private void clickModifyProyect(ActionEvent event) {
-        
+
+        handleExpetionsProyects("Press search to load the data");
+
         String code = txtProyectId.getText();
         String name = txtProyectName.getText();
         String engineer = txtEngineerID.getText();
@@ -415,23 +442,38 @@ public class AdministratorController implements Initializable {
 
         LocalDate finishDate = dtpFinishDate.getValue();
         String dateFinish = finishDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        
-        Proyect proyect = new Proyect(code, name, dateStart, dateFinish,engineer,designer);
+
+        Proyect proyect = new Proyect(code, name, dateStart, dateFinish, engineer, designer);
         thread = new ChildThread("proyect", "updateProyect", proyect.toString());
         thread.waitThreadEnd();
 
+        if ("Updated project".equals(thread.getResponse())) {
+            showAlert("Updated project");
+        }
+
+        if ("Project not found".equals(thread.getResponse())) {
+            showAlert("Project not found");
+        }
+
         updateTableViewProyects();
+
+        clearProyects();
     }
 
     @FXML
     private void clcikDeleteProyect(ActionEvent event) {
-        
-         String code = txtProyectId.getText();
-        
+
+        String code = txtProyectId.getText();
         thread = new ChildThread("proyect", "deleteProyect", code + "|");
         thread.waitThreadEnd();
-        
-    
+
+        if ("Project deleted".equals(thread.getResponse())) {
+            showAlert("Project deleted");
+        }
+        if ("Project does not exist".equals(thread.getResponse())) {
+            showAlert("Project does not exist");
+        }
+
         updateTableViewProyects();
     }
 
@@ -447,9 +489,24 @@ public class AdministratorController implements Initializable {
         String role = getRole();
         String status = getStatus();
 
-        User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
-        thread = new ChildThread("user", "updateUser", user.toString());
-        thread.waitThreadEnd();
+        if (!handleExpetionsUsers("Please fill out all fields")) {
+
+            User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
+            thread = new ChildThread("user", "updateUser", user.toString());
+            thread.waitThreadEnd();
+
+            if ("User update".equals(thread.getResponse())) {
+                showAlert("User update");
+                clearUser();
+                return;
+            }
+
+            if ("User not update".equals(thread.getResponse())) {
+                showAlert("User not update");
+                clearUser();
+                return;
+            }
+        }
 
         updateTableViewUsers("getAllUsers");
     }
@@ -457,6 +514,7 @@ public class AdministratorController implements Initializable {
     @FXML
     private void clickAddUser(ActionEvent event) {
 
+        // handleExpetionsUsers("Please fill out all fields");
         String id = txtUserId.getText();
         String name = txtUserName.getText();
         String lastName = txtUserLastName.getText();
@@ -466,9 +524,18 @@ public class AdministratorController implements Initializable {
         String role = getRole();
         String status = getStatus();
 
-        User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
-        thread = new ChildThread("user", "newUser", user.toString());
-        thread.waitThreadEnd();
+        if (!handleExpetionsUsers("Please fill out all fields")) {
+
+            User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
+            thread = new ChildThread("user", "newUser", user.toString());
+            thread.waitThreadEnd();
+
+            if ("User already exists".equals(thread.getResponse())) {
+                showAlert("User already exists");
+            } else if ("User created".equals(thread.getResponse())) {
+                showAlert("User created");
+            }
+        }
 
         updateTableViewUsers("getAllUsers");
     }
@@ -477,12 +544,18 @@ public class AdministratorController implements Initializable {
     private void clickDeleteUser(ActionEvent event) {
 
         String id = txtUserId.getText();
-
         thread = new ChildThread("user", "deleteUser", id + "|");
         thread.waitThreadEnd();
 
-        updateTableViewUsers("getAllUsers"); // en este no da error
+        if ("User deleted".equals(thread.getResponse())) {
+            showAlert("User deleted");
+        }
 
+        if ("User does not exist".equals(thread.getResponse())) {
+            showAlert("User does not exist");
+        }
+
+        updateTableViewUsers("getAllUsers");
     }
 
     @FXML
@@ -508,9 +581,14 @@ public class AdministratorController implements Initializable {
     private void clickSearchUser(ActionEvent event) {
 
         String id = txtUserId.getText();
-
         thread = new ChildThread("user", "queryUser", id + "|");
         thread.waitThreadEnd();
+
+        if ("User was not found".equals(thread.getResponse())) {
+            showAlert("User was not found");
+            clearUser();
+            return;
+        }
 
         String[] user = Parsing.parsingUser(thread.getResponse());
 
@@ -532,6 +610,7 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clcikShowAddProyect(ActionEvent event) {
+        disableTxtProyects(false);
         moveTblvUsers(paneProyects, tblvUsers);
         moveTblvUsers(paneProyects, tblvProyects);
         updateTableViewUsers("getEngAndDesig");
@@ -545,8 +624,9 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickShowModifyProyect(ActionEvent event) {
+        disableTxtProyects(false);
         moveTblvUsers(paneProyects, tblvUsers);
-        moveTblvUsers(paneProyects, tblvProyects); 
+        moveTblvUsers(paneProyects, tblvProyects);
         updateTableViewUsers("getEngAndDesig");
         btnSearchProyect.setVisible(true);
         btnSearchProyect.setDisable(false);
@@ -558,6 +638,7 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickShowDeleteProyect(ActionEvent event) {
+        disableTxtProyects(true);
         moveTblvUsers(paneProyects, tblvUsers);
         moveTblvUsers(paneProyects, tblvProyects);
         updateTableViewUsers("getEngAndDesig");
@@ -590,7 +671,7 @@ public class AdministratorController implements Initializable {
         tblvUsers.setVisible(true);
         tblvUsers.setDisable(false);
         setIdFromTblv = true;
-        txtUserId.setEditable(false);
+        txtUserId.setEditable(true);//estaba false
         showHome(false);
         showProyects(false);
         showUsers(true);
@@ -631,19 +712,92 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickGetProyectCode(MouseEvent event) {
-        
-        int index = tblvProyects.getSelectionModel().getFocusedIndex();
 
+        clearProyects();
+
+        int index = tblvProyects.getSelectionModel().getFocusedIndex();
         String code = String.valueOf(columCode.getCellData(index));
-        
-        txtProyectId.setText(code);   
+        txtProyectId.setText(code);
     }
 
     @FXML
     private void clickSearchProyect(ActionEvent event) {
-        
-        
-        
+
+        String code = txtProyectId.getText();
+
+        if ("".equals(code)) {
+            showAlert("Please enter the project code");
+            return;
+        }
+
+        thread = new ChildThread("proyect", "queryProyect", code + "|");
+        thread.waitThreadEnd();
+
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:" + thread.getResponse());
+        if ("No se encontro".equals(thread.getResponse())) {
+            showAlert("There is no project with that code");
+            return;
+        }
+
+        String[] proyect = Parsing.parsingProyect(thread.getResponse());
+
+        txtProyectName.setText(proyect[0]);
+        String dateStart = proyect[1];
+        LocalDate startDate = LocalDate.parse(dateStart);
+        dtpStartDate.setValue(startDate);
+        String dateEnd = proyect[2];
+        LocalDate EndDate = LocalDate.parse(dateEnd);
+        dtpFinishDate.setValue(EndDate);
+        txtEngineerID.setText(proyect[3]);
+        txtDesignerID.setText(proyect[4]);
+    }
+
+    private void disableTxtProyects(boolean available) {
+
+        txtProyectName.setDisable(available);
+        txtEngineerID.setDisable(available);
+        txtDesignerID.setDisable(available);
+        dtpStartDate.setDisable(available);
+        dtpFinishDate.setDisable(available);
+    }
+
+    private void handleExpetionsProyects(String message) {
+
+        if ("".equals(txtProyectId.getText()) || "".equals(txtProyectName.getText())
+                || "".equals(txtEngineerID.getText()) || "".equals(txtDesignerID.getText())
+                || dtpStartDate.getValue() == null || dtpFinishDate.getValue() == null) {
+
+            showAlert(message);
+        }
+    }
+
+    private boolean handleExpetionsUsers(String message) {
+
+        if ("".equals(txtUserId.getText()) || "".equals(txtUserName.getText())
+                || "".equals(txtUserLastName.getText()) || "".equals(txtUserEmail.getText())
+                || "".equals(txtUserUsername.getText()) || "".equals(txtUserPassword.getText())) {
+
+            showAlert(message);
+            return true;
+        }
+        return false;
+    }
+
+    private void clearProyects() {
+
+        txtProyectId.setText("");
+        txtProyectName.setText("");
+        txtEngineerID.setText("");
+        txtDesignerID.setText("");
+        dtpStartDate.setValue(null);
+        dtpFinishDate.setValue(null);
+    }
+
+    private void serverResponses(String text, ChildThread threadS) {
+
+        if ("text".equals(threadS.getResponse())) {
+            showAlert("text");
+        }
 
     }
 

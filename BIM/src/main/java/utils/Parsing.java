@@ -107,5 +107,16 @@ public class Parsing {
 
         return proyectList;
     }
+    
+    public static String[] parsingProyect(String aux) {
+
+        String[] proyect = aux.split("\\|");
+
+        for (String i : proyect) {
+            System.out.println(i);
+        }
+
+        return proyect;
+    }
 
 }
