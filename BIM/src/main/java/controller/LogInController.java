@@ -97,7 +97,9 @@ public class LogInController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-     
+        for (int i = 0; i < 50; i++) {
+            System.out.println("");
+        }
     }
 
     private void showAlert(String message) {
