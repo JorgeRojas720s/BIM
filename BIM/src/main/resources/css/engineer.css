@@ -180,6 +180,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-text-fill: white;
 }
 
+.labelBlackRegular {
+    -fx-font-weight: normal;
+    -fx-text-fill: black;
+}
+
 .labelBlack {
     -fx-font-size: 20px;
     -fx-font-weight: bold;

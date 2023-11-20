@@ -100,7 +100,7 @@ public class DesignerController implements Initializable {
     @FXML
     private TableColumn<Proyect, String> columnProyectEndDate;
     @FXML
-    private Button btnSelectObject;
+    private Button btnSelectProyect;
     @FXML
     private AnchorPane paneProyectList;
     @FXML
@@ -166,9 +166,21 @@ public class DesignerController implements Initializable {
     @FXML
     private ImageView imvTempWorkImg;
     @FXML
+<<<<<<< HEAD
     private TableColumn<Proyect, String> columnProyectCode;
     @FXML
     private TableColumn<Proyect, String> columnProyectStartDate;
+=======
+    private Label lblObjectWidth;
+    @FXML
+    private Label lblObjectHeight;
+    @FXML
+    private Label lblObjectRotation;
+    @FXML
+    private Label lblObjectX;
+    @FXML
+    private Label lblObjectY;
+>>>>>>> fabiux
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -224,6 +236,7 @@ public class DesignerController implements Initializable {
             double mouseX = event.getX();
             double mouseY = event.getY();
             clickObject(mouseX, mouseY);
+            updateObjectSizes();
         });
         
         cnvWorkSpace.setOnMousePressed((MouseEvent event) -> { 
@@ -349,6 +362,24 @@ public class DesignerController implements Initializable {
                 }
             }
         }
+        updateObjectSizes();
+    }
+    
+    private void updateObjectSizes(){
+        if(selectedObject != null){
+            lblObjectX.setText(String.valueOf(selectedObject.getPosX()));
+            lblObjectY.setText(String.valueOf(selectedObject.getPosY()));
+            lblObjectHeight.setText(String.valueOf(selectedObject.getHeight()));
+            lblObjectWidth.setText(String.valueOf(selectedObject.getWidth()));
+            lblObjectRotation.setText(String.valueOf(selectedObject.getRotation()));
+        }
+        else{
+            lblObjectX.setText("...");
+            lblObjectY.setText("...");
+            lblObjectHeight.setText("...");
+            lblObjectWidth.setText("...");
+            lblObjectRotation.setText("...");
+        }
     }
 
     
@@ -442,11 +473,6 @@ public class DesignerController implements Initializable {
             paneProyectList.setVisible(false);
             hiddenProyectList = false;
         }
-    }
-
-    @FXML
-    private void clickSelectObject(ActionEvent event) {
-        
     }
     
     @FXML
@@ -826,6 +852,11 @@ public class DesignerController implements Initializable {
     }
     
     @FXML
+    private void clickSelectProyect(ActionEvent event) {
+        
+    }
+    
+    @FXML
     private void clickSave(ActionEvent event) {
          //objetosList hacer for each y hacer un hilo por cada objeto para pasaar en el server
         for(ConstructionObject object: objetosList){
@@ -838,25 +869,37 @@ public class DesignerController implements Initializable {
         }
         
     }
+<<<<<<< HEAD
 
     //ERROR CON LOS INDICES
+=======
+    
+>>>>>>> fabiux
     @FXML
     private void clickClean(ActionEvent event) {
         if(selectedObject != null){            
-            int index = 0;
+            int indexArqui = 0;
+            int indexStruct = 0;
             for (ConstructionObject obj : objetosList){
                 if(obj.equals(selectedObject)){
                     selectedObject = null;
                     objetosList.remove(obj);
                     break;
                 }
-                index++;
+                
+                if(obj.getObjectType().substring(0, 3).equals("col")){
+                    indexStruct++;
+                }
+                else{
+                    indexArqui++;
+                }
             }
+            
             if(plantType){  
-                dragImgArquitectural.remove(index);
+                dragImgArquitectural.remove(indexArqui);
             }
             else{
-                dragImgStructural.remove(index);
+                dragImgStructural.remove(indexStruct);
             }
             redrawCanvas();
         }

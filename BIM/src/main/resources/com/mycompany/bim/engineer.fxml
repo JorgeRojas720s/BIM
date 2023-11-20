@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -26,7 +25,7 @@
                      </image></ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnModifyMaterials" layoutX="73.0" layoutY="366.0" mnemonicParsing="false" onAction="#clickModifyMaterials" prefHeight="55.0" prefWidth="155.0" styleClass="buttonBlue" text="Materials">
+            <Button fx:id="btnViewMaterials" layoutX="72.0" layoutY="439.0" mnemonicParsing="false" onAction="#clickViewMaterials" prefHeight="55.0" prefWidth="155.0" styleClass="buttonBlue" text="Materials">
                <graphic>
                   <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -34,7 +33,7 @@
                      </image></ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnModifyProyect" layoutX="73.0" layoutY="299.0" mnemonicParsing="false" onAction="#clickModifyProyect" prefHeight="55.0" prefWidth="155.0" styleClass="buttonBlue" text="Proyect">
+            <Button fx:id="btnModifyProyect" layoutX="72.0" layoutY="291.0" mnemonicParsing="false" onAction="#clickModifyProyect" prefHeight="55.0" prefWidth="155.0" styleClass="buttonBlue" text="Proyect">
                <graphic>
                   <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -42,7 +41,7 @@
                      </image></ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnModifyObjects" layoutX="73.0" layoutY="434.0" mnemonicParsing="false" onAction="#clickModifyObjects" prefHeight="55.0" prefWidth="155.0" styleClass="buttonBlue" text="Objects">
+            <Button fx:id="btnViewObjects" layoutX="72.0" layoutY="507.0" mnemonicParsing="false" onAction="#clickViewObjects" prefHeight="55.0" prefWidth="155.0" styleClass="buttonBlue" text="Objects">
                <graphic>
                   <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -65,7 +64,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="btnGenerateReport" layoutX="73.0" layoutY="588.0" mnemonicParsing="false" onAction="#clickGenerateReport" prefHeight="55.0" prefWidth="155.0" styleClass="buttonBlue" text="Report">
+            <Button fx:id="btnGenerateReport" layoutX="73.0" layoutY="652.0" mnemonicParsing="false" onAction="#clickGenerateReport" prefHeight="55.0" prefWidth="155.0" styleClass="buttonBlue" text="Report">
                <graphic>
                   <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -74,7 +73,12 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label layoutX="60.0" layoutY="538.0" text="Generate report">
+            <Label layoutX="60.0" layoutY="602.0" text="Generate report">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="69.0" layoutY="394.0" text="View Elements">
                <font>
                   <Font size="24.0" />
                </font>
@@ -136,98 +140,209 @@
       </AnchorPane>
       <AnchorPane id="paneTertiary" fx:id="paneMaterial" layoutX="318.0" layoutY="70.0" prefHeight="610.0" prefWidth="633.0" visible="false">
          <children>
-            <TextField fx:id="txtMaterialUnit" layoutX="110.0" layoutY="432.0" prefHeight="55.0" prefWidth="175.0">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <Label layoutX="14.0" layoutY="14.0" text="Material">
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="164.0" text="Materials">
                <font>
                   <Font size="34.0" />
                </font>
             </Label>
-            <TextField fx:id="txtMaterialName" layoutX="110.0" layoutY="336.0" prefHeight="55.0" prefWidth="175.0">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtMaterialId" layoutX="347.0" layoutY="336.0" prefHeight="55.0" prefWidth="175.0">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <Label layoutX="110.0" layoutY="305.0" prefHeight="30.0" prefWidth="102.0" text="Name:">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="347.0" layoutY="305.0" prefHeight="30.0" prefWidth="102.0" text="Id:">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="110.0" layoutY="402.0" prefHeight="30.0" prefWidth="155.0" text="Measure unit:">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="347.0" layoutY="402.0" prefHeight="30.0" prefWidth="102.0" text="Price?">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnMaterialProcess" layoutX="544.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickMaterialProcess" prefHeight="44.0" prefWidth="76.0" styleClass="buttonGreen" text="Next" />
-            <TextField fx:id="txtMaterialPrice" layoutX="347.0" layoutY="432.0" prefHeight="55.0" prefWidth="175.0">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <ScrollPane fx:id="scrMaterials" layoutX="76.0" layoutY="85.0" prefHeight="200.0" prefWidth="481.0">
+            <ScrollPane fx:id="scrMaterials" layoutX="76.0" layoutY="112.0" prefHeight="450.0" prefWidth="486.0">
               <content>
-                <AnchorPane id="panePrimary" minHeight="0.0" minWidth="0.0" prefHeight="213.0" prefWidth="462.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1140.0" prefWidth="462.0">
+                     <children>
+                        <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="167.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/wood.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="166.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/constructionBlock.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="166.0" layoutY="639.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/rods.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="168.0" layoutY="887.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/sand.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="TOP_LEFT" layoutX="52.0" layoutY="200.0" prefHeight="126.0" prefWidth="358.0" styleClass="labelBlackRegular" text="Wood is a natural material derived from the inner part of tree trunks. It is known for its versatility, durability and aesthetic appeal. Wood's composition includes cellulose fibers, lignin and other organic compounds. These fibers give it strength and flexibility, making it ideal for a variety of applications, from construction to furniture manufacturing. In the case can be used for the creation of doors." wrapText="true" />
+                        <Label alignment="CENTER" layoutX="200.0" layoutY="41.0" styleClass="labelBlack" text="Wood:" />
+                        <Label alignment="TOP_LEFT" layoutX="52.0" layoutY="494.0" prefHeight="96.0" prefWidth="358.0" styleClass="labelBlackRegular" text="Building block, also known as concrete block or concrete block, is a building material made from a mixture of cement, sand, and aggregates, such as gravel or crushed stone. This material is widely used in the construction of structures, walls and walls due to its strength, durability and ease of handling." wrapText="true" />
+                        <Label alignment="CENTER" layoutX="202.0" layoutY="335.0" styleClass="labelBlack" text="Block:" />
+                        <Label alignment="TOP_LEFT" layoutX="51.0" layoutY="767.0" prefHeight="83.0" prefWidth="358.0" styleClass="labelBlackRegular" text="Building rods, also known as rebar or simply rebar, are key elements in the construction industry. These rods are made of steel and are used to reinforce concrete structures, providing additional strength and helping to prevent fracture and collapse." wrapText="true" />
+                        <Label alignment="CENTER" layoutX="205.0" layoutY="609.0" styleClass="labelBlack" text="Rods:" />
+                        <Label alignment="TOP_LEFT" layoutX="52.0" layoutY="1015.0" prefHeight="101.0" prefWidth="358.0" styleClass="labelBlackRegular" text="Sand is an essential component in the manufacture of glass, and glass, in turn, is used to make windows. Sand, generally composed of silica, is the key raw material for glass production. Silica is mined and processed to remove impurities before being used in the manufacturing process." wrapText="true" />
+                        <Label alignment="CENTER" layoutX="206.0" layoutY="857.0" styleClass="labelBlack" text="Sand:" />
+                     </children>
+                  </AnchorPane>
               </content>
             </ScrollPane>
-            <Button fx:id="btnAddMaterial" layoutX="265.0" layoutY="501.0" mnemonicParsing="false" onAction="#clickAddMaterial" prefHeight="44.0" prefWidth="102.0" styleClass="buttonBlue" text="Add" />
          </children>
       </AnchorPane>
       <AnchorPane id="paneTertiary" fx:id="paneObject" layoutX="318.0" layoutY="70.0" prefHeight="610.0" prefWidth="633.0" visible="false">
          <children>
-            <Label layoutX="14.0" layoutY="14.0" text="Object">
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="151.0" text="Objects">
                <font>
                   <Font size="34.0" />
                </font>
             </Label>
-            <TextField fx:id="txtObjectCode" layoutX="247.0" layoutY="64.0" prefHeight="35.0" prefWidth="122.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-            <Label layoutX="76.0" layoutY="66.0" prefHeight="30.0" prefWidth="171.0" text="Before add, code:">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnObjectProcess" layoutX="544.0" layoutY="552.0" mnemonicParsing="false" onAction="#clickObjectProcess" prefHeight="44.0" prefWidth="76.0" styleClass="buttonGreen" text="Create" />
-            <ScrollPane fx:id="scrObjects" layoutX="76.0" layoutY="112.0" prefHeight="245.0" prefWidth="482.0">
+            <ScrollPane fx:id="scrObjects" layoutX="76.0" layoutY="112.0" prefHeight="450.0" prefWidth="482.0">
                <content>
-                  <AnchorPane id="panePrimary" minHeight="0.0" minWidth="0.0" prefHeight="340.0" prefWidth="462.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1174.0" prefWidth="462.0">
                      <children>
-                        <Label layoutX="61.0" layoutY="45.0" text="image" />
-                        <Button layoutX="59.0" layoutY="70.0" mnemonicParsing="false" text="add" />
-                        <Label layoutX="61.0" layoutY="151.0" text="image" />
-                        <Button layoutX="59.0" layoutY="176.0" mnemonicParsing="false" text="add" />
-                        <Label layoutX="61.0" layoutY="241.0" text="image" />
-                        <Button layoutX="59.0" layoutY="266.0" mnemonicParsing="false" text="add" />
+                        <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="52.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/door.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="50.0" fitWidth="185.0" layoutX="250.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/wall.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="165.0" layoutY="-1.0" prefHeight="30.0" prefWidth="132.0" styleClass="labelBlack" text="Architectural" underline="true">
+                           <font>
+                              <Font name="System Bold" size="34.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="50.0" layoutY="61.0" prefHeight="30.0" prefWidth="132.0" styleClass="labelBlack" text="Door:">
+                           <font>
+                              <Font name="System Bold" size="34.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="276.0" layoutY="61.0" prefHeight="30.0" prefWidth="132.0" styleClass="labelBlack" text="Wall:">
+                           <font>
+                              <Font name="System Bold" size="34.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="52.0" layoutY="689.0" prefHeight="18.0" prefWidth="132.0" styleClass="labelBlackRegular" text="4 rods" />
+                        <ImageView fitHeight="50.0" fitWidth="185.0" layoutX="24.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/window.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="50.0" layoutY="286.0" prefHeight="30.0" prefWidth="132.0" styleClass="labelBlack" text="Window:">
+                           <font>
+                              <Font name="System Bold" size="34.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="165.0" layoutY="465.0" prefHeight="30.0" prefWidth="132.0" styleClass="labelBlack" text="Structural" underline="true">
+                           <font>
+                              <Font name="System Bold" size="34.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="53.0" layoutY="549.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/colType1.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="51.0" layoutY="518.0" prefHeight="30.0" prefWidth="132.0" styleClass="labelBlack" text="Column one:">
+                           <font>
+                              <Font name="System Bold" size="34.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="279.0" layoutY="549.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/colType2.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="277.0" layoutY="518.0" prefHeight="30.0" prefWidth="132.0" styleClass="labelBlack" text="Column two:">
+                           <font>
+                              <Font name="System Bold" size="34.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="54.0" layoutY="765.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/colType3.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="40.0" layoutY="734.0" prefHeight="30.0" prefWidth="155.0" styleClass="labelBlack" text="Column three:">
+                           <font>
+                              <Font name="System Bold" size="34.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="280.0" layoutY="765.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/colType4.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="278.0" layoutY="734.0" prefHeight="30.0" prefWidth="132.0" styleClass="labelBlack" text="Column four:">
+                           <font>
+                              <Font name="System Bold" size="34.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="54.0" layoutY="975.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/crownBeam.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="40.0" layoutY="944.0" prefHeight="30.0" prefWidth="155.0" styleClass="labelBlack" text="Crown beam:">
+                           <font>
+                              <Font name="System Bold" size="34.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="278.0" layoutY="689.0" prefHeight="18.0" prefWidth="132.0" styleClass="labelBlackRegular" text="8 rods" />
+                        <Label alignment="CENTER" layoutX="52.0" layoutY="540.0" prefHeight="18.0" prefWidth="132.0" styleClass="labelBlackRegular" text="12 cm">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="278.0" layoutY="539.0" prefHeight="18.0" prefWidth="132.0" styleClass="labelBlackRegular" text="30 cm">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="344.0" layoutY="614.0" prefHeight="18.0" prefWidth="132.0" rotate="90.0" styleClass="labelBlackRegular" text="30 cm">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="84.0" layoutY="604.0" prefHeight="18.0" prefWidth="132.0" rotate="90.0" styleClass="labelBlackRegular" text="30 cm">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="118.0" layoutY="828.0" prefHeight="18.0" prefWidth="132.0" rotate="90.0" styleClass="labelBlackRegular" text="30 cm">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="341.0" layoutY="828.0" prefHeight="18.0" prefWidth="132.0" rotate="90.0" styleClass="labelBlackRegular" text="30 cm">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="52.0" layoutY="756.0" prefHeight="18.0" prefWidth="132.0" styleClass="labelBlackRegular" text="30 cm">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="278.0" layoutY="762.0" prefHeight="18.0" prefWidth="132.0" styleClass="labelBlackRegular" text="30 cm">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="54.0" layoutY="894.0" prefHeight="18.0" prefWidth="132.0" styleClass="labelBlackRegular" text="7 rods" />
+                        <Label alignment="CENTER" layoutX="280.0" layoutY="894.0" prefHeight="18.0" prefWidth="132.0" styleClass="labelBlackRegular" text="4 rods" />
+                        <Label alignment="CENTER" layoutX="50.0" layoutY="1110.0" prefHeight="18.0" prefWidth="132.0" styleClass="labelBlackRegular" text="6 rods" />
+                        <Label alignment="CENTER" layoutX="52.0" layoutY="966.0" prefHeight="18.0" prefWidth="132.0" styleClass="labelBlackRegular" text="12 cm">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="84.0" layoutY="1030.0" prefHeight="18.0" prefWidth="132.0" rotate="90.0" styleClass="labelBlackRegular" text="30 cm">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>
             </ScrollPane>
-            <ListView layoutX="76.0" layoutY="394.0" prefHeight="192.0" prefWidth="200.0" />
-            <Label layoutX="76.0" layoutY="366.0" text="List">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Label>
          </children>
       </AnchorPane>
       <Label fx:id="lblMessage" layoutX="423.0" layoutY="224.0" text="Wellcome back">

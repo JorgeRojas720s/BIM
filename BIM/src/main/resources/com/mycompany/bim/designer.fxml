@@ -268,7 +268,7 @@
                   <TableColumn fx:id="columnProyectEndDate" prefWidth="92.800048828125" text="End date" />
                </columns>
             </TableView>
-            <Button fx:id="btnSelectObject" focusTraversable="false" layoutX="31.0" layoutY="675.0" mnemonicParsing="false" onAction="#clickSelectObject" prefHeight="43.0" prefWidth="78.0" styleClass="buttonBlue" text="Select">
+            <Button fx:id="btnSelectProyect" focusTraversable="false" layoutX="31.0" layoutY="675.0" mnemonicParsing="false" onAction="#clickSelectProyect" prefHeight="43.0" prefWidth="78.0" styleClass="buttonBlue" text="Select">
                <font>
                   <Font size="14.0" />
                </font>
@@ -302,5 +302,15 @@
             <Font size="14.0" />
          </font>
       </Button>
+      <Label layoutX="315.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="Width: " />
+      <Label fx:id="lblObjectWidth" layoutX="356.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
+      <Label layoutX="408.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="Height:" />
+      <Label fx:id="lblObjectHeight" layoutX="453.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
+      <Label layoutX="504.0" layoutY="20.0" prefHeight="32.0" prefWidth="56.0" text="Rotation:" />
+      <Label fx:id="lblObjectRotation" layoutX="560.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
+      <Label layoutX="114.0" layoutY="20.0" prefHeight="32.0" prefWidth="17.0" text="X:" />
+      <Label fx:id="lblObjectX" layoutX="132.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
+      <Label layoutX="182.0" layoutY="20.0" prefHeight="32.0" prefWidth="17.0" text="Y:" />
+      <Label fx:id="lblObjectY" layoutX="200.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
    </children>
 </AnchorPane>
