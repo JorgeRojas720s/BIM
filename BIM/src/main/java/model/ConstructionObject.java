@@ -79,4 +79,10 @@ public class ConstructionObject {
     public void setObjectType(String objectType) {
         this.objectType = objectType;
     }
+
+    @Override
+    public String toString() {
+        return   posX + "|" + posY + "|" + objectType + "|" + rotation + "|" + flip + "|" + height + "|" + width;
+    }
+
 }

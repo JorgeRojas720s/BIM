@@ -224,13 +224,13 @@
       </AnchorPane>
       <AnchorPane id="paneUserHome" fx:id="paneHome" layoutX="22.0" layoutY="31.0" prefHeight="708.0" prefWidth="1314.0" stylesheets="@../../../css/administrator.css">
          <children>
-            <Label layoutX="113.0" layoutY="228.0" prefHeight="80.0" prefWidth="1035.0" text="Algo como bienvenido admin " textFill="WHITE">
+            <Label layoutX="268.0" layoutY="146.0" prefHeight="80.0" prefWidth="235.0" text="Welcome!" textFill="WHITE">
                <font>
-                  <Font size="38.0" />
+                  <Font size="44.0" />
                </font></Label>
-            <Label layoutX="36.0" layoutY="384.0" prefHeight="80.0" prefWidth="923.0" text="y se pone el nombre O una imagen, algo" textFill="WHITE">
+            <Label fx:id="lblName" layoutX="184.0" layoutY="266.0" prefHeight="80.0" prefWidth="168.0" text="&quot;Name&quot;" textFill="WHITE">
                <font>
-                  <Font size="38.0" />
+                  <Font size="34.0" />
                </font>
             </Label>
             <TableView fx:id="tblvProyects" layoutX="757.0" layoutY="50.0" onMouseClicked="#clickGetProyectCode" prefHeight="645.0" prefWidth="525.0">
@@ -241,6 +241,11 @@
                   <TableColumn fx:id="columnFinishDate" prefWidth="148.0" text="Finish Date" />
               </columns>
             </TableView>
+            <Label fx:id="lblLastName" layoutX="352.0" layoutY="266.0" prefHeight="80.0" prefWidth="235.0" text="&quot;LastName&quot;" textFill="WHITE">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <Button id="btnMenu" fx:id="btnMenu" layoutX="56.0" layoutY="16.0" mnemonicParsing="false" onAction="#clcikMenu" prefHeight="30.0" prefWidth="73.0" styleClass="buttonGreen" stylesheets="@../../../css/administrator.css" text="Menu" />

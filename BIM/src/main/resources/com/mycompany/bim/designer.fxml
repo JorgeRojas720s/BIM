@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="panePrimary" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#clickDragObject" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../../../css/engineer.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DesignerController">
+<AnchorPane id="panePrimary" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#clickDragObject" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../../../css/engineer.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DesignerController">
    <children>
       <Button fx:id="btnExit" focusTraversable="false" layoutX="1256.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickExit" prefHeight="43.0" prefWidth="78.0" styleClass="buttonRed" text="Exit">
          <font>
@@ -263,8 +263,8 @@
             <TableView fx:id="tbvProyectList" focusTraversable="false" layoutX="31.0" layoutY="116.0" prefHeight="549.0" prefWidth="352.0">
                <columns>
                   <TableColumn fx:id="columnProyectName" prefWidth="111.20001220703125" text="Name" />
-                  <TableColumn fx:id="columnProyectEngineer" prefWidth="74.4000244140625" text="Engineer" />
-                  <TableColumn fx:id="columnProyectDesigner" prefWidth="70.4000244140625" text="Designer" />
+                  <TableColumn fx:id="columnProyectCode" prefWidth="74.4000244140625" text="Engineer" />
+                  <TableColumn fx:id="columnProyectStartDate" prefWidth="70.4000244140625" text="Designer" />
                   <TableColumn fx:id="columnProyectEndDate" prefWidth="92.800048828125" text="End date" />
                </columns>
             </TableView>

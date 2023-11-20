@@ -49,10 +49,9 @@ import utils.Parsing;
  */
 public class AdministratorController implements Initializable {
 
-    String data = "";
-
-    boolean setIdFromTblv;
-    boolean switchTblv = false;
+    private String data = "";
+    private boolean setIdFromTblv;
+    private boolean switchTblv = false;
 
     ChildThread thread;
 
@@ -157,18 +156,34 @@ public class AdministratorController implements Initializable {
     private TableView<User> tblvUsers;
     @FXML
     private Button btnSearchProyect;
+    @FXML
+    private Label lblName;
+    @FXML
+    private Label lblLastName;
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
+    public void initialize(URL url, ResourceBundle rb){
+        
+        setNameAdmin(LogInController.userName);
+  
         updateTableViewProyects();
         fillTableViewProyects();
 
         fillTableViewUsers();
 
+    }
+    
+    private void setNameAdmin(String name){
+        
+        thread = new ChildThread("user", "getName", name);
+        thread.waitThreadEnd();
+        String adminData[] = Parsing.parsingUser(thread.getResponse());
+        
+        lblName.setText(adminData[0]);
+        lblLastName.setText(adminData[1]);
     }
 
     private void clearUser() {
@@ -187,7 +202,6 @@ public class AdministratorController implements Initializable {
         columnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         columnRole.setCellValueFactory(new PropertyValueFactory<>("role"));
         columnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-
     }
 
     private void fillTableViewProyects() {
@@ -200,6 +214,7 @@ public class AdministratorController implements Initializable {
     }
 
     private void updateTableViewUsers(String query) {
+        System.out.println("jacnjsdnc");
 
         thread = new ChildThread("user", query, " ");
         thread.waitThreadEnd();
@@ -494,8 +509,9 @@ public class AdministratorController implements Initializable {
             User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
             thread = new ChildThread("user", "updateUser", user.toString());
             thread.waitThreadEnd();
-
+            
             if ("User update".equals(thread.getResponse())) {
+                updateTableViewUsers("getAllUsers");
                 showAlert("User update");
                 clearUser();
                 return;
@@ -508,7 +524,7 @@ public class AdministratorController implements Initializable {
             }
         }
 
-        updateTableViewUsers("getAllUsers");
+        
     }
 
     @FXML

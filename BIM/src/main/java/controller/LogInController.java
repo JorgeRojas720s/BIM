@@ -24,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import model.User;
 import service.DBConnection;
 import utils.ChildThread;
+import utils.Parsing;
 import utils.RemoteConnection;
 
 /**
@@ -34,12 +35,12 @@ import utils.RemoteConnection;
 public class LogInController implements Initializable {
 
     Image showPasswordImage;
-    boolean showPasswordFlag = false;
+    private boolean showPasswordFlag = false;
+    public static String userName = "";
+    public static String userID;
 
 //    String respuesta;
 //    Thread thread;
-     
-
     //FXML...
     @FXML
     private TextField txtLogInUsername;
@@ -166,7 +167,7 @@ public class LogInController implements Initializable {
 
     @FXML
     private void clickSigIn(ActionEvent event) throws IOException {
-        
+
         //Luego colocar que si un usuario esta inactivo, no le permita ingresar 
         String usernameOrEmail = txtLogInUsername.getText();
         String password = null;
@@ -176,19 +177,33 @@ public class LogInController implements Initializable {
             password = txtShowLoginPassword.getText();
         }
 
-        ChildThread thread = new ChildThread("user","consulta",usernameOrEmail + "|" + password);
+        ChildThread thread = new ChildThread("user", "consulta", usernameOrEmail + "|" + password);
         thread.waitThreadEnd();
 
         System.out.println("Role:" + thread.getResponse());
 
-        if ("Designer".equals(thread.getResponse())) {
-            App.setRoot("designer");
-        } else if ("Engineer".equals(thread.getResponse())) {
-            App.setRoot("engineer");
-        } else if ("Administrator".equals(thread.getResponse())) {
-            App.setRoot("administrator");
-        } else if (thread.getResponse() == null || "None".equals(thread.getResponse())) {
+        if (thread.getResponse() == null || "None".equals(thread.getResponse())) {
             showAlert("Datos invalidos");
+            return;
+        }
+
+        String dataUser[] = Parsing.parsingUser(thread.getResponse());
+        userID = dataUser[2];
+
+        if (!"Inactive".equals(dataUser[1])) {
+
+            if ("Designer".equals(dataUser[0])) {
+                userName = txtLogInUsername.getText();
+                App.setRoot("designer");
+            } else if ("Engineer".equals(dataUser[0])) {
+                userName = txtLogInUsername.getText();
+                App.setRoot("engineer");
+            } else if ("Administrator".equals(dataUser[0])) {
+                userName = txtLogInUsername.getText();
+                App.setRoot("administrator");
+            }
+        } else {
+            showAlert("User Inactive");
         }
 
     }
@@ -201,9 +216,9 @@ public class LogInController implements Initializable {
 
     @FXML
     private void clickSingUp(ActionEvent event) {
-       
+
         if (txtRegisterUsername.getText().isEmpty() || txtRegisterEmail.getText().isEmpty()
-            || txtRegisterPassword.getText().isEmpty()) {
+                || txtRegisterPassword.getText().isEmpty()) {
             showAlert("Txt is empty");
         } else {
             int id = Integer.parseInt(txtRegisterId.getText());
@@ -216,9 +231,9 @@ public class LogInController implements Initializable {
             String role = getRole();
 
             User user = new User(id, name, lastName, status, username, email, password, role);
-            
-            ChildThread thread = new ChildThread("user", "newUser",user.toString());
-            
+
+            ChildThread thread = new ChildThread("user", "newUser", user.toString());
+
             changePanes(false);
         }
     }

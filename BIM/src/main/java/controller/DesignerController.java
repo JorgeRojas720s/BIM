@@ -20,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -28,6 +29,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -39,7 +41,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.ConstructionObject;
+import model.Proyect;
+import utils.ChildThread;
 import utils.DraggableImage;
+import utils.Parsing;
 
 /**
  * FXML Controller class
@@ -47,7 +52,11 @@ import utils.DraggableImage;
  * @author jitor
  */
 public class DesignerController implements Initializable {
+    
+    ChildThread thread;
 
+    private String userId;
+    private String data = "";
     private boolean hiddenProyectList = false;
     private Image imgCurrentObject = null;
     private Rectangle currentShape = null;
@@ -85,15 +94,11 @@ public class DesignerController implements Initializable {
     @FXML
     private Button btnExit;
     @FXML
-    private TableView<?> tbvProyectList;
+    private TableView<Proyect> tbvProyectList;
     @FXML
-    private TableColumn<?, ?> columnProyectName;
+    private TableColumn<Proyect, String> columnProyectName;
     @FXML
-    private TableColumn<?, ?> columnProyectEngineer;
-    @FXML
-    private TableColumn<?, ?> columnProyectDesigner;
-    @FXML
-    private TableColumn<?, ?> columnProyectEndDate;
+    private TableColumn<Proyect, String> columnProyectEndDate;
     @FXML
     private Button btnSelectObject;
     @FXML
@@ -160,9 +165,19 @@ public class DesignerController implements Initializable {
     private Button btnRotateCrownBeam;
     @FXML
     private ImageView imvTempWorkImg;
+    @FXML
+    private TableColumn<Proyect, String> columnProyectCode;
+    @FXML
+    private TableColumn<Proyect, String> columnProyectStartDate;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        userId = LogInController.userID;
+        updateTableViewProyects();
+        fillTableViewProyects();
+        
+        
         gc = cnvWorkSpace.getGraphicsContext2D();
         doorFlipValue = imvDoor.getScaleX() * 1;
         cboxDoorSize.setItems(typeOptions);
@@ -172,6 +187,35 @@ public class DesignerController implements Initializable {
         disableImageViewObjects(false);
         
         initCanvaEvents();
+    }
+    
+    private void fillTableViewProyects() {
+
+        columnProyectName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnProyectCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+        columnProyectStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        columnProyectEndDate.setCellValueFactory(new PropertyValueFactory<>("finishDate"));
+
+    }
+    
+    private void updateTableViewProyects() {
+
+        thread = new ChildThread("proyect", "getDesignerProyects", userId);
+        thread.waitThreadEnd();
+        data = thread.getResponse();
+
+        List<Proyect> listaProyects = Parsing.parsingAllProyects(data);
+
+        ObservableList<Proyect> proyectObservableList = FXCollections.observableArrayList(listaProyects);
+        tbvProyectList.setItems(proyectObservableList);
+    }
+    
+     private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Información");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
     
     private void initCanvaEvents(){
@@ -783,10 +827,18 @@ public class DesignerController implements Initializable {
     
     @FXML
     private void clickSave(ActionEvent event) {
+         //objetosList hacer for each y hacer un hilo por cada objeto para pasaar en el server
+        for(ConstructionObject object: objetosList){
+            
+            thread = new ChildThread("object", "newObject", object.toString());
+            thread.waitThreadEnd();  
+        }
+        if("Object created!".equals(thread.getResponse())){
+            showAlert("Construction paper saved!");
+        }
         
     }
 
-    
     //ERROR CON LOS INDICES
     @FXML
     private void clickClean(ActionEvent event) {
