@@ -395,6 +395,7 @@ public class AdministratorController implements Initializable {
     private void clickHome(ActionEvent event) {
         moveTblvUsers(paneHome, tblvProyects);
         tblvProyects.setVisible(true);
+        tblvProyects.setDisable(false);
         showHome(true);
         showUsers(false);
         showProyects(false);
@@ -468,6 +469,10 @@ public class AdministratorController implements Initializable {
 
         if ("Project not found".equals(thread.getResponse())) {
             showAlert("Project not found");
+        }
+        
+        if ("Invalid engineer or designer".equals(thread.getResponse())) {
+            showAlert("Invalid engineer or designer");
         }
 
         updateTableViewProyects();
@@ -632,6 +637,8 @@ public class AdministratorController implements Initializable {
         updateTableViewUsers("getEngAndDesig");
         btnSearchProyect.setVisible(false);
         btnSearchProyect.setDisable(true);
+        txtDesignerID.setDisable(true);
+        txtEngineerID.setDisable(true);
         showHome(false);
         showUsers(false);
         showProyects(true);
@@ -646,6 +653,8 @@ public class AdministratorController implements Initializable {
         updateTableViewUsers("getEngAndDesig");
         btnSearchProyect.setVisible(true);
         btnSearchProyect.setDisable(false);
+        txtDesignerID.setDisable(false);
+        txtEngineerID.setDisable(false);
         showHome(false);
         showUsers(false);
         showProyects(true);
