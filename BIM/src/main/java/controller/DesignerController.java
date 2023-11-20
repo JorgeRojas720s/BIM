@@ -166,11 +166,10 @@ public class DesignerController implements Initializable {
     @FXML
     private ImageView imvTempWorkImg;
     @FXML
-<<<<<<< HEAD
     private TableColumn<Proyect, String> columnProyectCode;
     @FXML
     private TableColumn<Proyect, String> columnProyectStartDate;
-=======
+    @FXML
     private Label lblObjectWidth;
     @FXML
     private Label lblObjectHeight;
@@ -180,7 +179,7 @@ public class DesignerController implements Initializable {
     private Label lblObjectX;
     @FXML
     private Label lblObjectY;
->>>>>>> fabiux
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -869,12 +868,7 @@ public class DesignerController implements Initializable {
         }
         
     }
-<<<<<<< HEAD
 
-    //ERROR CON LOS INDICES
-=======
-    
->>>>>>> fabiux
     @FXML
     private void clickClean(ActionEvent event) {
         if(selectedObject != null){            
