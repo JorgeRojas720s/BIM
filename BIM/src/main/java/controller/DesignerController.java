@@ -195,9 +195,9 @@ public class DesignerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-//        userId = LogInController.userID;
-//        updateTableViewProyects();
-//        fillTableViewProyects();
+        userId = LogInController.userID;
+        updateTableViewProyects();
+        fillTableViewProyects();
         
         
         gc = cnvWorkSpace.getGraphicsContext2D();
