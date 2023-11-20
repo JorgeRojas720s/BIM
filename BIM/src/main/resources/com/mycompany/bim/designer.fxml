@@ -260,11 +260,11 @@
       </Label>
       <AnchorPane id="paneSecondary" fx:id="paneProyectList" prefHeight="750.0" prefWidth="414.0" visible="false">
          <children>
-            <TableView fx:id="tbvProyectList" focusTraversable="false" layoutX="31.0" layoutY="116.0" prefHeight="549.0" prefWidth="352.0">
+            <TableView fx:id="tbvProyectList" focusTraversable="false" layoutX="31.0" layoutY="116.0" onMouseClicked="#clickGetCode" prefHeight="549.0" prefWidth="352.0">
                <columns>
                   <TableColumn fx:id="columnProyectName" prefWidth="111.20001220703125" text="Name" />
-                  <TableColumn fx:id="columnProyectCode" prefWidth="74.4000244140625" text="Engineer" />
-                  <TableColumn fx:id="columnProyectStartDate" prefWidth="70.4000244140625" text="Designer" />
+                  <TableColumn fx:id="columnProyectCode" prefWidth="74.4000244140625" text="Code" />
+                  <TableColumn fx:id="columnProyectStartDate" prefWidth="70.4000244140625" text="Start Date" />
                   <TableColumn fx:id="columnProyectEndDate" prefWidth="92.800048828125" text="End date" />
                </columns>
             </TableView>

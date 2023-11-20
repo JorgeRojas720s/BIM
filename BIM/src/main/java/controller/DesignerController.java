@@ -861,4 +861,8 @@ public class DesignerController implements Initializable {
             redrawCanvas();
         }
     }
+
+    @FXML
+    private void clickGetCode(MouseEvent event) {
+    }
 }
