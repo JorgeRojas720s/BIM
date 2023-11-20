@@ -201,9 +201,9 @@ public class DesignerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        userId = LogInController.userID;
-        updateTableViewProyects();
-        fillTableViewProyects();
+//        userId = LogInController.userID;
+//        updateTableViewProyects();
+//        fillTableViewProyects();
 
         gc = cnvWorkSpace.getGraphicsContext2D();
         doorFlipValue = imvDoor.getScaleX() * 1;
@@ -215,9 +215,6 @@ public class DesignerController implements Initializable {
 
         initCanvaEvents();
     }
-<<<<<<< HEAD
-
-=======
     
     private void animationPaneMenu(int pos) {
         double targetWidth = pos;
@@ -230,7 +227,6 @@ public class DesignerController implements Initializable {
         transition.play();
     }
     
->>>>>>> fabiux
     private void fillTableViewProyects() {
 
         columnProyectName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -413,15 +409,9 @@ public class DesignerController implements Initializable {
         }
         updateObjectLabelInfo();
     }
-<<<<<<< HEAD
 
-    private void updateObjectSizes() {
-        if (selectedObject != null) {
-=======
-    
     private void updateObjectLabelInfo(){
         if(selectedObject != null){
->>>>>>> fabiux
             lblObjectX.setText(String.valueOf(selectedObject.getPosX()));
             lblObjectY.setText(String.valueOf(selectedObject.getPosY()));
             lblObjectHeight.setText(String.valueOf(selectedObject.getHeight()));
@@ -435,13 +425,6 @@ public class DesignerController implements Initializable {
             lblObjectRotation.setText("...");
         }
     }
-<<<<<<< HEAD
-
-    public void clickObject(double mouseX, double mouseY) {
-        objectFound = false;
-
-        for (ConstructionObject object : objetosList) {
-=======
     
     private void ubdateObjectTotals(){
         totalDoors = 0;
@@ -468,8 +451,6 @@ public class DesignerController implements Initializable {
         objectFound = false;
         
         for (ConstructionObject object : objectList) {
->>>>>>> fabiux
-
             double objX = object.getPosX();
             double obgY = object.getPosY();
 
@@ -919,8 +900,6 @@ public class DesignerController implements Initializable {
 
     @FXML
     private void clickSelectProyect(ActionEvent event) {
-        
-<<<<<<< HEAD
         int index = tbvProyectList.getSelectionModel().getFocusedIndex();
 
         code = String.valueOf(columnProyectCode.getCellData(index));
@@ -938,23 +917,6 @@ public class DesignerController implements Initializable {
         thread.waitThreadEnd();
 
         listObjects = Parsing.parsingAllObjects(thread.getResponse());
-
-=======
-    }
-    
-    @FXML
-    private void clickSave(ActionEvent event) {
-         //objetosList hacer for each y hacer un hilo por cada objeto para pasaar en el server
-        for(ConstructionObject object: objectList){
-            
-            thread = new ChildThread("object", "newObject", object.toString());
-            thread.waitThreadEnd();  
-        }
-        if("Object created!".equals(thread.getResponse())){
-            showAlert("Construction paper saved!");
-        }
->>>>>>> fabiux
-        
     }
 
     @FXML
@@ -982,8 +944,7 @@ public class DesignerController implements Initializable {
     }
 
     private void saveObjects() {
-
-        for (ConstructionObject object : objetosList) {
+        for (ConstructionObject object : objectList) {
             thread = new ChildThread("object", "newObject", object.toString() + "|"+idConstructionPaper);
             thread.waitThreadEnd();
         }
@@ -997,13 +958,8 @@ public class DesignerController implements Initializable {
         if (selectedObject != null) {
             int indexArqui = 0;
             int indexStruct = 0;
-<<<<<<< HEAD
-            for (ConstructionObject obj : objetosList) {
-                if (obj.equals(selectedObject)) {
-=======
             for (ConstructionObject obj : objectList){
                 if(obj.equals(selectedObject)){
->>>>>>> fabiux
                     selectedObject = null;
                     objectList.remove(obj);
                     break;
@@ -1028,15 +984,12 @@ public class DesignerController implements Initializable {
 
     @FXML
     private void clickGetCode(MouseEvent event) {
-        
-<<<<<<< HEAD
+            
         //Fabian quiere que sea al darle select
 
 //        int index = tbvProyectList.getSelectionModel().getFocusedIndex();
 //
 //        code = String.valueOf(columnProyectCode.getCellData(index));
 
-=======
->>>>>>> fabiux
     }
 }
