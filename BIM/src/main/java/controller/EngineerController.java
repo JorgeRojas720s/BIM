@@ -37,11 +37,11 @@ public class EngineerController implements Initializable {
     @FXML
     private Button btnCreateProyect;
     @FXML
-    private Button btnModifyMaterials;
+    private Button btnViewMaterials;
     @FXML
     private Button btnModifyProyect;
     @FXML
-    private Button btnModifyObjects;
+    private Button btnViewObjects;
 
     //Cambiar tipos de objetos...
     @FXML
@@ -75,25 +75,9 @@ public class EngineerController implements Initializable {
     @FXML
     private AnchorPane paneMaterial;
     @FXML
-    private TextField txtMaterialUnit;
-    @FXML
-    private TextField txtMaterialName;
-    @FXML
-    private TextField txtMaterialId;
-    @FXML
-    private Button btnMaterialProcess;
-    @FXML
-    private TextField txtMaterialPrice;
-    @FXML
     private ScrollPane scrMaterials;
     @FXML
-    private Button btnAddMaterial;
-    @FXML
     private AnchorPane paneObject;
-    @FXML
-    private TextField txtObjectCode;
-    @FXML
-    private Button btnObjectProcess;
     @FXML
     private ScrollPane scrObjects;
     @FXML
@@ -136,15 +120,13 @@ public class EngineerController implements Initializable {
         paneReport.setVisible(report);
     }
 
-    private void setTextToProgressButtons(String btnPro, String btnMats, String btnObj) {
+    private void setTextToProgressButtons(String btnPro) {
         btnProyectProcess.setText(btnPro);
-        btnMaterialProcess.setText(btnMats);
-        btnObjectProcess.setText(btnObj);
     }
 
     private void modifyLblAndProgressParameters() {
         showMessageLabelsVisible(false, false);
-        setTextToProgressButtons("Modify", "Modify", "Modify");
+        setTextToProgressButtons("Modify");
     }
 
     private void correctlyModifiedMessage() {
@@ -159,7 +141,7 @@ public class EngineerController implements Initializable {
     @FXML
     private void clickCreateProyect(ActionEvent event) {
         creatProyectPressed = true;
-        setTextToProgressButtons("Create", "...", "...");
+        setTextToProgressButtons("Create");
         showAnchorPanesVisible(true, false, false, true, false);
         showMessageLabelsVisible(false, false);
         showDoNotButtonsVisible(true, true, true);
@@ -176,8 +158,8 @@ public class EngineerController implements Initializable {
     }
 
     @FXML
-    private void clickModifyMaterials(ActionEvent event) {
-        if (!creatProyectPressed && !tbvProyectList.getSelectionModel().isEmpty()) {
+    private void clickViewMaterials(ActionEvent event) {
+        if (!creatProyectPressed) {
             showAnchorPanesVisible(false, true, false, true, false);
             modifyLblAndProgressParameters();
             showDoNotButtonsVisible(false, false, false);
@@ -185,8 +167,8 @@ public class EngineerController implements Initializable {
     }
 
     @FXML
-    private void clickModifyObjects(ActionEvent event) {
-        if (!creatProyectPressed && !tbvProyectList.getSelectionModel().isEmpty()) {
+    private void clickViewObjects(ActionEvent event) {
+        if (!creatProyectPressed) {
             showAnchorPanesVisible(false, false, true, true, false);
             modifyLblAndProgressParameters();
             showDoNotButtonsVisible(false, false, false);
@@ -201,10 +183,6 @@ public class EngineerController implements Initializable {
         }
     }
 
-    @FXML
-    private void clickAddMaterial(ActionEvent event) {
-
-    }
 
     @FXML
     private void clickExit(ActionEvent event) throws IOException {
@@ -231,25 +209,6 @@ public class EngineerController implements Initializable {
         } else if (creatProyectPressed == false && !txtProyectName.getText().isEmpty() && !txtProyectEngineer.getText().isEmpty() && !txtProyectDesigner.getText().isEmpty()
                 && dateStartProyect.getValue() != null && dateEndProyect.getValue() != null) {
             //Logica para modificar un proyecto
-            showAnchorPanesVisible(false, false, false, true, false);
-            correctlyModifiedMessage();
-        }
-    }
-    
-    @FXML
-    private void clickMaterialProcess(ActionEvent event) {
-        if (creatProyectPressed == false && !txtMaterialName.getText().isEmpty() && !txtMaterialId.getText().isEmpty() && !txtMaterialPrice.getText().isEmpty()
-                && !txtMaterialUnit.getText().isEmpty()) {
-            //Logica para modificar un material
-            showAnchorPanesVisible(false, false, false, true, false);
-            correctlyModifiedMessage();
-        }
-    }
-
-    @FXML
-    private void clickObjectProcess(ActionEvent event) {
-        if (creatProyectPressed == false && !txtObjectCode.getText().isEmpty()) {
-            //Logica para modificar un objeto
             showAnchorPanesVisible(false, false, false, true, false);
             correctlyModifiedMessage();
         }
