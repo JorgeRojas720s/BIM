@@ -414,8 +414,8 @@ public class DesignerController implements Initializable {
         if(selectedObject != null){
             lblObjectX.setText(String.valueOf(selectedObject.getPosX()));
             lblObjectY.setText(String.valueOf(selectedObject.getPosY()));
-            lblObjectHeight.setText(String.valueOf(selectedObject.getHeight()));
-            lblObjectWidth.setText(String.valueOf(selectedObject.getWidth()));
+            lblObjectHeight.setText(String.valueOf(selectedObject.getHeight()/PIXELS_PER_METER));
+            lblObjectWidth.setText(String.valueOf(selectedObject.getWidth()/PIXELS_PER_METER));
             lblObjectRotation.setText(String.valueOf(selectedObject.getRotation()));
         } else {
             lblObjectX.setText("...");
@@ -917,6 +917,90 @@ public class DesignerController implements Initializable {
         thread.waitThreadEnd();
 
         listObjects = Parsing.parsingAllObjects(thread.getResponse());
+        
+        loadCanvasObjects();
+        redrawCanvas();
+        ubdateObjectTotals();
+    }
+    
+    private void loadCanvasObjects(){
+        selectedObject = null;
+        dragImgArquitectural.clear();
+        dragImgStructural.clear();
+        
+        for(ConstructionObject obj : listObjects){
+            DraggableImage draggableImage = null;
+            if(obj.getObjectType().substring(0, 3).equals("col")){
+                if(obj.getObjectType().equals("col1")){
+                    loadColumn(draggableImage, obj, imgColOneCrown);
+                }
+                else if(obj.getObjectType().equals("col2")){
+                    loadColumn(draggableImage, obj, imgColTwo);
+                }
+                else if(obj.getObjectType().equals("col3")){
+                    loadColumn(draggableImage, obj, imgColThree);
+                }
+                else if(obj.getObjectType().equals("col4")){
+                    loadColumn(draggableImage, obj, imgColFour);
+                }
+                else if(obj.getObjectType().equals("crown")){
+                    loadColumn(draggableImage, obj, imgColOneCrown);
+                }
+            }
+            else{
+                if(obj.getObjectType().equals("door")){
+                    loadDoor(draggableImage, obj);
+                }
+                else if(obj.getObjectType().equals("wall")){
+                    loadWall(draggableImage, obj);
+                }
+                else if(obj.getObjectType().equals("window")){
+                    loadWindow(draggableImage, obj);
+                }
+            }
+        }
+    }
+    
+    private void loadDoor(DraggableImage draggableImage, ConstructionObject obj){
+        if(obj.getHeight() == 1.0){
+            draggableImage = new DraggableImage(applyToLoadTransformations(imgDoorLarge, obj), obj.getPosX(), obj.getPosY(), cnvWorkSpace);
+            dragImgArquitectural.add(draggableImage);
+        }
+        else if(obj.getHeight() == 0.9){
+            draggableImage = new DraggableImage(applyToLoadTransformations(imgDoorMedium, obj), obj.getPosX(), obj.getPosY(), cnvWorkSpace);
+            dragImgArquitectural.add(draggableImage);
+        }
+        else if(obj.getHeight() == 0.8){
+            draggableImage = new DraggableImage(applyToLoadTransformations(imgDoorSmall, obj), obj.getPosX(), obj.getPosY(), cnvWorkSpace);
+            dragImgArquitectural.add(draggableImage);
+        }
+    }
+    
+    private void loadWall(DraggableImage draggableImage, ConstructionObject obj){
+        Rectangle wallRectangle = new Rectangle(obj.getWidth(), obj.getHeight(), Color.web("#333333"));
+        draggableImage = new DraggableImage(wallRectangle, obj.getPosX(), obj.getPosY(), cnvWorkSpace);
+        dragImgArquitectural.add(draggableImage);
+    }
+    
+    private void loadWindow(DraggableImage draggableImage, ConstructionObject obj){
+        Rectangle windowRectangle = new Rectangle(obj.getWidth(), obj.getHeight(), Color.web("#327fdd"));
+        draggableImage = new DraggableImage(windowRectangle, obj.getPosX(), obj.getPosY(), cnvWorkSpace);
+        dragImgArquitectural.add(draggableImage);
+    }
+    
+    private void loadColumn(DraggableImage draggableImage, ConstructionObject obj, Image columnImage){
+        draggableImage = new DraggableImage(applyToLoadTransformations(columnImage, obj), obj.getPosX(), obj.getPosY(), cnvWorkSpace);
+        dragImgStructural.add(draggableImage);
+    }
+    
+    private ImageView applyToLoadTransformations(Image originalImage, ConstructionObject obj) {
+        ImageView imageView = new ImageView(originalImage);
+        imageView.setFitHeight(originalImage.getHeight());
+        imageView.setFitWidth(originalImage.getWidth());
+        imageView.setRotate(obj.getRotation());
+        imageView.setScaleX(obj.getFlip());
+
+        return imageView;
     }
 
     @FXML
