@@ -248,7 +248,7 @@ public class AdministratorController implements Initializable {
 
     private void animationPaneMenu(int pos) {
         double targetWidth = pos;
-        Duration duration = Duration.seconds(1);
+        Duration duration = Duration.seconds(0.5);
 
         paneMenu.setTranslateX(0);
 

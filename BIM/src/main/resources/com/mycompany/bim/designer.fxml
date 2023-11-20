@@ -13,10 +13,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="panePrimary" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#clickDragObject" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../../../css/engineer.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DesignerController">
+<AnchorPane id="panePrimary" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#clickDragObject" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../../../css/engineer.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DesignerController">
    <children>
       <Button fx:id="btnExit" focusTraversable="false" layoutX="1256.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickExit" prefHeight="43.0" prefWidth="78.0" styleClass="buttonRed" text="Exit">
          <font>
@@ -67,17 +66,17 @@
                         <Image url="@../../../images/crownBeam.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="23.0" layoutY="45.0" prefHeight="30.0" prefWidth="92.0" styleClass="labelBlack" text="Door:">
+                  <Label layoutX="23.0" layoutY="45.0" prefHeight="30.0" prefWidth="67.0" styleClass="labelBlack" text="Doors:">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="23.0" layoutY="264.0" prefHeight="30.0" prefWidth="92.0" styleClass="labelBlack" text="Wall:">
+                  <Label layoutX="23.0" layoutY="264.0" prefHeight="30.0" prefWidth="67.0" styleClass="labelBlack" text="Walls:">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="23.0" layoutY="383.0" prefHeight="30.0" prefWidth="92.0" styleClass="labelBlack" text="Window:">
+                  <Label layoutX="23.0" layoutY="383.0" prefHeight="30.0" prefWidth="104.0" styleClass="labelBlack" text="Windows:">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -163,7 +162,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label layoutX="63.0" layoutY="990.0" prefHeight="30.0" prefWidth="149.0" styleClass="labelBlack" text="Column type 3:">
+                  <Label layoutX="63.0" layoutY="990.0" prefHeight="30.0" prefWidth="149.0" styleClass="labelBlack" text="Column type 4:">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -214,10 +213,29 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Label fx:id="lblTotalDoors" layoutX="93.0" layoutY="45.0" prefHeight="30.0" prefWidth="67.0" styleClass="labelBlack" text="...">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTotalWalls" layoutX="88.0" layoutY="264.0" prefHeight="30.0" prefWidth="67.0" styleClass="labelBlack" text="...">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTotalWindows" layoutX="121.0" layoutY="383.0" prefHeight="30.0" prefWidth="67.0" styleClass="labelBlack" text="...">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
                </children></AnchorPane>
         </content>
       </ScrollPane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="631.0" layoutX="107.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="909.0" />
+      <ImageView fitHeight="631.0" fitWidth="909.0" layoutX="107.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/grid.jpg" />
+         </image>
+      </ImageView>
       <ImageView fx:id="imvTempWorkImg" fitHeight="631.0" fitWidth="909.0" layoutX="107.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" />
       <Canvas fx:id="cnvWorkSpace" focusTraversable="true" height="631.0" layoutX="107.0" layoutY="60.0" width="909.0" />
       <Line endX="812.199951171875" layoutX="216.0" layoutY="58.0" startX="-121.59999084472656" startY="7.62939453125E-6" stroke="WHITE" strokeWidth="3.0" />
@@ -258,7 +276,24 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <AnchorPane id="paneSecondary" fx:id="paneProyectList" prefHeight="750.0" prefWidth="414.0" visible="false">
+      <Label layoutX="263.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="Width: " />
+      <Label fx:id="lblObjectWidth" layoutX="304.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
+      <Label layoutX="356.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="Height:" />
+      <Label fx:id="lblObjectHeight" layoutX="401.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
+      <Label layoutX="454.0" layoutY="20.0" prefHeight="32.0" prefWidth="56.0" text="Rotation:" />
+      <Label fx:id="lblObjectRotation" layoutX="510.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
+      <Label layoutX="114.0" layoutY="20.0" prefHeight="32.0" prefWidth="17.0" text="X:" />
+      <Label fx:id="lblObjectX" layoutX="132.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
+      <Label layoutX="182.0" layoutY="20.0" prefHeight="32.0" prefWidth="17.0" text="Y:" />
+      <Label fx:id="lblObjectY" layoutX="200.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
+      <Label alignment="CENTER" layoutX="280.0" layoutY="1.0" prefHeight="26.0" prefWidth="104.0" text="Object info">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Line endX="78.60003662109375" endY="-1.9073486328125E-6" layoutX="201.0" layoutY="14.0" startX="-91.40000915527344" startY="-1.9073486328125E-6" stroke="WHITE" />
+      <Line endX="60.4000244140625" endY="-1.9073486328125E-6" layoutX="486.0" layoutY="14.0" startX="-100.0" stroke="WHITE" />
+      <AnchorPane id="paneSecondary" fx:id="paneProyectList" layoutX="-414.0" prefHeight="750.0" prefWidth="414.0">
          <children>
             <TableView fx:id="tbvProyectList" focusTraversable="false" layoutX="31.0" layoutY="116.0" onMouseClicked="#clickGetCode" prefHeight="549.0" prefWidth="352.0">
                <columns>
@@ -302,15 +337,11 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Label layoutX="315.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="Width: " />
-      <Label fx:id="lblObjectWidth" layoutX="356.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
-      <Label layoutX="408.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="Height:" />
-      <Label fx:id="lblObjectHeight" layoutX="453.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
-      <Label layoutX="504.0" layoutY="20.0" prefHeight="32.0" prefWidth="56.0" text="Rotation:" />
-      <Label fx:id="lblObjectRotation" layoutX="560.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
-      <Label layoutX="114.0" layoutY="20.0" prefHeight="32.0" prefWidth="17.0" text="X:" />
-      <Label fx:id="lblObjectX" layoutX="132.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
-      <Label layoutX="182.0" layoutY="20.0" prefHeight="32.0" prefWidth="17.0" text="Y:" />
-      <Label fx:id="lblObjectY" layoutX="200.0" layoutY="20.0" prefHeight="32.0" prefWidth="43.0" text="..." />
+      <Label alignment="CENTER" layoutX="613.0" layoutY="1.0" prefHeight="26.0" prefWidth="104.0" text="Materials">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Line endX="-34.79998779296875" endY="-1.9073486328125E-6" layoutX="654.0" layoutY="14.0" startX="-100.0" stroke="WHITE" />
    </children>
 </AnchorPane>

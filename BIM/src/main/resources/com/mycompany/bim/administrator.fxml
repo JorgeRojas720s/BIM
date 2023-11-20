@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="panePrimary" prefHeight="768.0" prefWidth="1366.0" stylesheets="@../../../css/administrator.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdministratorController">
+<AnchorPane id="panePrimary" prefHeight="768.0" prefWidth="1366.0" stylesheets="@../../../css/administrator.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdministratorController">
    <children>
       <AnchorPane id="paneSecondary" fx:id="paneMenu" disable="true" layoutX="-355.0" layoutY="15.0" prefHeight="727.0" prefWidth="342.0" stylesheets="@../../../css/administrator.css" visible="false">
          <children>
@@ -183,7 +183,7 @@
             <Button fx:id="btnSearchUser" layoutX="532.0" layoutY="126.0" mnemonicParsing="false" onAction="#clickSearchUser" prefHeight="40.0" prefWidth="70.0" styleClass="buttonBlue" text="Search" />
          </children>
       </AnchorPane>
-      <AnchorPane id="paneTertiary" fx:id="paneProyects" disable="true" layoutX="42.0" layoutY="31.0" prefHeight="711.0" prefWidth="1295.0" stylesheets="@../../../css/administrator.css" visible="false">
+      <AnchorPane id="paneTertiary" fx:id="paneProyects" disable="true" layoutX="42.0" layoutY="31.0" prefHeight="711.0" prefWidth="1295.0" stylesheets="@../../../css/administrator.css">
          <children>
             <TextField fx:id="txtDesignerID" layoutX="432.0" layoutY="413.0" prefHeight="40.0" prefWidth="200.0" />
             <Label fx:id="lblProyectCode" layoutX="244.0" layoutY="152.0" prefHeight="27.0" prefWidth="202.0" text="Search Proyect By Code" textFill="WHITE">
@@ -218,11 +218,18 @@
             <Button fx:id="btnAddProyect" disable="true" layoutX="150.0" layoutY="635.0" mnemonicParsing="false" onAction="#clickAddProyect" prefHeight="45.0" prefWidth="410.0" styleClass="buttonBlue" text="Add" visible="false" />
             <Button fx:id="btnModifyProyect" disable="true" layoutX="150.0" layoutY="635.0" mnemonicParsing="false" onAction="#clickModifyProyect" prefHeight="45.0" prefWidth="410.0" styleClass="buttonBlue" text="Modify" visible="false" />
             <Button fx:id="btnDeleteProyect" disable="true" layoutX="150.0" layoutY="635.0" mnemonicParsing="false" onAction="#clcikDeleteProyect" prefHeight="45.0" prefWidth="410.0" styleClass="buttonBlue" text="Delete" visible="false" />
-            <Button fx:id="btnSwitchTables" layoutX="1199.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickSwitchTables" text="-&gt;" />
+            <Button fx:id="btnSwitchTables" layoutX="1111.0" layoutY="10.0" mnemonicParsing="false" onAction="#clickSwitchTables" prefHeight="35.0" prefWidth="151.0" styleClass="buttonGreen" text="Switch Table" visible="false">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/arrowReloadWhite.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             <Button fx:id="btnSearchProyect" layoutX="458.0" layoutY="194.0" mnemonicParsing="false" onAction="#clickSearchProyect" text="Search" />
          </children>
       </AnchorPane>
-      <AnchorPane id="paneUserHome" fx:id="paneHome" layoutX="22.0" layoutY="31.0" prefHeight="708.0" prefWidth="1314.0" stylesheets="@../../../css/administrator.css">
+      <AnchorPane id="paneQuaternary" fx:id="paneHome" layoutX="22.0" layoutY="31.0" prefHeight="708.0" prefWidth="1314.0" stylesheets="@../../../css/administrator.css">
          <children>
             <Label layoutX="268.0" layoutY="146.0" prefHeight="80.0" prefWidth="235.0" text="Welcome!" textFill="WHITE">
                <font>
