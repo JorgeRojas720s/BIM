@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -40,6 +41,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import model.ConstructionObject;
 import model.Proyect;
 import utils.ChildThread;
@@ -69,13 +71,14 @@ public class DesignerController implements Initializable {
     private double colFourRotDegrees = 0;
     private double crownBeamRotDegrees = 0;
     private String currentObjectName;
-    private List<ConstructionObject> objetosList = new ArrayList<>();
+    private List<ConstructionObject> objectList = new ArrayList<>();
     private ConstructionObject selectedObject;
     private boolean objectFound = false;
     private double newY;
     private double newX;
     private double objectHeight = 0;
     private double objectWidth = 0;
+    private static final int PIXELS_PER_METER = 30;
     
     private List<DraggableImage> dragImgArquitectural = new ArrayList<>();
     private List<DraggableImage> dragImgStructural = new ArrayList<>();
@@ -91,6 +94,8 @@ public class DesignerController implements Initializable {
     private Image imgColThree = new Image(getClass().getResourceAsStream("/images/col3.png"), 20, 20, false, false);
     private Image imgColFour = new Image(getClass().getResourceAsStream("/images/col4.png"), 20, 20, false, false);
 
+    private int totalDoors = 0, totalWalls = 0, totalWindows = 0;
+    
     @FXML
     private Button btnExit;
     @FXML
@@ -179,14 +184,20 @@ public class DesignerController implements Initializable {
     private Label lblObjectX;
     @FXML
     private Label lblObjectY;
+    @FXML
+    private Label lblTotalDoors;
+    @FXML
+    private Label lblTotalWalls;
+    @FXML
+    private Label lblTotalWindows;
 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        userId = LogInController.userID;
-        updateTableViewProyects();
-        fillTableViewProyects();
+//        userId = LogInController.userID;
+//        updateTableViewProyects();
+//        fillTableViewProyects();
         
         
         gc = cnvWorkSpace.getGraphicsContext2D();
@@ -198,6 +209,17 @@ public class DesignerController implements Initializable {
         disableImageViewObjects(false);
         
         initCanvaEvents();
+    }
+    
+    private void animationPaneMenu(int pos) {
+        double targetWidth = pos;
+        Duration duration = Duration.seconds(0.5);
+
+        paneProyectList.setTranslateX(0);
+
+        TranslateTransition transition = new TranslateTransition(duration, paneProyectList);
+        transition.setToX(targetWidth);
+        transition.play();
     }
     
     private void fillTableViewProyects() {
@@ -235,7 +257,7 @@ public class DesignerController implements Initializable {
             double mouseX = event.getX();
             double mouseY = event.getY();
             clickObject(mouseX, mouseY);
-            updateObjectSizes();
+            updateObjectLabelInfo();
         });
         
         cnvWorkSpace.setOnMousePressed((MouseEvent event) -> { 
@@ -306,21 +328,28 @@ public class DesignerController implements Initializable {
     private void resizeWallOrWindow(double deltaY) {
         double scaleFactor = 1.1;
 
+        double minWidth = 7.5;
+        double minHeight = 7.5;
+        double maxWidth = 900;
+
+        double currentWidth = selectedObject.getWidth();
+        double currentHeight = selectedObject.getHeight();
+
         if (deltaY < 0) {
             if (selectedObject.getRotation() == 90.0) {
-                selectedObject.setWidth(selectedObject.getWidth() / scaleFactor);
+                selectedObject.setWidth(Math.max(currentWidth / scaleFactor, minWidth));
             } else {
-                selectedObject.setHeight(selectedObject.getHeight() / scaleFactor);
+                selectedObject.setHeight(Math.max(currentHeight / scaleFactor, minHeight));
             }
         } else {
             if (selectedObject.getRotation() == 90.0) {
-                selectedObject.setWidth(selectedObject.getWidth() * scaleFactor);
+                selectedObject.setWidth(Math.min(currentWidth * scaleFactor, maxWidth));
             } else {
-                selectedObject.setHeight(selectedObject.getHeight() * scaleFactor);
+                selectedObject.setHeight(Math.min(currentHeight * scaleFactor, maxWidth));
             }
         }
-        
-        if(selectedImageToScroll != null){
+
+        if (selectedImageToScroll != null) {
             Node shape = (Node) selectedImageToScroll.getShape();
             if (shape instanceof Rectangle) {
                 Rectangle rectangle = (Rectangle) shape;
@@ -329,6 +358,7 @@ public class DesignerController implements Initializable {
             }
         }
     }
+
 
     private void redrawCanvas() {
         gc.clearRect(0, 0, cnvWorkSpace.getWidth(), cnvWorkSpace.getHeight());
@@ -361,10 +391,10 @@ public class DesignerController implements Initializable {
                 }
             }
         }
-        updateObjectSizes();
+        updateObjectLabelInfo();
     }
     
-    private void updateObjectSizes(){
+    private void updateObjectLabelInfo(){
         if(selectedObject != null){
             lblObjectX.setText(String.valueOf(selectedObject.getPosX()));
             lblObjectY.setText(String.valueOf(selectedObject.getPosY()));
@@ -380,12 +410,32 @@ public class DesignerController implements Initializable {
             lblObjectRotation.setText("...");
         }
     }
-
+    
+    private void ubdateObjectTotals(){
+        totalDoors = 0;
+        totalWalls = 0;
+        totalWindows = 0;
+        for(ConstructionObject obj : objectList){
+            if (obj.getObjectType().equals("door")){
+                totalDoors++;
+            }
+            else if (obj.getObjectType().equals("wall")){
+                totalWalls++;
+            }
+            else if (obj.getObjectType().equals("window")){
+                totalWindows++;
+            }
+        }
+        
+        lblTotalDoors.setText(String.valueOf(totalDoors));
+        lblTotalWalls.setText(String.valueOf(totalWalls));
+        lblTotalWindows.setText(String.valueOf(totalWindows));
+    }
     
     public void clickObject(double mouseX, double mouseY){
         objectFound = false;
         
-        for (ConstructionObject object : objetosList) {
+        for (ConstructionObject object : objectList) {
 
             double objX = object.getPosX();
             double obgY = object.getPosY();
@@ -466,11 +516,13 @@ public class DesignerController implements Initializable {
     @FXML
     private void clickHideList(ActionEvent event) {
         if (hiddenProyectList == false) {
-            paneProyectList.setVisible(true);
             hiddenProyectList = true;
+            btnShowList.setVisible(false);
+            animationPaneMenu(414);
         } else if (hiddenProyectList == true) {
-            paneProyectList.setVisible(false);
             hiddenProyectList = false;
+            btnShowList.setVisible(true);
+            animationPaneMenu(-414);
         }
     }
     
@@ -537,6 +589,7 @@ public class DesignerController implements Initializable {
                     break;
             }
         }
+        ubdateObjectTotals();
     }
     
     private void createDoor(ConstructionObject object, DraggableImage draggableImage, double canvaMouseX, double canvaMouseY){
@@ -566,13 +619,13 @@ public class DesignerController implements Initializable {
         dragImgArquitectural.add(draggableImage);
 
         object = new ConstructionObject(canvaMouseX, canvaMouseY, currentObjectName, doorRotDegrees, doorFlipValue, x, y);
-        objetosList.add(object);
+        objectList.add(object);
     }
     
     private void createWall(ConstructionObject object, DraggableImage draggableImage, double canvaMouseX, double canvaMouseY){
         if(rbtWallHorizontal.isSelected()){
             object = new ConstructionObject(canvaMouseX, canvaMouseY, currentObjectName, 90.0, 0.0, 7.0, 100.0);
-            objetosList.add(object);
+            objectList.add(object);
 
             Rectangle wallRectangle = new Rectangle(100, 7, Color.web("#333333"));
             draggableImage = new DraggableImage(wallRectangle, canvaMouseX, canvaMouseY, cnvWorkSpace);
@@ -580,7 +633,7 @@ public class DesignerController implements Initializable {
         }
         else if (rbtWallVertical.isSelected()){
             object = new ConstructionObject(canvaMouseX, canvaMouseY, currentObjectName, 0.0, 0.0, 100.0, 7.0);
-            objetosList.add(object);
+            objectList.add(object);
 
             Rectangle wallRectangle = new Rectangle(7, 100, Color.web("#333333"));
             draggableImage = new DraggableImage(wallRectangle, canvaMouseX, canvaMouseY, cnvWorkSpace);
@@ -591,7 +644,7 @@ public class DesignerController implements Initializable {
     private void createWindow(ConstructionObject object, DraggableImage draggableImage, double canvaMouseX, double canvaMouseY){
         if(rbtWindowHorizontal.isSelected()){
             object = new ConstructionObject(canvaMouseX, canvaMouseY, currentObjectName, 90.0, 0.0, 5.0, 100.0);
-            objetosList.add(object);
+            objectList.add(object);
 
             Rectangle windowRectangle = new Rectangle(100, 5, Color.web("#327fdd"));
             draggableImage = new DraggableImage(windowRectangle, canvaMouseX, canvaMouseY, cnvWorkSpace);
@@ -599,7 +652,7 @@ public class DesignerController implements Initializable {
         }
         else if (rbtWindowVertical.isSelected()){
             object = new ConstructionObject(canvaMouseX, canvaMouseY, currentObjectName, 0.0, 0.0, 100.0, 5.0);
-            objetosList.add(object);
+            objectList.add(object);
 
             Rectangle windowRectangle = new Rectangle(5, 100, Color.web("#327fdd"));
             draggableImage = new DraggableImage(windowRectangle, canvaMouseX, canvaMouseY, cnvWorkSpace);
@@ -616,7 +669,7 @@ public class DesignerController implements Initializable {
         dragImgStructural.add(draggableImage);
 
         object = new ConstructionObject(canvaMouseX, canvaMouseY, currentObjectName, degrees, 1, 20, 20);
-        objetosList.add(object);
+        objectList.add(object);
     }
     
     private boolean isMouseInsideCanvas(double mouseX, double mouseY) {
@@ -858,7 +911,7 @@ public class DesignerController implements Initializable {
     @FXML
     private void clickSave(ActionEvent event) {
          //objetosList hacer for each y hacer un hilo por cada objeto para pasaar en el server
-        for(ConstructionObject object: objetosList){
+        for(ConstructionObject object: objectList){
             
             thread = new ChildThread("object", "newObject", object.toString());
             thread.waitThreadEnd();  
@@ -874,10 +927,10 @@ public class DesignerController implements Initializable {
         if(selectedObject != null){            
             int indexArqui = 0;
             int indexStruct = 0;
-            for (ConstructionObject obj : objetosList){
+            for (ConstructionObject obj : objectList){
                 if(obj.equals(selectedObject)){
                     selectedObject = null;
-                    objetosList.remove(obj);
+                    objectList.remove(obj);
                     break;
                 }
                 
@@ -896,10 +949,12 @@ public class DesignerController implements Initializable {
                 dragImgStructural.remove(indexStruct);
             }
             redrawCanvas();
+            ubdateObjectTotals();
         }
     }
 
     @FXML
     private void clickGetCode(MouseEvent event) {
+        
     }
 }

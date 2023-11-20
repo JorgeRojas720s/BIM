@@ -20,6 +20,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-color: #1F4172;
     -fx-background-radius: 45px;
 
+    
+    
 }
 
 #paneUserMenu {
@@ -41,6 +43,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 #paneTertiary{
     -fx-background-color: #161b22;
     -fx-background-radius: 18px;
+}
+
+#paneQuaternary {
+    -fx-background-color: #21282f;
+     -fx-background-radius: 18px;
 }
 
 #paneUsers {
