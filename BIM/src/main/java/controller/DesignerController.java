@@ -84,9 +84,7 @@ public class DesignerController implements Initializable {
     private double objectHeight = 0;
     private double objectWidth = 0;
     private static final int PIXELS_PER_METER = 30;
-    
-    
-    private List<ConstructionObject> listObjects  = new ArrayList<>();
+   
     private List<DraggableImage> dragImgArquitectural = new ArrayList<>();
     private List<DraggableImage> dragImgStructural = new ArrayList<>();
     private DraggableImage selectedImage = null;
@@ -628,6 +626,7 @@ public class DesignerController implements Initializable {
         dragImgArquitectural.add(draggableImage);
 
         object = new ConstructionObject(canvaMouseX, canvaMouseY, currentObjectName, doorRotDegrees, doorFlipValue, x, y);
+        System.out.println("DOOR ROTATION-> "+object.getRotation());
         objectList.add(object);
     }
 
@@ -911,12 +910,10 @@ public class DesignerController implements Initializable {
         
         String koka = aux[5];
         
-        System.out.println("Kokaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: " +koka);
-        
         thread = new ChildThread("object", "getObjects", koka);
         thread.waitThreadEnd();
 
-        listObjects = Parsing.parsingAllObjects(thread.getResponse());
+        objectList = Parsing.parsingAllObjects(thread.getResponse());
         
         loadCanvasObjects();
         redrawCanvas();
@@ -928,7 +925,7 @@ public class DesignerController implements Initializable {
         dragImgArquitectural.clear();
         dragImgStructural.clear();
         
-        for(ConstructionObject obj : listObjects){
+        for(ConstructionObject obj : objectList){
             DraggableImage draggableImage = null;
             if(obj.getObjectType().substring(0, 3).equals("col")){
                 if(obj.getObjectType().equals("col1")){
@@ -962,16 +959,20 @@ public class DesignerController implements Initializable {
     }
     
     private void loadDoor(DraggableImage draggableImage, ConstructionObject obj){
-        if(obj.getHeight() == 1.0){
-            draggableImage = new DraggableImage(applyToLoadTransformations(imgDoorLarge, obj), obj.getPosX(), obj.getPosY(), cnvWorkSpace);
+        ImageView imageView;
+        if(obj.getHeight() == 30){
+            imageView = new ImageView(applyToLoadTransformations(imgDoorLarge, obj));
+            draggableImage = new DraggableImage(imageView, obj.getPosX(), obj.getPosY(), cnvWorkSpace);
             dragImgArquitectural.add(draggableImage);
         }
-        else if(obj.getHeight() == 0.9){
-            draggableImage = new DraggableImage(applyToLoadTransformations(imgDoorMedium, obj), obj.getPosX(), obj.getPosY(), cnvWorkSpace);
+        else if(obj.getHeight() == 27){
+            imageView = new ImageView(applyToLoadTransformations(imgDoorMedium, obj));
+            draggableImage = new DraggableImage(imageView, obj.getPosX(), obj.getPosY(), cnvWorkSpace);
             dragImgArquitectural.add(draggableImage);
         }
-        else if(obj.getHeight() == 0.8){
-            draggableImage = new DraggableImage(applyToLoadTransformations(imgDoorSmall, obj), obj.getPosX(), obj.getPosY(), cnvWorkSpace);
+        else if(obj.getHeight() == 24){
+            imageView = new ImageView(applyToLoadTransformations(imgDoorSmall, obj));
+            draggableImage = new DraggableImage(imageView, obj.getPosX(), obj.getPosY(), cnvWorkSpace);
             dragImgArquitectural.add(draggableImage);
         }
     }
@@ -989,18 +990,21 @@ public class DesignerController implements Initializable {
     }
     
     private void loadColumn(DraggableImage draggableImage, ConstructionObject obj, Image columnImage){
-        draggableImage = new DraggableImage(applyToLoadTransformations(columnImage, obj), obj.getPosX(), obj.getPosY(), cnvWorkSpace);
+        ImageView imageView = new ImageView(applyToLoadTransformations(columnImage, obj));
+        draggableImage = new DraggableImage(imageView, obj.getPosX(), obj.getPosY(), cnvWorkSpace);
         dragImgStructural.add(draggableImage);
     }
     
-    private ImageView applyToLoadTransformations(Image originalImage, ConstructionObject obj) {
+    private Image applyToLoadTransformations(Image originalImage, ConstructionObject obj) {
         ImageView imageView = new ImageView(originalImage);
         imageView.setFitHeight(originalImage.getHeight());
         imageView.setFitWidth(originalImage.getWidth());
         imageView.setRotate(obj.getRotation());
         imageView.setScaleX(obj.getFlip());
 
-        return imageView;
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+        return imageView.snapshot(params, null);
     }
 
     @FXML
