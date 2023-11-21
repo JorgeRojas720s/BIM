@@ -366,14 +366,14 @@ public class DesignerController implements Initializable {
             }
         }
 
-        if (selectedImageToScroll != null) {
-            Node shape = (Node) selectedImageToScroll.getShape();
-            if (shape instanceof Rectangle) {
-                Rectangle rectangle = (Rectangle) shape;
-                rectangle.setWidth(selectedObject.getWidth());
-                rectangle.setHeight(selectedObject.getHeight());
-            }
-        }
+//        if (selectedImageToScroll != null) {_
+//            Node shape = (Node) selectedImageToScroll.getShape();
+//            if (shape instanceof Rectangle) {
+//                Rectangle rectangle = (Rectangle) shape;
+//                rectangle.setWidth(selectedObject.getWidth());
+//                rectangle.setHeight(selectedObject.getHeight());
+//            }
+//        }
     }
 
 
@@ -399,6 +399,7 @@ public class DesignerController implements Initializable {
 
                 if (shape instanceof ImageView) {
                     ImageView imageView = (ImageView) shape;
+                    
                     gc.drawImage(imageView.getImage(), draggableImage.getX(), draggableImage.getY());
                 } else if (shape instanceof Rectangle) {
                     Rectangle rectangle = (Rectangle) shape;
@@ -907,13 +908,13 @@ public class DesignerController implements Initializable {
         thread = new ChildThread("proyect", "queryProyect", code);
         thread.waitThreadEnd();
         
-        String aux[] =  Parsing.parsingProyect(thread.getResponse());
+        String dataParse[] =  Parsing.parsingProyect(thread.getResponse());
         
-        String koka = aux[5];
+        String proyectId = dataParse[5];
         
-        System.out.println("Kokaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: " +koka);
+        System.out.println("Kokaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: " +proyectId);
         
-        thread = new ChildThread("object", "getObjects", koka);
+        thread = new ChildThread("object", "getObjects", proyectId);
         thread.waitThreadEnd();
 
         listObjects = Parsing.parsingAllObjects(thread.getResponse());
@@ -962,15 +963,15 @@ public class DesignerController implements Initializable {
     }
     
     private void loadDoor(DraggableImage draggableImage, ConstructionObject obj){
-        if(obj.getHeight() == 1.0){
+        if(obj.getHeight() == 30){
             draggableImage = new DraggableImage(applyToLoadTransformations(imgDoorLarge, obj), obj.getPosX(), obj.getPosY(), cnvWorkSpace);
             dragImgArquitectural.add(draggableImage);
         }
-        else if(obj.getHeight() == 0.9){
+        else if(obj.getHeight() == 27){
             draggableImage = new DraggableImage(applyToLoadTransformations(imgDoorMedium, obj), obj.getPosX(), obj.getPosY(), cnvWorkSpace);
             dragImgArquitectural.add(draggableImage);
         }
-        else if(obj.getHeight() == 0.8){
+        else if(obj.getHeight() == 24){
             draggableImage = new DraggableImage(applyToLoadTransformations(imgDoorSmall, obj), obj.getPosX(), obj.getPosY(), cnvWorkSpace);
             dragImgArquitectural.add(draggableImage);
         }
@@ -1029,6 +1030,7 @@ public class DesignerController implements Initializable {
 
     private void saveObjects() {
         for (ConstructionObject object : objectList) {
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: " + object.getRotation());
             thread = new ChildThread("object", "newObject", object.toString() + "|"+idConstructionPaper);
             thread.waitThreadEnd();
         }

@@ -145,6 +145,10 @@ public class EngineerController implements Initializable {
         showAnchorPanesVisible(true, false, false, true, false);
         showMessageLabelsVisible(false, false);
         showDoNotButtonsVisible(true, true, true);
+        
+        
+        
+        
     }
 
     @FXML
@@ -153,6 +157,10 @@ public class EngineerController implements Initializable {
             showAnchorPanesVisible(true, false, false, true, false);
             modifyLblAndProgressParameters();
             showDoNotButtonsVisible(false, false, false);
+            
+            
+            
+            
             //Logica de los textFiel - llenar cuando se seleccionan para modificar despues
         }
     }

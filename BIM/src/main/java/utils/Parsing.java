@@ -159,7 +159,7 @@ public static ArrayList<ConstructionObject> parsingAllObjects(String aux) {
 
         System.out.println("\nLista de obejtos:\n");
         for (ConstructionObject object : objectsList) {
-            System.out.println("name: " + object.getObjectType());
+            System.out.println("rotationnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn: " + object.getRotation());
         }
 
         return objectsList;

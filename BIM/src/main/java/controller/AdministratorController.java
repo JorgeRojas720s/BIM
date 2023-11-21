@@ -568,9 +568,11 @@ public class AdministratorController implements Initializable {
         thread = new ChildThread("user", "deleteUser", id + "|");
         thread.waitThreadEnd();
 
-        if ("User deleted".equals(thread.getResponse())) {
-            showAlert("User deleted");
-        }
+//        if ("User deleted".equals(thread.getResponse())) {
+//            showAlert("User deleted");
+//        }
+        
+        serverResponses("User deleted",thread);
 
         if ("User does not exist".equals(thread.getResponse())) {
             showAlert("User does not exist");
@@ -820,8 +822,8 @@ public class AdministratorController implements Initializable {
 
     private void serverResponses(String text, ChildThread threadS) {
 
-        if ("text".equals(threadS.getResponse())) {
-            showAlert("text");
+        if (text.equals(threadS.getResponse())) {
+            showAlert(text);
         }
 
     }
