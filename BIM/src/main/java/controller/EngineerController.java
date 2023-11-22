@@ -55,17 +55,14 @@ public class EngineerController implements Initializable {
     private boolean creatProyectPressed = false;
     private boolean switchTblv = false;
     private boolean allowProyect = true;
-<<<<<<< HEAD
+    
     private boolean aux;
     private String proyectName = "";
     private String startDate = "";
     private String engineerName = "";
     private String designerName = "";
     private String constructionPaperName = "";
-
-=======
     private boolean panelControll;
->>>>>>> fabiux
     ChildThread thread;
 
     private List<ConstructionObject> objectList = new ArrayList<>();
@@ -363,14 +360,8 @@ public class EngineerController implements Initializable {
             showDoNotButtonsVisible(false, false, false);
         }
     }
-<<<<<<< HEAD
-
-    private void getProyect() {
-
-=======
     
     private void getProyect(){
->>>>>>> fabiux
         int index = tbvProyectList.getSelectionModel().getFocusedIndex();
 
         code = String.valueOf(columnProyectCode.getCellData(index));
@@ -435,15 +426,10 @@ public class EngineerController implements Initializable {
             loadCanvasObjects();
         }
     }
-<<<<<<< HEAD
-
-    private void loadCanvasObjects() {
-
-=======
     
     private void loadCanvasObjects(){
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
->>>>>>> fabiux
+        
         int plantSelector = 0;
         while (plantSelector != 2) {
             for (ConstructionObject obj : objectList) {
