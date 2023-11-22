@@ -99,13 +99,8 @@ public class DesignerController implements Initializable {
     private Image imgColThree = new Image(getClass().getResourceAsStream("/images/col3.png"), 20, 20, false, false);
     private Image imgColFour = new Image(getClass().getResourceAsStream("/images/col4.png"), 20, 20, false, false);
 
-<<<<<<< HEAD
-    private int totalDoors = 0, totalWalls = 0, totalWindows = 0;
-
-=======
     private int totalDoors = 0, totalWalls = 0, totalWindows = 0, totalColOne = 0, totalColTwo = 0, totalColThree = 0, totalColFour = 0, totalCrown = 0;
     
->>>>>>> fabiux
     @FXML
     private Button btnExit;
     @FXML
@@ -447,10 +442,6 @@ public class DesignerController implements Initializable {
         totalDoors = 0;
         totalWalls = 0;
         totalWindows = 0;
-<<<<<<< HEAD
-        for (ConstructionObject obj : objectList) {
-            if (obj.getObjectType().equals("door")) {
-=======
         totalColOne = 0;
         totalColTwo = 0;
         totalColThree = 0;
@@ -458,7 +449,6 @@ public class DesignerController implements Initializable {
         totalCrown = 0;
         for(ConstructionObject obj : objectList){
             if (obj.getObjectType().equals("door")){
->>>>>>> fabiux
                 totalDoors++;
             } else if (obj.getObjectType().equals("wall")) {
                 totalWalls++;
@@ -942,9 +932,6 @@ public class DesignerController implements Initializable {
         imvCrownBeam.setRotate(crownBeamRotDegrees);
     }
 
-<<<<<<< HEAD
-    private void loadCanvasObjects() {
-=======
     @FXML
     private void clickSelectProyect(ActionEvent event) {
         int index = tbvProyectList.getSelectionModel().getFocusedIndex();
@@ -964,22 +951,6 @@ public class DesignerController implements Initializable {
         objectList.clear();
         objectList = Parsing.parsingAllObjects(thread.getResponse());
         
-        int i = 0;
-        for(ConstructionObject obj : objectList){
-            if(obj.getObjectType().equals("door")){
-                i++;
-                System.out.println(i+"-> "+obj.getObjectType());
-                
-            }
-        }
-        i = 0;
-        for(ConstructionObject obj : objectList){
-            if(obj.getObjectType().equals("wall")){
-                i++;
-                System.out.println(i+"-> "+obj.getObjectType());
-            }
-        }
-        
         loadCanvasObjects();
         redrawCanvas();
         ubdateObjectTotals();
@@ -990,7 +961,6 @@ public class DesignerController implements Initializable {
     }
     
     private void loadCanvasObjects(){
->>>>>>> fabiux
         selectedObject = null;
         dragImgArquitectural.clear();
         dragImgStructural.clear();
@@ -1067,35 +1037,6 @@ public class DesignerController implements Initializable {
         SnapshotParameters params = new SnapshotParameters();
         params.setFill(Color.TRANSPARENT);
         return imageView.snapshot(params, null);
-    }
-
-    @FXML
-    private void clickSelectProyect(ActionEvent event) {
-        int index = tbvProyectList.getSelectionModel().getFocusedIndex();
-
-        code = String.valueOf(columnProyectCode.getCellData(index));
-
-        thread = new ChildThread("proyect", "queryProyect", code);
-        thread.waitThreadEnd();
-
-        String dataParse[] = Parsing.parsingProyect(thread.getResponse());
-
-        String paperId = dataParse[5];
-
-        thread = new ChildThread("object", "getObjects", paperId);
-        thread.waitThreadEnd();
-
-        objectList = Parsing.parsingAllObjects(thread.getResponse());
-        
-        
-
-        loadCanvasObjects();
-        redrawCanvas();
-        ubdateObjectTotals();
-
-        hiddenProyectList = false;
-        btnShowList.setVisible(true);
-        animationPaneMenu(-414);
     }
 
     @FXML

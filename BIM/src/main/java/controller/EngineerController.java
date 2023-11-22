@@ -436,10 +436,6 @@ public class EngineerController implements Initializable {
             loadReportLabe();
         }
     }
-<<<<<<< HEAD
-
-    private void loadCanvasObjects() {
-=======
     
     private void loadReportLabe(){
         txtPlanName.setText(constructionPaperName);
@@ -450,7 +446,6 @@ public class EngineerController implements Initializable {
     }
     
     private void loadCanvasObjects(){
->>>>>>> fabiux
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
         int plantSelector = 0;
@@ -642,13 +637,9 @@ public class EngineerController implements Initializable {
 
             String name = proyect[0];
 
-<<<<<<< HEAD
-            String starDate = proyect[1];
-            LocalDate startLocalDate = LocalDate.parse(starDate);
-=======
             String startStrDate = proyect[1];
             LocalDate startLocalDate = LocalDate.parse(startStrDate);
->>>>>>> fabiux
+
 
             String endDate = proyect[2];
             LocalDate finishDate = LocalDate.parse(endDate);
@@ -660,14 +651,9 @@ public class EngineerController implements Initializable {
             txtProyectName.setText(name);
             txtProyectEngineer.setText(engineer);
             txtProyectDesigner.setText(designer);
-<<<<<<< HEAD
-            System.out.println("Starrrarara:" );
+
             dtpStartDate.setValue(startLocalDate);
             dtpEnnDate.setValue(finishDate);
-=======
-            dateStartProyect.setValue(startLocalDate);
-            dateEndProyect.setValue(finishDate);
->>>>>>> fabiux
         }
 
     }
