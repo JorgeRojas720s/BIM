@@ -1069,15 +1069,4 @@ public class DesignerController implements Initializable {
             ubdateObjectTotals();
         }
     }
-
-    @FXML
-    private void clickGetCode(MouseEvent event) {
-            
-        //Fabian quiere que sea al darle select
-
-//        int index = tbvProyectList.getSelectionModel().getFocusedIndex();
-//
-//        code = String.valueOf(columnProyectCode.getCellData(index));
-
-    }
 }
