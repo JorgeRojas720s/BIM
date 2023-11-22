@@ -7,12 +7,9 @@ package controller;
 import com.mycompany.bim.App;
 import java.io.IOException;
 import java.net.URL;
-<<<<<<< HEAD
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-=======
 import java.util.ArrayList;
->>>>>>> fabiux
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,14 +18,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-<<<<<<< HEAD
 import javafx.scene.control.Alert;
-=======
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
->>>>>>> fabiux
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -36,7 +30,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-<<<<<<< HEAD
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -44,7 +37,6 @@ import model.Proyect;
 import model.User;
 import utils.ChildThread;
 import utils.Parsing;
-=======
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -52,7 +44,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.ConstructionObject;
 import utils.DraggableImage;
->>>>>>> fabiux
 
 /**
  * FXML Controller class
@@ -62,14 +53,13 @@ import utils.DraggableImage;
 public class EngineerController implements Initializable {
 
     private boolean creatProyectPressed = false;
-<<<<<<< HEAD
     private boolean switchTblv = false;
     private boolean allowProyect = true;
     private boolean aux;
     ChildThread thread;
-=======
+
     private List<ConstructionObject> objectList = new ArrayList<>();
-    private Canvas cnvAuxSpace;
+    private Canvas cnvAuxSpace = new Canvas(909, 631);
     private GraphicsContext gc;
     
     private Image imgDoorLarge = new Image(getClass().getResourceAsStream("/images/doorOne.png"), 30, 30, false, false);
@@ -79,7 +69,6 @@ public class EngineerController implements Initializable {
     private Image imgColTwo = new Image(getClass().getResourceAsStream("/images/col2.png"), 20, 20, false, false);
     private Image imgColThree = new Image(getClass().getResourceAsStream("/images/col3.png"), 20, 20, false, false);
     private Image imgColFour = new Image(getClass().getResourceAsStream("/images/col4.png"), 20, 20, false, false);
->>>>>>> fabiux
 
     private String data = "";
     private String code = "";
@@ -140,7 +129,6 @@ public class EngineerController implements Initializable {
     @FXML
     private Button btnDoNotCreate1;
     @FXML
-<<<<<<< HEAD
     private TextField txtProyectCode;
     @FXML
     private TableColumn<Proyect, String> columnProyectCode;
@@ -158,7 +146,8 @@ public class EngineerController implements Initializable {
     private TableColumn<User, String> columnUserRole;
     @FXML
     private TableColumn<User, String> columnUserStatus;
-=======
+
+    @FXML
     private Label txtPlanEngineer;
     @FXML
     private Label txtPlanProyect;
@@ -172,16 +161,16 @@ public class EngineerController implements Initializable {
     private ImageView imvArchitecturalPlant;
     @FXML
     private ImageView imvStructuralPlant;
->>>>>>> fabiux
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        gc = cnvAuxSpace.getGraphicsContext2D();
 
-<<<<<<< HEAD
         updateTableViewUsers();
         updateTableViewProyects();
         fillTableViewProyects();
         fillTableViewUsers();
+        
     }
 
     private void fillTableViewUsers() {
@@ -222,16 +211,6 @@ public class EngineerController implements Initializable {
 
         ObservableList<Proyect> proyectObservableList = FXCollections.observableArrayList(listaProyects);
         tbvProyectList.setItems(proyectObservableList);
-=======
-        tbvProyectList.setItems(proyectList);
-        
-        columnProyectName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
-        columnProyectEngineer.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
-        columnProyectDesigner.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
-        columnProyectEndDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
-        
-        gc = cnvAuxSpace.getGraphicsContext2D();
->>>>>>> fabiux
     }
 
     private void showMessageLabelsVisible(boolean name, boolean message) {
@@ -239,7 +218,6 @@ public class EngineerController implements Initializable {
         lblMessage.setVisible(message);
     }
 
-<<<<<<< HEAD
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Información");
@@ -248,10 +226,7 @@ public class EngineerController implements Initializable {
         alert.showAndWait();
     }
 
-    private void showAnchorPanesVisible(boolean proyect, boolean material, boolean object, boolean list, boolean report) {
-=======
     private void showAnchorPanesVisible(boolean proyect, boolean material, boolean object, boolean proyectList, boolean report) {
->>>>>>> fabiux
         paneProyect.setVisible(proyect);
         paneMaterial.setVisible(material);
         paneObject.setVisible(object);
@@ -295,17 +270,12 @@ public class EngineerController implements Initializable {
             showAnchorPanesVisible(true, false, false, true, false);
             modifyLblAndProgressParameters();
             showDoNotButtonsVisible(false, false, false);
-<<<<<<< HEAD
-
-            //Logica de los textFiel - llenar cuando se seleccionan para modificar despues
-=======
->>>>>>> fabiux
         }
     }
 
     private void addProyect() {
 
-        String code = txtProyectCode.getText();
+        String codex = txtProyectCode.getText();
         String name = txtProyectName.getText();
         String engineer = txtProyectEngineer.getText();
         String designer = txtProyectDesigner.getText();
@@ -321,7 +291,7 @@ public class EngineerController implements Initializable {
         }
 
         if (!"".equals(name)) {
-            Proyect proyect = new Proyect(code, name, dateStart, dateFinish, engineer, designer);
+            Proyect proyect = new Proyect(codex, name, dateStart, dateFinish, engineer, designer);
             thread = new ChildThread("proyect", "newProyect", proyect.toString());
             thread.waitThreadEnd();
 
@@ -337,7 +307,7 @@ public class EngineerController implements Initializable {
 
     private void modifyProyect() {
 
-        String code = txtProyectCode.getText();
+        String codex = txtProyectCode.getText();
         String name = txtProyectName.getText();
         String engineer = txtProyectEngineer.getText();
         String designer = txtProyectDesigner.getText();
@@ -347,7 +317,7 @@ public class EngineerController implements Initializable {
         LocalDate finishDate = dateEndProyect.getValue();
         String dateFinish = finishDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        Proyect proyect = new Proyect(code, name, dateStart, dateFinish, engineer, designer);
+        Proyect proyect = new Proyect(codex, name, dateStart, dateFinish, engineer, designer);
         thread = new ChildThread("proyect", "updateProyect", proyect.toString());
         thread.waitThreadEnd();
 
@@ -401,9 +371,7 @@ public class EngineerController implements Initializable {
         thread = new ChildThread("object", "getObjects", proyectId);
         thread.waitThreadEnd();
 
-        //objectList = Parsing.parsingAllObjects(thread.getResponse());
-        
-        
+        objectList = Parsing.parsingAllObjects(thread.getResponse());
     }
 
     @FXML
@@ -412,6 +380,7 @@ public class EngineerController implements Initializable {
             showAnchorPanesVisible(false, false, false, false, true);
             modifyLblAndProgressParameters();
             
+            getProyect();
             loadCanvasObjects();
         }
     }
