@@ -22,7 +22,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <ScrollPane focusTraversable="false" layoutX="1045.0" layoutY="101.0" prefHeight="547.0" prefWidth="290.0">
+      <ScrollPane focusTraversable="false" layoutX="1045.0" layoutY="101.0" prefHeight="547.0" prefWidth="290.0" vvalue="1.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1635.0" prefWidth="270.0">
                <children>
@@ -162,7 +162,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label layoutX="63.0" layoutY="990.0" prefHeight="30.0" prefWidth="149.0" styleClass="labelBlack" text="Column type 4:">
+                  <Label layoutX="63.0" layoutY="990.0" prefHeight="30.0" prefWidth="149.0" styleClass="labelBlack" text="Column type 3:">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -179,7 +179,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label layoutX="63.0" layoutY="1210.0" prefHeight="30.0" prefWidth="149.0" styleClass="labelBlack" text="Column type 3:">
+                  <Label layoutX="63.0" layoutY="1210.0" prefHeight="30.0" prefWidth="149.0" styleClass="labelBlack" text="Column type 4:">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -224,6 +224,31 @@
                      </font>
                   </Label>
                   <Label fx:id="lblTotalWindows" layoutX="121.0" layoutY="383.0" prefHeight="30.0" prefWidth="67.0" styleClass="labelBlack" text="...">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTotalColOne" layoutX="214.0" layoutY="563.0" prefHeight="30.0" prefWidth="67.0" styleClass="labelBlack" text="...">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTotalColTwo" layoutX="214.0" layoutY="775.0" prefHeight="30.0" prefWidth="67.0" styleClass="labelBlack" text="...">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTotalColThree" layoutX="214.0" layoutY="990.0" prefHeight="30.0" prefWidth="67.0" styleClass="labelBlack" text="...">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTotalColFour" layoutX="214.0" layoutY="1210.0" prefHeight="30.0" prefWidth="67.0" styleClass="labelBlack" text="...">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTotalCrown" layoutX="203.0" layoutY="1426.0" prefHeight="30.0" prefWidth="67.0" styleClass="labelBlack" text="...">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -337,11 +362,5 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="613.0" layoutY="1.0" prefHeight="26.0" prefWidth="104.0" text="Materials">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Line endX="-34.79998779296875" endY="-1.9073486328125E-6" layoutX="654.0" layoutY="14.0" startX="-100.0" stroke="WHITE" />
    </children>
 </AnchorPane>
