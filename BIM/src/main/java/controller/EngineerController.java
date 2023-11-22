@@ -424,7 +424,16 @@ public class EngineerController implements Initializable {
             modifyLblAndProgressParameters();
             getProyect();
             loadCanvasObjects();
+            loadReportLabe();
         }
+    }
+    
+    private void loadReportLabe(){
+        txtPlanName.setText(constructionPaperName);
+        txtPlanProyect.setText(proyectName);
+        txtPlanDesigner.setText(engineerName);
+        txtPlanEngineer.setText(designerName);
+        txtPlanDate.setText(startDate);
     }
     
     private void loadCanvasObjects(){
@@ -620,8 +629,8 @@ public class EngineerController implements Initializable {
 
             String name = proyect[0];
 
-            String starDate = proyect[1];
-            LocalDate startDate = LocalDate.parse(starDate);
+            String startStrDate = proyect[1];
+            LocalDate startLocalDate = LocalDate.parse(startStrDate);
 
             String endDate = proyect[2];
             LocalDate finishDate = LocalDate.parse(endDate);
@@ -633,7 +642,7 @@ public class EngineerController implements Initializable {
             txtProyectName.setText(name);
             txtProyectEngineer.setText(engineer);
             txtProyectDesigner.setText(designer);
-            dateStartProyect.setValue(startDate);
+            dateStartProyect.setValue(startLocalDate);
             dateEndProyect.setValue(finishDate);
         }
 

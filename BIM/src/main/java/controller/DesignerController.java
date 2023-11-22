@@ -99,7 +99,7 @@ public class DesignerController implements Initializable {
     private Image imgColThree = new Image(getClass().getResourceAsStream("/images/col3.png"), 20, 20, false, false);
     private Image imgColFour = new Image(getClass().getResourceAsStream("/images/col4.png"), 20, 20, false, false);
 
-    private int totalDoors = 0, totalWalls = 0, totalWindows = 0;
+    private int totalDoors = 0, totalWalls = 0, totalWindows = 0, totalColOne = 0, totalColTwo = 0, totalColThree = 0, totalColFour = 0, totalCrown = 0;
     
     @FXML
     private Button btnExit;
@@ -439,6 +439,11 @@ public class DesignerController implements Initializable {
         totalDoors = 0;
         totalWalls = 0;
         totalWindows = 0;
+        totalColOne = 0;
+        totalColTwo = 0;
+        totalColThree = 0;
+        totalColFour = 0;
+        totalCrown = 0;
         for(ConstructionObject obj : objectList){
             if (obj.getObjectType().equals("door")){
                 totalDoors++;
@@ -449,11 +454,31 @@ public class DesignerController implements Initializable {
             else if (obj.getObjectType().equals("window")){
                 totalWindows++;
             }
+            else if (obj.getObjectType().equals("col1")){
+                totalColOne++;
+            }
+            else if (obj.getObjectType().equals("col2")){
+                totalColTwo++;
+            }
+            else if (obj.getObjectType().equals("col3")){
+                totalColThree++;
+            }
+            else if (obj.getObjectType().equals("col4")){
+                totalColFour++;
+            }
+            else if (obj.getObjectType().equals("crown")){
+                totalCrown++;
+            }
         }
         
         lblTotalDoors.setText(String.valueOf(totalDoors));
         lblTotalWalls.setText(String.valueOf(totalWalls));
         lblTotalWindows.setText(String.valueOf(totalWindows));
+        lblTotalColOne.setText(String.valueOf(totalColOne));
+        lblTotalColTwo.setText(String.valueOf(totalColTwo));
+        lblTotalColThree.setText(String.valueOf(totalColThree));
+        lblTotalColFour.setText(String.valueOf(totalColFour));
+        lblTotalCrown.setText(String.valueOf(totalCrown));
     }
     
     public void clickObject(double mouseX, double mouseY){
@@ -922,7 +947,24 @@ public class DesignerController implements Initializable {
         thread = new ChildThread("object", "getObjects", proyectId);
         thread.waitThreadEnd();
 
+        objectList.clear();
         objectList = Parsing.parsingAllObjects(thread.getResponse());
+        
+        int i = 0;
+        for(ConstructionObject obj : objectList){
+            if(obj.getObjectType().equals("door")){
+                i++;
+                System.out.println(i+"-> "+obj.getObjectType());
+                
+            }
+        }
+        i = 0;
+        for(ConstructionObject obj : objectList){
+            if(obj.getObjectType().equals("wall")){
+                i++;
+                System.out.println(i+"-> "+obj.getObjectType());
+            }
+        }
         
         loadCanvasObjects();
         redrawCanvas();
