@@ -165,23 +165,20 @@ public class AdministratorController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb){
-        
+    public void initialize(URL url, ResourceBundle rb) {
+
         setNameAdmin(LogInController.userName);
-  
         updateTableViewProyects();
         fillTableViewProyects();
-
         fillTableViewUsers();
-
     }
-    
-    private void setNameAdmin(String name){
-        
+
+    private void setNameAdmin(String name) {
+
         thread = new ChildThread("user", "getName", name);
         thread.waitThreadEnd();
         String adminData[] = Parsing.parsingUser(thread.getResponse());
-        
+
         lblName.setText(adminData[0]);
         lblLastName.setText(adminData[1]);
     }
@@ -278,6 +275,7 @@ public class AdministratorController implements Initializable {
 
         btnAddUser.setDisable(!show1);
         btnAddUser.setVisible(show1);
+        
         btnSearchUser.setDisable(show1);
         btnSearchUser.setVisible(!show1);
 
@@ -286,7 +284,7 @@ public class AdministratorController implements Initializable {
 
         btnDeleteUser.setDisable(!show3);
         btnDeleteUser.setVisible(show3);
-
+        
         btnSearchUser.setDisable(show2 && show3);
         btnSearchUser.setVisible(show2 || show3);
     }
@@ -425,22 +423,17 @@ public class AdministratorController implements Initializable {
         System.out.println("dateStart: " + dateStart);
         System.out.println("dateFinish: " + dateFinish);
 
-        if (!"".equals(name)) {
+        if (!"".equals(name)  && !"".equals(engineer) && !"".equals(designer)) {
             Proyect proyect = new Proyect(code, name, dateStart, dateFinish, engineer, designer);
             thread = new ChildThread("proyect", "newProyect", proyect.toString());
             thread.waitThreadEnd();
 
-            if ("The project already exists".equals(thread.getResponse())) {
-                showAlert("The project already exists");
-            }
-
-            if ("Project created!".equals(thread.getResponse())) {
-                showAlert("Project created!");
-            }
+            serverResponses("The project already exists", thread);
+            serverResponses("Project created!", thread);
+            serverResponses("Invalid engineer or designer", thread);
         }
-
+        
         updateTableViewProyects();
-
         clearProyects();
     }
 
@@ -463,20 +456,10 @@ public class AdministratorController implements Initializable {
         thread = new ChildThread("proyect", "updateProyect", proyect.toString());
         thread.waitThreadEnd();
 
-        if ("Updated project".equals(thread.getResponse())) {
-            showAlert("Updated project");
-        }
-
-        if ("Project not found".equals(thread.getResponse())) {
-            showAlert("Project not found");
-        }
-        
-        if ("Invalid engineer or designer".equals(thread.getResponse())) {
-            showAlert("Invalid engineer or designer");
-        }
-
+        serverResponses("Updated project", thread);
+        serverResponses("Project not found", thread);
+        serverResponses("Invalid engineer or designer", thread);
         updateTableViewProyects();
-
         clearProyects();
     }
 
@@ -487,13 +470,8 @@ public class AdministratorController implements Initializable {
         thread = new ChildThread("proyect", "deleteProyect", code + "|");
         thread.waitThreadEnd();
 
-        if ("Project deleted".equals(thread.getResponse())) {
-            showAlert("Project deleted");
-        }
-        if ("Project does not exist".equals(thread.getResponse())) {
-            showAlert("Project does not exist");
-        }
-
+        serverResponses("Project deleted", thread);
+        serverResponses("Project does not exist", thread);
         updateTableViewProyects();
     }
 
@@ -514,7 +492,7 @@ public class AdministratorController implements Initializable {
             User user = new User(Integer.parseInt(id), name, lastName, status, username, email, password, role);
             thread = new ChildThread("user", "updateUser", user.toString());
             thread.waitThreadEnd();
-            
+
             if ("User update".equals(thread.getResponse())) {
                 updateTableViewUsers("getAllUsers");
                 showAlert("User update");
@@ -528,14 +506,11 @@ public class AdministratorController implements Initializable {
                 return;
             }
         }
-
-        
     }
 
     @FXML
     private void clickAddUser(ActionEvent event) {
 
-        // handleExpetionsUsers("Please fill out all fields");
         String id = txtUserId.getText();
         String name = txtUserName.getText();
         String lastName = txtUserLastName.getText();
@@ -551,11 +526,8 @@ public class AdministratorController implements Initializable {
             thread = new ChildThread("user", "newUser", user.toString());
             thread.waitThreadEnd();
 
-            if ("User already exists".equals(thread.getResponse())) {
-                showAlert("User already exists");
-            } else if ("User created".equals(thread.getResponse())) {
-                showAlert("User created");
-            }
+            serverResponses("User already exists", thread);
+            serverResponses("User created", thread);
         }
 
         updateTableViewUsers("getAllUsers");
@@ -568,16 +540,8 @@ public class AdministratorController implements Initializable {
         thread = new ChildThread("user", "deleteUser", id + "|");
         thread.waitThreadEnd();
 
-//        if ("User deleted".equals(thread.getResponse())) {
-//            showAlert("User deleted");
-//        }
-        
-        serverResponses("User deleted",thread);
-
-        if ("User does not exist".equals(thread.getResponse())) {
-            showAlert("User does not exist");
-        }
-
+        serverResponses("User deleted", thread);
+        serverResponses("User does not exist", thread);
         updateTableViewUsers("getAllUsers");
     }
 
@@ -633,14 +597,12 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clcikShowAddProyect(ActionEvent event) {
-        disableTxtProyects(false);
+        editableTxtProyects(true);
         moveTblvUsers(paneProyects, tblvUsers);
         moveTblvUsers(paneProyects, tblvProyects);
         updateTableViewUsers("getEngAndDesig");
         btnSearchProyect.setVisible(false);
         btnSearchProyect.setDisable(true);
-        txtDesignerID.setDisable(true);
-        txtEngineerID.setDisable(true);
         showHome(false);
         showUsers(false);
         showProyects(true);
@@ -649,14 +611,12 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickShowModifyProyect(ActionEvent event) {
-        disableTxtProyects(false);
+        editableTxtProyects(true);
         moveTblvUsers(paneProyects, tblvUsers);
         moveTblvUsers(paneProyects, tblvProyects);
         updateTableViewUsers("getEngAndDesig");
         btnSearchProyect.setVisible(true);
         btnSearchProyect.setDisable(false);
-        txtDesignerID.setDisable(false);
-        txtEngineerID.setDisable(false);
         showHome(false);
         showUsers(false);
         showProyects(true);
@@ -665,7 +625,7 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickShowDeleteProyect(ActionEvent event) {
-        disableTxtProyects(true);
+        editableTxtProyects(false);
         moveTblvUsers(paneProyects, tblvUsers);
         moveTblvUsers(paneProyects, tblvProyects);
         updateTableViewUsers("getEngAndDesig");
@@ -679,6 +639,7 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickShowAddUser(ActionEvent event) {
+        editableTxtUsers(true);
         updateTableViewUsers("getAllUsers");
         moveTblvUsers(paneUsers, tblvUsers);
         tblvUsers.setVisible(true);
@@ -693,6 +654,7 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clcikShowModifyUser(ActionEvent event) {
+        editableTxtUsers(true);
         updateTableViewUsers("getAllUsers");
         moveTblvUsers(paneUsers, tblvUsers);
         tblvUsers.setVisible(true);
@@ -707,6 +669,7 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void clickShowDeleteUser(ActionEvent event) {
+        editableTxtUsers(false);
         updateTableViewUsers("getAllUsers");
         moveTblvUsers(paneUsers, tblvUsers);
         tblvUsers.setVisible(true);
@@ -741,7 +704,6 @@ public class AdministratorController implements Initializable {
     private void clickGetProyectCode(MouseEvent event) {
 
         clearProyects();
-
         int index = tblvProyects.getSelectionModel().getFocusedIndex();
         String code = String.valueOf(columCode.getCellData(index));
         txtProyectId.setText(code);
@@ -779,13 +741,22 @@ public class AdministratorController implements Initializable {
         txtDesignerID.setText(proyect[4]);
     }
 
-    private void disableTxtProyects(boolean available) {
+    private void editableTxtProyects(boolean available) {
 
-        txtProyectName.setDisable(available);
-        txtEngineerID.setDisable(available);
-        txtDesignerID.setDisable(available);
-        dtpStartDate.setDisable(available);
-        dtpFinishDate.setDisable(available);
+        txtProyectName.setEditable(available);
+        txtEngineerID.setEditable(available);
+        txtDesignerID.setEditable(available);
+        dtpStartDate.setEditable(available);
+        dtpFinishDate.setEditable(available);
+    }
+    
+    private void editableTxtUsers(boolean available) {
+
+        txtUserName.setEditable(available);
+        txtUserLastName.setEditable(available);
+        txtUserEmail.setEditable(available);
+        txtUserPassword.setEditable(available);
+        txtUserUsername.setEditable(available);
     }
 
     private void handleExpetionsProyects(String message) {
@@ -825,7 +796,6 @@ public class AdministratorController implements Initializable {
         if (text.equals(threadS.getResponse())) {
             showAlert(text);
         }
-
     }
 
 }

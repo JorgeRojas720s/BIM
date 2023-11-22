@@ -56,12 +56,18 @@ public class EngineerController implements Initializable {
     private boolean switchTblv = false;
     private boolean allowProyect = true;
     private boolean aux;
+    private String proyectName = "";
+    private String startDate = "";
+    private String engineerName = "";
+    private String designerName = "";
+    private String constructionPaperName = "";
+
     ChildThread thread;
 
     private List<ConstructionObject> objectList = new ArrayList<>();
     private Canvas cnvAuxSpace = new Canvas(909, 631);
     private GraphicsContext gc;
-    
+
     private Image imgDoorLarge = new Image(getClass().getResourceAsStream("/images/doorOne.png"), 30, 30, false, false);
     private Image imgDoorMedium = new Image(getClass().getResourceAsStream("/images/doorTwo.png"), 27, 27, false, false);
     private Image imgDoorSmall = new Image(getClass().getResourceAsStream("/images/doorThree.png"), 24, 24, false, false);
@@ -161,16 +167,28 @@ public class EngineerController implements Initializable {
     private ImageView imvArchitecturalPlant;
     @FXML
     private ImageView imvStructuralPlant;
+    @FXML
+    private Label lblEngineerLastName;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setNameEngineer(LogInController.userName);
         gc = cnvAuxSpace.getGraphicsContext2D();
 
         updateTableViewUsers();
         updateTableViewProyects();
         fillTableViewProyects();
         fillTableViewUsers();
-        
+    }
+    
+    private void setNameEngineer(String name) {
+
+        thread = new ChildThread("user", "getName", name);
+        thread.waitThreadEnd();
+        String adminData[] = Parsing.parsingUser(thread.getResponse());
+
+        lblEngineerName.setText(adminData[0]);
+        lblEngineerLastName.setText(adminData[1]);
     }
 
     private void fillTableViewUsers() {
@@ -260,7 +278,6 @@ public class EngineerController implements Initializable {
         showAnchorPanesVisible(true, false, false, true, false);
         showMessageLabelsVisible(false, false);
         showDoNotButtonsVisible(true, true, true);
-
     }
 
     @FXML
@@ -299,9 +316,7 @@ public class EngineerController implements Initializable {
                 allowProyect = false;
                 showAlert("The project already exists");
             }
-
         }
-
         updateTableViewProyects();
     }
 
@@ -321,20 +336,10 @@ public class EngineerController implements Initializable {
         thread = new ChildThread("proyect", "updateProyect", proyect.toString());
         thread.waitThreadEnd();
 
-        if ("Updated project".equals(thread.getResponse())) {
-            showAlert("Updated project");
-        }
-
-        if ("Project not found".equals(thread.getResponse())) {
-            showAlert("Project not found");
-        }
-
-        if ("Invalid engineer or designer".equals(thread.getResponse())) {
-            showAlert("Invalid engineer or designer");
-        }
-
+        serverResponses("Updated project", thread);
+        serverResponses("Project not found", thread);
+        serverResponses("Invalid engineer or designer", thread);
         updateTableViewProyects();
-
     }
 
     @FXML
@@ -354,24 +359,62 @@ public class EngineerController implements Initializable {
             showDoNotButtonsVisible(false, false, false);
         }
     }
-    
-    private void getProyect(){
-        
+
+    private void getProyect() {
+
         int index = tbvProyectList.getSelectionModel().getFocusedIndex();
 
         code = String.valueOf(columnProyectCode.getCellData(index));
-        
+
         thread = new ChildThread("proyect", "queryProyect", code);
         thread.waitThreadEnd();
-        
-        String dataParse[] =  Parsing.parsingProyect(thread.getResponse());
-        
-        String proyectId = dataParse[5];
 
-        thread = new ChildThread("object", "getObjects", proyectId);
+        String dataParse[] = Parsing.parsingProyect(thread.getResponse());
+
+        proyectName = dataParse[0];
+        startDate = dataParse[1];
+        String engineerId = dataParse[3];
+        String designerId = dataParse[4];
+        String constructionPaperId = dataParse[5];
+
+        getEngineerData(engineerId);
+        getDesignerData(designerId);
+        getContructionPaperData(constructionPaperId);
+
+        thread = new ChildThread("object", "getObjects", constructionPaperId);
         thread.waitThreadEnd();
 
         objectList = Parsing.parsingAllObjects(thread.getResponse());
+
+    }
+
+    private void getEngineerData(String engineerId) {
+
+        thread = new ChildThread("user", "queryUser", engineerId);
+        thread.waitThreadEnd();
+
+        String engineerData[] = Parsing.parsingUser(thread.getResponse());
+
+        engineerName = engineerData[0];
+
+    }
+
+    private void getDesignerData(String designerId) {
+
+        thread = new ChildThread("user", "queryUser", designerId);
+        thread.waitThreadEnd();
+
+        String designerData[] = Parsing.parsingUser(thread.getResponse());
+
+        designerName = designerData[0];
+    }
+
+    private void getContructionPaperData(String constructionPaperId) {
+
+        thread = new ChildThread("constructionPaper", "getNameConstructionPaper", constructionPaperId);
+        thread.waitThreadEnd();
+
+        constructionPaperName = thread.getResponse();
     }
 
     @FXML
@@ -379,85 +422,74 @@ public class EngineerController implements Initializable {
         if (!creatProyectPressed && !tbvProyectList.getSelectionModel().isEmpty()) {
             showAnchorPanesVisible(false, false, false, false, true);
             modifyLblAndProgressParameters();
-            
             getProyect();
             loadCanvasObjects();
         }
     }
-    
-    private void loadCanvasObjects(){
-        
+
+    private void loadCanvasObjects() {
+
         int plantSelector = 0;
-        while(plantSelector != 2){
-            for(ConstructionObject obj : objectList){
-                if(obj.getObjectType().substring(0, 3).equals("col") && plantSelector == 1){
-                    if(obj.getObjectType().equals("col1")){
+        while (plantSelector != 2) {
+            for (ConstructionObject obj : objectList) {
+                if (obj.getObjectType().substring(0, 3).equals("col") && plantSelector == 1) {
+                    if (obj.getObjectType().equals("col1")) {
                         loadColumn(obj, imgColOneCrown);
-                    }
-                    else if(obj.getObjectType().equals("col2")){
+                    } else if (obj.getObjectType().equals("col2")) {
                         loadColumn(obj, imgColTwo);
-                    }
-                    else if(obj.getObjectType().equals("col3")){
+                    } else if (obj.getObjectType().equals("col3")) {
                         loadColumn(obj, imgColThree);
-                    }
-                    else if(obj.getObjectType().equals("col4")){
+                    } else if (obj.getObjectType().equals("col4")) {
                         loadColumn(obj, imgColFour);
-                    }
-                    else if(obj.getObjectType().equals("crown")){
+                    } else if (obj.getObjectType().equals("crown")) {
                         loadColumn(obj, imgColOneCrown);
                     }
-                }
-                else if (plantSelector == 0){
-                    if(obj.getObjectType().equals("door")){
+                } else if (plantSelector == 0) {
+                    if (obj.getObjectType().equals("door")) {
                         loadDoor(obj);
-                    }
-                    else if(obj.getObjectType().equals("wall")){
+                    } else if (obj.getObjectType().equals("wall")) {
                         loadWall(obj);
-                    }
-                    else if(obj.getObjectType().equals("window")){
+                    } else if (obj.getObjectType().equals("window")) {
                         loadWindow(obj);
                     }
                 }
             }
-            if(plantSelector == 0){
+            if (plantSelector == 0) {
                 imvArchitecturalPlant.setImage(cnvAuxSpace.snapshot(null, null));
-            }
-            else if(plantSelector == 1){
+            } else if (plantSelector == 1) {
                 imvStructuralPlant.setImage(cnvAuxSpace.snapshot(null, null));
             }
             plantSelector++;
         }
     }
-    
-    private void loadDoor(ConstructionObject obj){
+
+    private void loadDoor(ConstructionObject obj) {
         ImageView imageView = null;
-        if(obj.getHeight() == 30){
+        if (obj.getHeight() == 30) {
             imageView = new ImageView(applyToLoadTransformations(imgDoorLarge, obj));
-        }
-        else if(obj.getHeight() == 27){
+        } else if (obj.getHeight() == 27) {
             imageView = new ImageView(applyToLoadTransformations(imgDoorMedium, obj));
-        }
-        else if(obj.getHeight() == 24){
+        } else if (obj.getHeight() == 24) {
             imageView = new ImageView(applyToLoadTransformations(imgDoorSmall, obj));
         }
         drawCanvas(obj, imageView);
     }
-    
-    private void loadWall(ConstructionObject obj){
+
+    private void loadWall(ConstructionObject obj) {
         Rectangle wallRectangle = new Rectangle(obj.getWidth(), obj.getHeight(), Color.web("#333333"));
         drawCanvas(obj, wallRectangle);
     }
-    
-    private void loadWindow(ConstructionObject obj){
+
+    private void loadWindow(ConstructionObject obj) {
         Rectangle windowRectangle = new Rectangle(obj.getWidth(), obj.getHeight(), Color.web("#327fdd"));
         drawCanvas(obj, windowRectangle);
     }
-    
-    private void loadColumn(ConstructionObject obj, Image columnImage){
+
+    private void loadColumn(ConstructionObject obj, Image columnImage) {
         ImageView imageView = new ImageView(applyToLoadTransformations(columnImage, obj));
         drawCanvas(obj, imageView);
     }
-    
+
     private Image applyToLoadTransformations(Image originalImage, ConstructionObject obj) {
         ImageView imageView = new ImageView(originalImage);
         imageView.setFitHeight(originalImage.getHeight());
@@ -469,12 +501,12 @@ public class EngineerController implements Initializable {
         params.setFill(Color.TRANSPARENT);
         return imageView.snapshot(params, null);
     }
-    
+
     private void drawCanvas(ConstructionObject object, Rectangle rectangle) {
         gc.setFill(rectangle.getFill());
         gc.fillRect(object.getPosX(), object.getPosY(), rectangle.getWidth(), rectangle.getHeight());
     }
-    
+
     private void drawCanvas(ConstructionObject object, ImageView imageView) {
         gc.drawImage(imageView.getImage(), object.getPosX(), object.getPosY());
     }
@@ -618,6 +650,13 @@ public class EngineerController implements Initializable {
             txtProyectDesigner.setText(id);
         } else if ("Engineer".equals(role)) {
             txtProyectEngineer.setText(id);
+        }
+    }
+
+    private void serverResponses(String text, ChildThread threadS) {
+
+        if (text.equals(threadS.getResponse())) {
+            showAlert(text);
         }
     }
 }

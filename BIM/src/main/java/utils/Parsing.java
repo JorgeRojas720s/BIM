@@ -20,13 +20,13 @@ public class Parsing {
     public Parsing() {
     }
 
-    public static ArrayList<User> parsingAllUsers(String aux) {
+    public static ArrayList<User> parsingAllUsers(String infoUsers) {
 
         ArrayList<User> usersList = new ArrayList<>();
 
-        System.out.println("Users:  " + aux);
+        System.out.println("Users:  " + infoUsers);
 
-        String[] users = aux.split(";");
+        String[] users = infoUsers.split(";");
 
         for (String user : users) {
 
@@ -58,9 +58,9 @@ public class Parsing {
         return usersList;
     }
 
-    public static String[] parsingUser(String aux) {
+    public static String[] parsingUser(String infoUser) {
 
-        String[] user = aux.split("\\|");
+        String[] user = infoUser.split("\\|");
 
         for (String i : user) {
             System.out.println(i);
@@ -69,13 +69,13 @@ public class Parsing {
         return user;
     }
 
-    public static ArrayList<Proyect> parsingAllProyects(String aux) {
+    public static ArrayList<Proyect> parsingAllProyects(String infoProtyects) {
 
         ArrayList<Proyect> proyectList = new ArrayList<>();
 
-        System.out.println("Proyects:  " + aux);
+        System.out.println("Proyects:  " + infoProtyects);
 
-        String[] proyects = aux.split(";");
+        String[] proyects = infoProtyects.split(";");
 
         for (String proyect : proyects) {
 
@@ -109,9 +109,9 @@ public class Parsing {
         return proyectList;
     }
 
-    public static String[] parsingProyect(String aux) {
+    public static String[] parsingProyect(String infoProyect) {
 
-        String[] proyect = aux.split("\\|");
+        String[] proyect = infoProyect.split("\\|");
 
         for (String i : proyect) {
             System.out.println(i);
@@ -120,49 +120,49 @@ public class Parsing {
         return proyect;
     }
 
-public static ArrayList<ConstructionObject> parsingAllObjects(String aux) {
+    public static ArrayList<ConstructionObject> parsingAllObjects(String infoObjects) {
 
-    ArrayList<ConstructionObject> objectsList = new ArrayList<>();
+        ArrayList<ConstructionObject> objectsList = new ArrayList<>();
 
-    System.out.println("Objects: " + aux);
+        System.out.println("Objects: " + infoObjects);
 
-    String[] objects = aux.split(";");
+        String[] objects = infoObjects.split(";");
 
-    for (String object : objects) {
+        for (String object : objects) {
 
-        String[] objectData = object.split("\\|");
-        if (objectData.length == 7) {
+            String[] objectData = object.split("\\|");
+            if (objectData.length == 7) {
 
-            String posX = objectData[0].substring(1);
-            String posY = objectData[1];
-            String objectType = objectData[2];
-            String rotation = objectData[3];
-            String flip = objectData[4];
-            String width = objectData[5];
-            String height = objectData[6].substring(0, objectData[6].length());
+                String posX = objectData[0].substring(1);
+                String posY = objectData[1];
+                String objectType = objectData[2];
+                String rotation = objectData[3];
+                String flip = objectData[4];
+                String width = objectData[5];
+                String height = objectData[6].substring(0, objectData[6].length());
 
-            System.out.println("posX: " + posX);
-            System.out.println("posY: " + posY);
-            System.out.println("objectType: " + objectType);
-            System.out.println("rotation: " + rotation);
-            System.out.println("flip: " + flip);
-            System.out.println("width: " + width);
-            System.out.println("height: " + height);
+                System.out.println("posX: " + posX);
+                System.out.println("posY: " + posY);
+                System.out.println("objectType: " + objectType);
+                System.out.println("rotation: " + rotation);
+                System.out.println("flip: " + flip);
+                System.out.println("width: " + width);
+                System.out.println("height: " + height);
 
-
-            ConstructionObject objectObj = new ConstructionObject(Double.parseDouble(posX), 
-                    Double.parseDouble(posY), objectType, Double.parseDouble(rotation), 
-                    Double.parseDouble(flip), Double.parseDouble(width), Double.parseDouble(height));
-            objectsList.add(objectObj);
+                ConstructionObject objectObj = new ConstructionObject(Double.parseDouble(posX),
+                        Double.parseDouble(posY), objectType, Double.parseDouble(rotation),
+                        Double.parseDouble(flip), Double.parseDouble(width), Double.parseDouble(height));
+                objectsList.add(objectObj);
             }
         }
 
         System.out.println("\nLista de obejtos:\n");
         for (ConstructionObject object : objectsList) {
-            System.out.println("rotationnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn: " + object.getRotation());
+            System.out.println("rotationn: " + object.getRotation());
         }
 
         return objectsList;
     }
+
 
 }
