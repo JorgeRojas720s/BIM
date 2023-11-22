@@ -7,6 +7,9 @@ package controller;
 import com.mycompany.bim.App;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -14,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -21,7 +25,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import model.Proyect;
+import model.User;
+import utils.ChildThread;
+import utils.Parsing;
 
 /**
  * FXML Controller class
@@ -31,7 +41,13 @@ import javafx.scene.layout.AnchorPane;
 public class EngineerController implements Initializable {
 
     private boolean creatProyectPressed = false;
+    private boolean switchTblv = false;
+    private boolean allowProyect = true;
+    private boolean aux;
+    ChildThread thread;
 
+    private String data = "";
+    private String code = "";
     @FXML
     private AnchorPane paneEngineerOptions;
     @FXML
@@ -45,18 +61,14 @@ public class EngineerController implements Initializable {
 
     //Cambiar tipos de objetos...
     @FXML
-    private TableView<String> tbvProyectList;
+    private TableView<Proyect> tbvProyectList;
     private ObservableList<String> proyectList = FXCollections.observableArrayList();
     @FXML
     private Label lblEngineerName;
     @FXML
-    private TableColumn<String, String> columnProyectName;
+    private TableColumn<Proyect, String> columnProyectName;
     @FXML
-    private TableColumn<String, String> columnProyectEngineer;
-    @FXML
-    private TableColumn<String, String> columnProyectDesigner;
-    @FXML
-    private TableColumn<String, String> columnProyectEndDate;
+    private TableColumn<Proyect, String> columnProyectEndDate;
 
     @FXML
     private AnchorPane paneProyect;
@@ -92,24 +104,85 @@ public class EngineerController implements Initializable {
     private AnchorPane paneReport;
     @FXML
     private Button btnDoNotCreate1;
+    @FXML
+    private TextField txtProyectCode;
+    @FXML
+    private TableColumn<Proyect, String> columnProyectCode;
+    @FXML
+    private TableColumn<Proyect, String> columnProyectStartDate;
+    @FXML
+    private Button btnSwitchTblv;
+    @FXML
+    private TableView<User> tblvUserList;
+    @FXML
+    private TableColumn<User, String> columnUserId;
+    @FXML
+    private TableColumn<User, String> columnUserName;
+    @FXML
+    private TableColumn<User, String> columnUserRole;
+    @FXML
+    private TableColumn<User, String> columnUserStatus;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        proyectList.add("Proyecto 1");
-        proyectList.add("Proyecto 2");
-        proyectList.add("Proyecto 3");
 
-        tbvProyectList.setItems(proyectList);
-        
-        columnProyectName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
-        columnProyectEngineer.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
-        columnProyectDesigner.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
-        columnProyectEndDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
+        updateTableViewUsers();
+        updateTableViewProyects();
+        fillTableViewProyects();
+        fillTableViewUsers();
+    }
+
+    private void fillTableViewUsers() {
+
+        columnUserId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnUserName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnUserRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+        columnUserStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+    }
+
+    private void updateTableViewUsers() {
+
+        thread = new ChildThread("user", "getEngAndDesig", " ");
+        thread.waitThreadEnd();
+        data = thread.getResponse();
+
+        List<User> listaUsers = Parsing.parsingAllUsers(data);
+
+        ObservableList<User> userObservableList = FXCollections.observableArrayList(listaUsers);
+        tblvUserList.setItems(userObservableList);
+    }
+
+    private void fillTableViewProyects() {
+
+        columnProyectName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnProyectCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+        columnProyectStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        columnProyectEndDate.setCellValueFactory(new PropertyValueFactory<>("finishDate"));
+    }
+
+    private void updateTableViewProyects() {
+
+        thread = new ChildThread("proyect", "getAllProyects", " ");
+        thread.waitThreadEnd();
+        data = thread.getResponse();
+
+        List<Proyect> listaProyects = Parsing.parsingAllProyects(data);
+
+        ObservableList<Proyect> proyectObservableList = FXCollections.observableArrayList(listaProyects);
+        tbvProyectList.setItems(proyectObservableList);
     }
 
     private void showMessageLabelsVisible(boolean name, boolean message) {
         lblEngineerName.setVisible(name);
         lblMessage.setVisible(message);
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Información");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private void showAnchorPanesVisible(boolean proyect, boolean material, boolean object, boolean list, boolean report) {
@@ -133,36 +206,96 @@ public class EngineerController implements Initializable {
         showMessageLabelsVisible(false, true);
         lblMessage.setText("Correctly Modified!!");
     }
-    
-    private void showDoNotButtonsVisible(boolean btn1, boolean btn2, boolean btn3){
+
+    private void showDoNotButtonsVisible(boolean btn1, boolean btn2, boolean btn3) {
         btnDoNotCreate1.setVisible(btn1);
     }
 
     @FXML
     private void clickCreateProyect(ActionEvent event) {
+        aux = true;
         creatProyectPressed = true;
         setTextToProgressButtons("Create");
         showAnchorPanesVisible(true, false, false, true, false);
         showMessageLabelsVisible(false, false);
         showDoNotButtonsVisible(true, true, true);
-        
-        
-        
-        
+
     }
 
     @FXML
     private void clickModifyProyect(ActionEvent event) {
+        aux = false;
         if (!creatProyectPressed && !tbvProyectList.getSelectionModel().isEmpty()) {
             showAnchorPanesVisible(true, false, false, true, false);
             modifyLblAndProgressParameters();
             showDoNotButtonsVisible(false, false, false);
-            
-            
-            
-            
+
             //Logica de los textFiel - llenar cuando se seleccionan para modificar despues
         }
+    }
+
+    private void addProyect() {
+
+        String code = txtProyectCode.getText();
+        String name = txtProyectName.getText();
+        String engineer = txtProyectEngineer.getText();
+        String designer = txtProyectDesigner.getText();
+
+        LocalDate startDate = dateStartProyect.getValue();
+        String dateStart = (startDate != null) ? startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : null;
+
+        LocalDate finishDate = dateEndProyect.getValue();
+        String dateFinish = (finishDate != null) ? finishDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : null;
+
+        if (dateStart == null || dateFinish == null) {
+            return;
+        }
+
+        if (!"".equals(name)) {
+            Proyect proyect = new Proyect(code, name, dateStart, dateFinish, engineer, designer);
+            thread = new ChildThread("proyect", "newProyect", proyect.toString());
+            thread.waitThreadEnd();
+
+            if ("The project already exists".equals(thread.getResponse())) {
+                allowProyect = false;
+                showAlert("The project already exists");
+            }
+
+        }
+
+        updateTableViewProyects();
+    }
+
+    private void modifyProyect() {
+
+        String code = txtProyectCode.getText();
+        String name = txtProyectName.getText();
+        String engineer = txtProyectEngineer.getText();
+        String designer = txtProyectDesigner.getText();
+        LocalDate startDate = dateStartProyect.getValue();
+        String dateStart = startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        LocalDate finishDate = dateEndProyect.getValue();
+        String dateFinish = finishDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        Proyect proyect = new Proyect(code, name, dateStart, dateFinish, engineer, designer);
+        thread = new ChildThread("proyect", "updateProyect", proyect.toString());
+        thread.waitThreadEnd();
+
+        if ("Updated project".equals(thread.getResponse())) {
+            showAlert("Updated project");
+        }
+
+        if ("Project not found".equals(thread.getResponse())) {
+            showAlert("Project not found");
+        }
+
+        if ("Invalid engineer or designer".equals(thread.getResponse())) {
+            showAlert("Invalid engineer or designer");
+        }
+
+        updateTableViewProyects();
+
     }
 
     @FXML
@@ -182,6 +315,27 @@ public class EngineerController implements Initializable {
             showDoNotButtonsVisible(false, false, false);
         }
     }
+    
+    private void getProyect(){
+        
+        int index = tbvProyectList.getSelectionModel().getFocusedIndex();
+
+        code = String.valueOf(columnProyectCode.getCellData(index));
+        
+        thread = new ChildThread("proyect", "queryProyect", code);
+        thread.waitThreadEnd();
+        
+        String dataParse[] =  Parsing.parsingProyect(thread.getResponse());
+        
+        String proyectId = dataParse[5];
+
+        thread = new ChildThread("object", "getObjects", proyectId);
+        thread.waitThreadEnd();
+
+        //objectList = Parsing.parsingAllObjects(thread.getResponse());
+        
+        
+    }
 
     @FXML
     private void clickGenerateReport(ActionEvent event) {
@@ -190,7 +344,6 @@ public class EngineerController implements Initializable {
             modifyLblAndProgressParameters();
         }
     }
-
 
     @FXML
     private void clickExit(ActionEvent event) throws IOException {
@@ -205,20 +358,132 @@ public class EngineerController implements Initializable {
         lblMessage.setText("Process Canceled!!");
     }
 
+    private void showCreateProyect() {
+
+        if (handleExpetionsProyects("Please fill out all fields")) {
+
+            addProyect();
+            if (allowProyect) {
+                creatProyectPressed = false;
+                showAnchorPanesVisible(false, false, false, true, false);
+                showMessageLabelsVisible(false, true);
+                lblMessage.setText("Proyect Created!!");
+                clearProyects();
+            }
+            allowProyect = true;
+        }
+    }
+
+    private void showModifyProyect() {
+
+        clearProyects();
+        showAnchorPanesVisible(false, false, false, true, false);
+        if (handleExpetionsProyects("Please fill out all fields")) {
+            modifyProyect();
+            correctlyModifiedMessage();
+        }
+    }
+
     @FXML
     private void clickProyectProcess(ActionEvent event) {
-        if (creatProyectPressed == true && !txtProyectName.getText().isEmpty() && !txtProyectEngineer.getText().isEmpty() && !txtProyectDesigner.getText().isEmpty()
-                && dateStartProyect.getValue() != null && dateEndProyect.getValue() != null) {
-            //Logica para el proceso de crear un proyecto
-            creatProyectPressed = false;
-            showAnchorPanesVisible(false, false, false, true, false);
-            showMessageLabelsVisible(false, true);
-            lblMessage.setText("Proyect Created!!");
-        } else if (creatProyectPressed == false && !txtProyectName.getText().isEmpty() && !txtProyectEngineer.getText().isEmpty() && !txtProyectDesigner.getText().isEmpty()
-                && dateStartProyect.getValue() != null && dateEndProyect.getValue() != null) {
-            //Logica para modificar un proyecto
-            showAnchorPanesVisible(false, false, false, true, false);
-            correctlyModifiedMessage();
+        if (aux) {
+            showCreateProyect();
+        } else {
+            showModifyProyect();
+        }
+    }
+
+    private boolean handleExpetionsProyects(String message) {
+
+        if ("".equals(txtProyectCode.getText()) || "".equals(txtProyectName.getText())
+                || "".equals(txtProyectEngineer.getText()) || "".equals(txtProyectDesigner.getText())
+                || dateStartProyect.getValue() == null || dateEndProyect.getValue() == null) {
+
+            showAlert(message);
+            return false;
+        }
+        return true;
+    }
+
+    @FXML
+    private void clikSwitchTblv(ActionEvent event) {
+
+        if (switchTblv) {
+            tbvProyectList.setVisible(true);
+            tbvProyectList.setDisable(false);
+            tblvUserList.setVisible(false);
+            tblvUserList.setDisable(true);
+            switchTblv = false;
+        } else {
+            tblvUserList.setVisible(true);
+            tblvUserList.setDisable(false);
+            tbvProyectList.setVisible(false);
+            tbvProyectList.setDisable(true);
+            switchTblv = true;
+        }
+
+    }
+
+    private void clearProyects() {
+
+        txtProyectCode.setText("");
+        txtProyectName.setText("");
+        txtProyectEngineer.setText("");
+        txtProyectDesigner.setText("");
+        dateStartProyect.setValue(null);
+        dateEndProyect.setValue(null);
+    }
+
+    @FXML
+    private void clickGetProyectCode(MouseEvent event) {
+
+        int index = tbvProyectList.getSelectionModel().getFocusedIndex();
+        String code = columnProyectCode.getCellData(index);
+
+        thread = new ChildThread("proyect", "queryProyect", code + "|");
+        thread.waitThreadEnd();
+
+        if ("No se encontro".equals(thread.getResponse())) {
+            showAlert("There is no project with that code");
+            return;
+        }
+
+        String[] proyect = Parsing.parsingProyect(thread.getResponse());
+
+        String name = proyect[0];
+
+        String starDate = proyect[1];
+        LocalDate startDate = LocalDate.parse(starDate);
+
+        String endDate = proyect[2];
+        LocalDate finishDate = LocalDate.parse(endDate);
+
+        String designer = proyect[3];
+        String engineer = proyect[4];
+
+        txtProyectCode.setText(code);
+        txtProyectName.setText(name);
+        txtProyectEngineer.setText(engineer);
+        txtProyectDesigner.setText(designer);
+        dateStartProyect.setValue(startDate);
+        dateEndProyect.setValue(finishDate);
+
+    }
+
+    @FXML
+    private void clickGetUserId(MouseEvent event) {
+
+        int index = tblvUserList.getSelectionModel().getFocusedIndex();
+
+        String id = String.valueOf(columnUserId.getCellData(index));
+        String role = columnUserRole.getCellData(index);
+
+        System.out.println("ID:" + id);
+
+        if ("Designer".equals(role)) {
+            txtProyectDesigner.setText(id);
+        } else if ("Engineer".equals(role)) {
+            txtProyectEngineer.setText(id);
         }
     }
 }

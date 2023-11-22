@@ -919,6 +919,10 @@ public class DesignerController implements Initializable {
         loadCanvasObjects();
         redrawCanvas();
         ubdateObjectTotals();
+        
+        hiddenProyectList = false;
+        btnShowList.setVisible(true);
+        animationPaneMenu(-414);
     }
     
     private void loadCanvasObjects(){
