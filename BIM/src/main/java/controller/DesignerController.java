@@ -195,6 +195,16 @@ public class DesignerController implements Initializable {
     private Label lblTotalWalls;
     @FXML
     private Label lblTotalWindows;
+    @FXML
+    private Label lblTotalColOne;
+    @FXML
+    private Label lblTotalColTwo;
+    @FXML
+    private Label lblTotalColThree;
+    @FXML
+    private Label lblTotalColFour;
+    @FXML
+    private Label lblTotalCrown;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -364,14 +374,14 @@ public class DesignerController implements Initializable {
             }
         }
 
-//        if (selectedImageToScroll != null) {_
-//            Node shape = (Node) selectedImageToScroll.getShape();
-//            if (shape instanceof Rectangle) {
-//                Rectangle rectangle = (Rectangle) shape;
-//                rectangle.setWidth(selectedObject.getWidth());
-//                rectangle.setHeight(selectedObject.getHeight());
-//            }
-//        }
+        if (selectedImageToScroll != null) {
+            Node shape = (Node) selectedImageToScroll.getShape();
+            if (shape instanceof Rectangle) {
+                Rectangle rectangle = (Rectangle) shape;
+                rectangle.setWidth(selectedObject.getWidth());
+                rectangle.setHeight(selectedObject.getHeight());
+            }
+        }
     }
 
 
@@ -492,7 +502,6 @@ public class DesignerController implements Initializable {
         boolean clicked = false;
         if (mouseX >= objX && mouseX <= (objX + obj.getWidth()) && mouseY >= obgY && mouseY <= (obgY + obj.getHeight())) {
             selectedObject = obj;
-            System.out.println("WALL-> H: " + obj.getHeight() + ", W: " + obj.getWidth());
             clicked = true;
         }
         return clicked;
@@ -502,7 +511,6 @@ public class DesignerController implements Initializable {
         boolean clicked = false;
         if (mouseX >= objX && mouseX <= (objX + obj.getWidth()) && mouseY >= obgY && mouseY <= (obgY + obj.getHeight())) {
             selectedObject = obj;
-            System.out.println("WINDOW-> H: " + obj.getHeight() + ", W: " + obj.getWidth());
             clicked = true;
         }
         return clicked;

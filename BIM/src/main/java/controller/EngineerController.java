@@ -55,7 +55,7 @@ public class EngineerController implements Initializable {
     private boolean creatProyectPressed = false;
     private boolean switchTblv = false;
     private boolean allowProyect = true;
-    private boolean aux;
+    private boolean panelControll;
     ChildThread thread;
 
     private List<ConstructionObject> objectList = new ArrayList<>();
@@ -146,7 +146,6 @@ public class EngineerController implements Initializable {
     private TableColumn<User, String> columnUserRole;
     @FXML
     private TableColumn<User, String> columnUserStatus;
-
     @FXML
     private Label txtPlanEngineer;
     @FXML
@@ -254,7 +253,8 @@ public class EngineerController implements Initializable {
 
     @FXML
     private void clickCreateProyect(ActionEvent event) {
-        aux = true;
+        clearProyects();
+        panelControll = true;
         creatProyectPressed = true;
         setTextToProgressButtons("Create");
         showAnchorPanesVisible(true, false, false, true, false);
@@ -265,7 +265,7 @@ public class EngineerController implements Initializable {
 
     @FXML
     private void clickModifyProyect(ActionEvent event) {
-        aux = false;
+        panelControll = false;
         if (!creatProyectPressed && !tbvProyectList.getSelectionModel().isEmpty()) {
             showAnchorPanesVisible(true, false, false, true, false);
             modifyLblAndProgressParameters();
@@ -356,7 +356,6 @@ public class EngineerController implements Initializable {
     }
     
     private void getProyect(){
-        
         int index = tbvProyectList.getSelectionModel().getFocusedIndex();
 
         code = String.valueOf(columnProyectCode.getCellData(index));
@@ -386,7 +385,7 @@ public class EngineerController implements Initializable {
     }
     
     private void loadCanvasObjects(){
-        
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
         int plantSelector = 0;
         while(plantSelector != 2){
             for(ConstructionObject obj : objectList){
@@ -486,6 +485,7 @@ public class EngineerController implements Initializable {
 
     @FXML
     private void clickDoNotCreate(ActionEvent event) {
+        
         creatProyectPressed = false;
         showAnchorPanesVisible(false, false, false, true, false);
         showMessageLabelsVisible(false, true);
@@ -520,7 +520,7 @@ public class EngineerController implements Initializable {
 
     @FXML
     private void clickProyectProcess(ActionEvent event) {
-        if (aux) {
+        if (panelControll) {
             showCreateProyect();
         } else {
             showModifyProyect();
@@ -570,37 +570,38 @@ public class EngineerController implements Initializable {
 
     @FXML
     private void clickGetProyectCode(MouseEvent event) {
+        if(!creatProyectPressed){
+            int index = tbvProyectList.getSelectionModel().getFocusedIndex();
+            String codex = columnProyectCode.getCellData(index);
 
-        int index = tbvProyectList.getSelectionModel().getFocusedIndex();
-        String code = columnProyectCode.getCellData(index);
+            thread = new ChildThread("proyect", "queryProyect", codex + "|");
+            thread.waitThreadEnd();
 
-        thread = new ChildThread("proyect", "queryProyect", code + "|");
-        thread.waitThreadEnd();
+            if ("No se encontro".equals(thread.getResponse())) {
+                showAlert("There is no project with that code");
+                return;
+            }
 
-        if ("No se encontro".equals(thread.getResponse())) {
-            showAlert("There is no project with that code");
-            return;
+            String[] proyect = Parsing.parsingProyect(thread.getResponse());
+
+            String name = proyect[0];
+
+            String starDate = proyect[1];
+            LocalDate startDate = LocalDate.parse(starDate);
+
+            String endDate = proyect[2];
+            LocalDate finishDate = LocalDate.parse(endDate);
+
+            String designer = proyect[3];
+            String engineer = proyect[4];
+
+            txtProyectCode.setText(codex);
+            txtProyectName.setText(name);
+            txtProyectEngineer.setText(engineer);
+            txtProyectDesigner.setText(designer);
+            dateStartProyect.setValue(startDate);
+            dateEndProyect.setValue(finishDate);
         }
-
-        String[] proyect = Parsing.parsingProyect(thread.getResponse());
-
-        String name = proyect[0];
-
-        String starDate = proyect[1];
-        LocalDate startDate = LocalDate.parse(starDate);
-
-        String endDate = proyect[2];
-        LocalDate finishDate = LocalDate.parse(endDate);
-
-        String designer = proyect[3];
-        String engineer = proyect[4];
-
-        txtProyectCode.setText(code);
-        txtProyectName.setText(name);
-        txtProyectEngineer.setText(engineer);
-        txtProyectDesigner.setText(designer);
-        dateStartProyect.setValue(startDate);
-        dateEndProyect.setValue(finishDate);
 
     }
 
