@@ -38,8 +38,5 @@ public class UserXProyect {
     public String toString() {
         return  user + "|" + proyect;
     }
-    
-    
-    
-    
+
 }

@@ -84,7 +84,7 @@ public class DesignerController implements Initializable {
     private double objectHeight = 0;
     private double objectWidth = 0;
     private static final int PIXELS_PER_METER = 30;
-   
+
     private List<DraggableImage> dragImgArquitectural = new ArrayList<>();
     private List<DraggableImage> dragImgStructural = new ArrayList<>();
     private DraggableImage selectedImage = null;
@@ -100,7 +100,7 @@ public class DesignerController implements Initializable {
     private Image imgColFour = new Image(getClass().getResourceAsStream("/images/col4.png"), 20, 20, false, false);
 
     private int totalDoors = 0, totalWalls = 0, totalWindows = 0;
-    
+
     @FXML
     private Button btnExit;
     @FXML
@@ -223,7 +223,7 @@ public class DesignerController implements Initializable {
 
         initCanvaEvents();
     }
-    
+
     private void animationPaneMenu(int pos) {
         double targetWidth = pos;
         Duration duration = Duration.seconds(0.5);
@@ -234,7 +234,7 @@ public class DesignerController implements Initializable {
         transition.setToX(targetWidth);
         transition.play();
     }
-    
+
     private void fillTableViewProyects() {
 
         columnProyectName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -264,19 +264,23 @@ public class DesignerController implements Initializable {
         alert.showAndWait();
     }
 
-    
-    private void showInputDialog() {
+    private boolean showInputDialog() {
         TextInputDialog inputDialog = new TextInputDialog();
         inputDialog.setTitle("Introduce Data");
         inputDialog.setHeaderText(null);
         inputDialog.setContentText("Construction Paper:");
 
-        inputDialog.showAndWait().ifPresent(result -> {
-           
+        String result = inputDialog.showAndWait().orElseGet(() -> null);
+
+        if (result != null) {
+
             constructionsPaperName = result;
-        });
+        } else {
+            return false;
+        }
+        return true;
     }
-    
+
     private void initCanvaEvents() {
         cnvWorkSpace.setFocusTraversable(true);
         cnvWorkSpace.setOnMouseClicked((MouseEvent event) -> {
@@ -384,7 +388,6 @@ public class DesignerController implements Initializable {
         }
     }
 
-
     private void redrawCanvas() {
         gc.clearRect(0, 0, cnvWorkSpace.getWidth(), cnvWorkSpace.getHeight());
 
@@ -407,7 +410,7 @@ public class DesignerController implements Initializable {
 
                 if (shape instanceof ImageView) {
                     ImageView imageView = (ImageView) shape;
-                    
+
                     gc.drawImage(imageView.getImage(), draggableImage.getX(), draggableImage.getY());
                 } else if (shape instanceof Rectangle) {
                     Rectangle rectangle = (Rectangle) shape;
@@ -419,12 +422,12 @@ public class DesignerController implements Initializable {
         updateObjectLabelInfo();
     }
 
-    private void updateObjectLabelInfo(){
-        if(selectedObject != null){
+    private void updateObjectLabelInfo() {
+        if (selectedObject != null) {
             lblObjectX.setText(String.valueOf(selectedObject.getPosX()));
             lblObjectY.setText(String.valueOf(selectedObject.getPosY()));
-            lblObjectHeight.setText(String.valueOf(selectedObject.getHeight()/PIXELS_PER_METER));
-            lblObjectWidth.setText(String.valueOf(selectedObject.getWidth()/PIXELS_PER_METER));
+            lblObjectHeight.setText(String.valueOf(selectedObject.getHeight() / PIXELS_PER_METER));
+            lblObjectWidth.setText(String.valueOf(selectedObject.getWidth() / PIXELS_PER_METER));
             lblObjectRotation.setText(String.valueOf(selectedObject.getRotation()));
         } else {
             lblObjectX.setText("...");
@@ -434,31 +437,29 @@ public class DesignerController implements Initializable {
             lblObjectRotation.setText("...");
         }
     }
-    
-    private void ubdateObjectTotals(){
+
+    private void ubdateObjectTotals() {
         totalDoors = 0;
         totalWalls = 0;
         totalWindows = 0;
-        for(ConstructionObject obj : objectList){
-            if (obj.getObjectType().equals("door")){
+        for (ConstructionObject obj : objectList) {
+            if (obj.getObjectType().equals("door")) {
                 totalDoors++;
-            }
-            else if (obj.getObjectType().equals("wall")){
+            } else if (obj.getObjectType().equals("wall")) {
                 totalWalls++;
-            }
-            else if (obj.getObjectType().equals("window")){
+            } else if (obj.getObjectType().equals("window")) {
                 totalWindows++;
             }
         }
-        
+
         lblTotalDoors.setText(String.valueOf(totalDoors));
         lblTotalWalls.setText(String.valueOf(totalWalls));
         lblTotalWindows.setText(String.valueOf(totalWindows));
     }
-    
-    public void clickObject(double mouseX, double mouseY){
+
+    public void clickObject(double mouseX, double mouseY) {
         objectFound = false;
-        
+
         for (ConstructionObject object : objectList) {
             double objX = object.getPosX();
             double obgY = object.getPosY();
@@ -635,7 +636,7 @@ public class DesignerController implements Initializable {
         dragImgArquitectural.add(draggableImage);
 
         object = new ConstructionObject(canvaMouseX, canvaMouseY, currentObjectName, doorRotDegrees, doorFlipValue, x, y);
-        System.out.println("DOOR ROTATION-> "+object.getRotation());
+        System.out.println("DOOR ROTATION-> " + object.getRotation());
         objectList.add(object);
     }
 
@@ -906,109 +907,73 @@ public class DesignerController implements Initializable {
         imvCrownBeam.setRotate(crownBeamRotDegrees);
     }
 
-    @FXML
-    private void clickSelectProyect(ActionEvent event) {
-        int index = tbvProyectList.getSelectionModel().getFocusedIndex();
-
-        code = String.valueOf(columnProyectCode.getCellData(index));
-        
-        thread = new ChildThread("proyect", "queryProyect", code);
-        thread.waitThreadEnd();
-        
-        String dataParse[] =  Parsing.parsingProyect(thread.getResponse());
-        
-        String proyectId = dataParse[5];
-
-        thread = new ChildThread("object", "getObjects", proyectId);
-        thread.waitThreadEnd();
-
-        objectList = Parsing.parsingAllObjects(thread.getResponse());
-        
-        loadCanvasObjects();
-        redrawCanvas();
-        ubdateObjectTotals();
-        
-        hiddenProyectList = false;
-        btnShowList.setVisible(true);
-        animationPaneMenu(-414);
-    }
-    
-    private void loadCanvasObjects(){
+    private void loadCanvasObjects() {
         selectedObject = null;
         dragImgArquitectural.clear();
         dragImgStructural.clear();
-        
-        for(ConstructionObject obj : objectList){
+
+        for (ConstructionObject obj : objectList) {
             DraggableImage draggableImage = null;
-            if(obj.getObjectType().substring(0, 3).equals("col")){
-                if(obj.getObjectType().equals("col1")){
+            if (obj.getObjectType().substring(0, 3).equals("col")) {
+                if (obj.getObjectType().equals("col1")) {
                     loadColumn(draggableImage, obj, imgColOneCrown);
-                }
-                else if(obj.getObjectType().equals("col2")){
+                } else if (obj.getObjectType().equals("col2")) {
                     loadColumn(draggableImage, obj, imgColTwo);
-                }
-                else if(obj.getObjectType().equals("col3")){
+                } else if (obj.getObjectType().equals("col3")) {
                     loadColumn(draggableImage, obj, imgColThree);
-                }
-                else if(obj.getObjectType().equals("col4")){
+                } else if (obj.getObjectType().equals("col4")) {
                     loadColumn(draggableImage, obj, imgColFour);
-                }
-                else if(obj.getObjectType().equals("crown")){
+                } else if (obj.getObjectType().equals("crown")) {
                     loadColumn(draggableImage, obj, imgColOneCrown);
                 }
-            }
-            else{
-                if(obj.getObjectType().equals("door")){
+            } else {
+                if (obj.getObjectType().equals("door")) {
                     loadDoor(draggableImage, obj);
-                }
-                else if(obj.getObjectType().equals("wall")){
+                } else if (obj.getObjectType().equals("wall")) {
                     loadWall(draggableImage, obj);
-                }
-                else if(obj.getObjectType().equals("window")){
+                } else if (obj.getObjectType().equals("window")) {
                     loadWindow(draggableImage, obj);
                 }
             }
         }
     }
-    
-    private void loadDoor(DraggableImage draggableImage, ConstructionObject obj){
+
+    private void loadDoor(DraggableImage draggableImage, ConstructionObject obj) {
 
         ImageView imageView;
-        if(obj.getHeight() == 30){
+        if (obj.getHeight() == 30) {
             imageView = new ImageView(applyToLoadTransformations(imgDoorLarge, obj));
             draggableImage = new DraggableImage(imageView, obj.getPosX(), obj.getPosY(), cnvWorkSpace);
             dragImgArquitectural.add(draggableImage);
-        }
-        else if(obj.getHeight() == 27){
+        } else if (obj.getHeight() == 27) {
             imageView = new ImageView(applyToLoadTransformations(imgDoorMedium, obj));
             draggableImage = new DraggableImage(imageView, obj.getPosX(), obj.getPosY(), cnvWorkSpace);
             dragImgArquitectural.add(draggableImage);
-        }
-        else if(obj.getHeight() == 24){
+        } else if (obj.getHeight() == 24) {
             imageView = new ImageView(applyToLoadTransformations(imgDoorSmall, obj));
             draggableImage = new DraggableImage(imageView, obj.getPosX(), obj.getPosY(), cnvWorkSpace);
             dragImgArquitectural.add(draggableImage);
         }
     }
-    
-    private void loadWall(DraggableImage draggableImage, ConstructionObject obj){
+
+    private void loadWall(DraggableImage draggableImage, ConstructionObject obj) {
         Rectangle wallRectangle = new Rectangle(obj.getWidth(), obj.getHeight(), Color.web("#333333"));
         draggableImage = new DraggableImage(wallRectangle, obj.getPosX(), obj.getPosY(), cnvWorkSpace);
         dragImgArquitectural.add(draggableImage);
     }
-    
-    private void loadWindow(DraggableImage draggableImage, ConstructionObject obj){
+
+    private void loadWindow(DraggableImage draggableImage, ConstructionObject obj) {
         Rectangle windowRectangle = new Rectangle(obj.getWidth(), obj.getHeight(), Color.web("#327fdd"));
         draggableImage = new DraggableImage(windowRectangle, obj.getPosX(), obj.getPosY(), cnvWorkSpace);
         dragImgArquitectural.add(draggableImage);
     }
-    
-    private void loadColumn(DraggableImage draggableImage, ConstructionObject obj, Image columnImage){
+
+    private void loadColumn(DraggableImage draggableImage, ConstructionObject obj, Image columnImage) {
         ImageView imageView = new ImageView(applyToLoadTransformations(columnImage, obj));
         draggableImage = new DraggableImage(imageView, obj.getPosX(), obj.getPosY(), cnvWorkSpace);
         dragImgStructural.add(draggableImage);
     }
-    
+
     private Image applyToLoadTransformations(Image originalImage, ConstructionObject obj) {
         ImageView imageView = new ImageView(originalImage);
         imageView.setFitHeight(originalImage.getHeight());
@@ -1022,33 +987,98 @@ public class DesignerController implements Initializable {
     }
 
     @FXML
-    private void clickSave(ActionEvent event) {
+    private void clickSelectProyect(ActionEvent event) {
+        int index = tbvProyectList.getSelectionModel().getFocusedIndex();
+
+        code = String.valueOf(columnProyectCode.getCellData(index));
+
+        thread = new ChildThread("proyect", "queryProyect", code);
+        thread.waitThreadEnd();
+
+        String dataParse[] = Parsing.parsingProyect(thread.getResponse());
+
+        String paperId = dataParse[5];
+
+        thread = new ChildThread("object", "getObjects", paperId);
+        thread.waitThreadEnd();
+
+        objectList = Parsing.parsingAllObjects(thread.getResponse());
         
-        if("".equals(code)){
+        
+
+        loadCanvasObjects();
+        redrawCanvas();
+        ubdateObjectTotals();
+
+        hiddenProyectList = false;
+        btnShowList.setVisible(true);
+        animationPaneMenu(-414);
+    }
+
+    @FXML
+    private void clickSave(ActionEvent event) {
+
+        if ("".equals(code)) {
             showAlert("Before select project");
             return;
         }
+
+        thread = new ChildThread("proyect", "queryProyect", code);
+        thread.waitThreadEnd();
+
+        String constructionPaperId[] = Parsing.parsingProyect(thread.getResponse());
+        System.out.println("uuuuuuuuuuuuuuuuu:" + constructionPaperId[5]);
+
+        if ("None".equals(constructionPaperId[5])) {
+            
+            newConstructionsPaper();
+
+        } else {
+
+            updateConstructionPaper(constructionPaperId[5]);
+
+        }
+    }
+
+    private void newConstructionsPaper() {
         
-        showInputDialog();
-        
+        if (showInputDialog() == false) {
+            return;
+        }
+
         thread = new ChildThread("constructionPaper", "newConstructionPaper", constructionsPaperName);
         thread.waitThreadEnd();
-        
+
         thread = new ChildThread("constructionPaper", "getConstructionPaper", constructionsPaperName);
         thread.waitThreadEnd();
-        
+
         idConstructionPaper = thread.getResponse();
-        
-        thread = new ChildThread("proyect", "updateProyectByCode", code+"|"+idConstructionPaper);
+
+        thread = new ChildThread("proyect", "updateProyectByCode", code + "|" + idConstructionPaper);
         thread.waitThreadEnd();
-  
+
         saveObjects();
+    }
+    
+    private void updateConstructionPaper(String idPaper){
+        
+     
+        System.out.println("dddddddddddddddddddddddddddddd:" + idPaper);
+        
+        for (ConstructionObject object : objectList) {
+            thread = new ChildThread("object", "updateObjects", object.toString() + "|" + idPaper);
+            thread.waitThreadEnd();
+        }
+        if ("Objects updated!".equals(thread.getResponse())) {
+            showAlert("Objects updated!");
+        }
     }
 
     private void saveObjects() {
+        
         for (ConstructionObject object : objectList) {
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: " + object.getRotation());
-            thread = new ChildThread("object", "newObject", object.toString() + "|"+idConstructionPaper);
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: " + object.getObjectType());
+            thread = new ChildThread("object", "newObject", object.toString() + "|" + idConstructionPaper);
             thread.waitThreadEnd();
         }
         if ("Object created!".equals(thread.getResponse())) {
@@ -1061,8 +1091,8 @@ public class DesignerController implements Initializable {
         if (selectedObject != null) {
             int indexArqui = 0;
             int indexStruct = 0;
-            for (ConstructionObject obj : objectList){
-                if(obj.equals(selectedObject)){
+            for (ConstructionObject obj : objectList) {
+                if (obj.equals(selectedObject)) {
                     selectedObject = null;
                     objectList.remove(obj);
                     break;

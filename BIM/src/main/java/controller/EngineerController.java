@@ -55,7 +55,7 @@ public class EngineerController implements Initializable {
     private boolean creatProyectPressed = false;
     private boolean switchTblv = false;
     private boolean allowProyect = true;
-    
+
     private boolean aux;
     private String proyectName = "";
     private String startDate = "";
@@ -106,13 +106,9 @@ public class EngineerController implements Initializable {
     @FXML
     private TextField txtProyectName;
     @FXML
-    private DatePicker dateStartProyect;
-    @FXML
     private TextField txtProyectEngineer;
     @FXML
     private TextField txtProyectDesigner;
-    @FXML
-    private DatePicker dateEndProyect;
     @FXML
     private Button btnProyectProcess;
     @FXML
@@ -169,6 +165,10 @@ public class EngineerController implements Initializable {
     private ImageView imvStructuralPlant;
     @FXML
     private Label lblEngineerLastName;
+    @FXML
+    private DatePicker dtpStartDate;
+    @FXML
+    private DatePicker dtpEnnDate;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -180,7 +180,7 @@ public class EngineerController implements Initializable {
         fillTableViewProyects();
         fillTableViewUsers();
     }
-    
+
     private void setNameEngineer(String name) {
 
         thread = new ChildThread("user", "getName", name);
@@ -233,6 +233,7 @@ public class EngineerController implements Initializable {
 
     private void showMessageLabelsVisible(boolean name, boolean message) {
         lblEngineerName.setVisible(name);
+        lblEngineerLastName.setVisible(name);
         lblMessage.setVisible(message);
     }
 
@@ -288,6 +289,8 @@ public class EngineerController implements Initializable {
             showAnchorPanesVisible(true, false, false, true, false);
             modifyLblAndProgressParameters();
             showDoNotButtonsVisible(false, false, false);
+        } else {
+            showAlert("Select a project first");
         }
     }
 
@@ -298,10 +301,10 @@ public class EngineerController implements Initializable {
         String engineer = txtProyectEngineer.getText();
         String designer = txtProyectDesigner.getText();
 
-        LocalDate startDate = dateStartProyect.getValue();
+        LocalDate startDate = dtpStartDate.getValue();
         String dateStart = (startDate != null) ? startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : null;
 
-        LocalDate finishDate = dateEndProyect.getValue();
+        LocalDate finishDate = dtpEnnDate.getValue();
         String dateFinish = (finishDate != null) ? finishDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : null;
 
         if (dateStart == null || dateFinish == null) {
@@ -323,15 +326,19 @@ public class EngineerController implements Initializable {
 
     private void modifyProyect() {
 
+        //handleExpetionsProyects("Press search to load the data");
+
         String codex = txtProyectCode.getText();
         String name = txtProyectName.getText();
         String engineer = txtProyectEngineer.getText();
         String designer = txtProyectDesigner.getText();
-        LocalDate startDate = dateStartProyect.getValue();
-        String dateStart = startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-        LocalDate finishDate = dateEndProyect.getValue();
-        String dateFinish = finishDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate startLocalDate = dtpStartDate.getValue();
+        System.out.println("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
+        System.out.println("" + dtpStartDate.getValue());
+        String dateStart = startLocalDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        System.out.println("jññññññññññññññññññññññ");
+        LocalDate finishLocalDate = dtpEnnDate.getValue();
+        String dateFinish = finishLocalDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         Proyect proyect = new Proyect(codex, name, dateStart, dateFinish, engineer, designer);
         thread = new ChildThread("proyect", "updateProyect", proyect.toString());
@@ -340,7 +347,9 @@ public class EngineerController implements Initializable {
         serverResponses("Updated project", thread);
         serverResponses("Project not found", thread);
         serverResponses("Invalid engineer or designer", thread);
+        
         updateTableViewProyects();
+        clearProyects();
     }
 
     @FXML
@@ -360,8 +369,8 @@ public class EngineerController implements Initializable {
             showDoNotButtonsVisible(false, false, false);
         }
     }
-    
-    private void getProyect(){
+
+    private void getProyect() {
         int index = tbvProyectList.getSelectionModel().getFocusedIndex();
 
         code = String.valueOf(columnProyectCode.getCellData(index));
@@ -426,10 +435,10 @@ public class EngineerController implements Initializable {
             loadCanvasObjects();
         }
     }
-    
-    private void loadCanvasObjects(){
+
+    private void loadCanvasObjects() {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-        
+
         int plantSelector = 0;
         while (plantSelector != 2) {
             for (ConstructionObject obj : objectList) {
@@ -519,7 +528,7 @@ public class EngineerController implements Initializable {
 
     @FXML
     private void clickDoNotCreate(ActionEvent event) {
-        
+
         creatProyectPressed = false;
         showAnchorPanesVisible(false, false, false, true, false);
         showMessageLabelsVisible(false, true);
@@ -544,12 +553,11 @@ public class EngineerController implements Initializable {
 
     private void showModifyProyect() {
 
-        clearProyects();
         showAnchorPanesVisible(false, false, false, true, false);
-        if (handleExpetionsProyects("Please fill out all fields")) {
-            modifyProyect();
-            correctlyModifiedMessage();
-        }
+
+        modifyProyect();
+        correctlyModifiedMessage();
+
     }
 
     @FXML
@@ -565,7 +573,7 @@ public class EngineerController implements Initializable {
 
         if ("".equals(txtProyectCode.getText()) || "".equals(txtProyectName.getText())
                 || "".equals(txtProyectEngineer.getText()) || "".equals(txtProyectDesigner.getText())
-                || dateStartProyect.getValue() == null || dateEndProyect.getValue() == null) {
+                || dtpStartDate.getValue() == null || dtpEnnDate.getValue() == null) {
 
             showAlert(message);
             return false;
@@ -598,13 +606,13 @@ public class EngineerController implements Initializable {
         txtProyectName.setText("");
         txtProyectEngineer.setText("");
         txtProyectDesigner.setText("");
-        dateStartProyect.setValue(null);
-        dateEndProyect.setValue(null);
+        dtpStartDate.setValue(null);
+        dtpEnnDate.setValue(null);
     }
 
     @FXML
     private void clickGetProyectCode(MouseEvent event) {
-        if(!creatProyectPressed){
+        if (!creatProyectPressed) {
             int index = tbvProyectList.getSelectionModel().getFocusedIndex();
             String codex = columnProyectCode.getCellData(index);
 
@@ -621,7 +629,7 @@ public class EngineerController implements Initializable {
             String name = proyect[0];
 
             String starDate = proyect[1];
-            LocalDate startDate = LocalDate.parse(starDate);
+            LocalDate startLocalDate = LocalDate.parse(starDate);
 
             String endDate = proyect[2];
             LocalDate finishDate = LocalDate.parse(endDate);
@@ -633,8 +641,9 @@ public class EngineerController implements Initializable {
             txtProyectName.setText(name);
             txtProyectEngineer.setText(engineer);
             txtProyectDesigner.setText(designer);
-            dateStartProyect.setValue(startDate);
-            dateEndProyect.setValue(finishDate);
+            System.out.println("Starrrarara:" );
+            dtpStartDate.setValue(startLocalDate);
+            dtpEnnDate.setValue(finishDate);
         }
 
     }

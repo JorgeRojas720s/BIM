@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="paneLogIn" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../../../css/logIn.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LogInController">
+<AnchorPane id="paneLogIn" prefHeight="750.0" prefWidth="1350.0" stylesheets="@../../../css/logIn.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LogInController">
    <children>
       <AnchorPane id="paneSingIn" fx:id="paneSingIn" layoutX="520.0" layoutY="342.0" prefHeight="230.0" prefWidth="310.0">
          <children>
@@ -88,7 +88,7 @@
             <TextField fx:id="txtRegisterUsername" layoutX="45.0" layoutY="228.0" prefHeight="25.0" prefWidth="238.0" />
             <TextField fx:id="txtRegisterEmail" layoutX="42.0" layoutY="285.0" prefHeight="25.0" prefWidth="238.0" />
             <TextField fx:id="txtRegisterPassword" layoutX="42.0" layoutY="343.0" prefHeight="25.0" prefWidth="238.0" />
-            <Button fx:id="btnSingUp" layoutX="42.0" layoutY="429.0" mnemonicParsing="false" onAction="#clickSingUp" prefHeight="25.0" prefWidth="238.0" text="Sing up" />
+            <Button fx:id="btnSingUp" layoutX="42.0" layoutY="429.0" mnemonicParsing="false" onAction="#clickSingUp" prefHeight="25.0" prefWidth="238.0" text="Sign up" />
             <Button fx:id="btnRegisterBack" layoutY="-1.0" mnemonicParsing="false" onAction="#clickBack" prefHeight="34.0" prefWidth="46.0">
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
